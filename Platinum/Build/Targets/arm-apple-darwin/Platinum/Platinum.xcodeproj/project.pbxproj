@@ -82,10 +82,10 @@
 		977D76A812B809D600D406E1 /* PltProtocolInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D75E212B809D600D406E1 /* PltProtocolInfo.h */; };
 		977D76A912B809D600D406E1 /* PltSyncMediaBrowser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977D75E312B809D600D406E1 /* PltSyncMediaBrowser.cpp */; };
 		977D76AA12B809D600D406E1 /* PltSyncMediaBrowser.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D75E412B809D600D406E1 /* PltSyncMediaBrowser.h */; };
-		977D76D512B809D600D406E1 /* PltMediaServerObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D761312B809D600D406E1 /* PltMediaServerObject.h */; };
-		977D76D612B809D600D406E1 /* PltMediaServerObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D761412B809D600D406E1 /* PltMediaServerObject.mm */; };
-		977D76D712B809D600D406E1 /* PltUPnPObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D761512B809D600D406E1 /* PltUPnPObject.h */; };
-		977D76D812B809D600D406E1 /* PltUPnPObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D761612B809D600D406E1 /* PltUPnPObject.mm */; };
+		977D76D512B809D600D406E1 /* PPMediaServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D761312B809D600D406E1 /* PPMediaServer.h */; };
+		977D76D612B809D600D406E1 /* PPMediaServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D761412B809D600D406E1 /* PPMediaServer.mm */; };
+		977D76D712B809D600D406E1 /* PPUPnP.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D761512B809D600D406E1 /* PPUPnP.h */; };
+		977D76D812B809D600D406E1 /* PPUPnP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D761612B809D600D406E1 /* PPUPnP.mm */; };
 		977D76D912B809D600D406E1 /* PltDownloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977D761712B809D600D406E1 /* PltDownloader.cpp */; };
 		977D76DA12B809D600D406E1 /* PltDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D761812B809D600D406E1 /* PltDownloader.h */; };
 		977D76DB12B809D600D406E1 /* PltFrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977D761912B809D600D406E1 /* PltFrameBuffer.cpp */; };
@@ -195,6 +195,16 @@
 		977D797A12B80AE100D406E1 /* NptStdcDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977D781F12B80AE100D406E1 /* NptStdcDebug.cpp */; };
 		977D797B12B80AE100D406E1 /* NptStdcEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977D782012B80AE100D406E1 /* NptStdcEnvironment.cpp */; };
 		977D797C12B80AE100D406E1 /* NptStdcFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977D782112B80AE100D406E1 /* NptStdcFile.cpp */; };
+		977D7B7A12B9393800D406E1 /* PPMediaController.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D7B7812B9393800D406E1 /* PPMediaController.h */; };
+		977D7B7B12B9393800D406E1 /* PPMediaController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D7B7912B9393800D406E1 /* PPMediaController.mm */; };
+		977D7B8012B9444D00D406E1 /* PPMediaRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D7B7E12B9444D00D406E1 /* PPMediaRenderer.h */; };
+		977D7B8112B9444D00D406E1 /* PPMediaRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D7B7F12B9444D00D406E1 /* PPMediaRenderer.mm */; };
+		977D7B8412B944E500D406E1 /* PPMediaObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D7B8212B944E500D406E1 /* PPMediaObject.h */; };
+		977D7B8512B944E500D406E1 /* PPMediaObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D7B8312B944E500D406E1 /* PPMediaObject.mm */; };
+		977D7B8812B944F800D406E1 /* PPMediaContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D7B8612B944F800D406E1 /* PPMediaContainer.h */; };
+		977D7B8912B944F800D406E1 /* PPMediaContainer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D7B8712B944F800D406E1 /* PPMediaContainer.mm */; };
+		977D7B8C12B9452000D406E1 /* PPMediaItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D7B8A12B9452000D406E1 /* PPMediaItem.h */; };
+		977D7B8D12B9452000D406E1 /* PPMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 977D7B8B12B9452000D406E1 /* PPMediaItem.m */; };
 		AA747D9F0F9514B9006C5449 /* Platinum_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* Platinum_Prefix.pch */; };
 /* End PBXBuildFile section */
 
@@ -286,10 +296,10 @@
 		977D75E312B809D600D406E1 /* PltSyncMediaBrowser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PltSyncMediaBrowser.cpp; sourceTree = "<group>"; };
 		977D75E412B809D600D406E1 /* PltSyncMediaBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PltSyncMediaBrowser.h; sourceTree = "<group>"; };
 		977D75E512B809D600D406E1 /* process_scpds.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = process_scpds.sh; sourceTree = "<group>"; };
-		977D761312B809D600D406E1 /* PltMediaServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PltMediaServerObject.h; sourceTree = "<group>"; };
-		977D761412B809D600D406E1 /* PltMediaServerObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PltMediaServerObject.mm; sourceTree = "<group>"; };
-		977D761512B809D600D406E1 /* PltUPnPObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PltUPnPObject.h; sourceTree = "<group>"; };
-		977D761612B809D600D406E1 /* PltUPnPObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PltUPnPObject.mm; sourceTree = "<group>"; };
+		977D761312B809D600D406E1 /* PPMediaServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMediaServer.h; sourceTree = "<group>"; };
+		977D761412B809D600D406E1 /* PPMediaServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PPMediaServer.mm; sourceTree = "<group>"; };
+		977D761512B809D600D406E1 /* PPUPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPUPnP.h; sourceTree = "<group>"; };
+		977D761612B809D600D406E1 /* PPUPnP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PPUPnP.mm; sourceTree = "<group>"; };
 		977D761712B809D600D406E1 /* PltDownloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PltDownloader.cpp; sourceTree = "<group>"; };
 		977D761812B809D600D406E1 /* PltDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PltDownloader.h; sourceTree = "<group>"; };
 		977D761912B809D600D406E1 /* PltFrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PltFrameBuffer.cpp; sourceTree = "<group>"; };
@@ -399,6 +409,16 @@
 		977D781F12B80AE100D406E1 /* NptStdcDebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NptStdcDebug.cpp; sourceTree = "<group>"; };
 		977D782012B80AE100D406E1 /* NptStdcEnvironment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NptStdcEnvironment.cpp; sourceTree = "<group>"; };
 		977D782112B80AE100D406E1 /* NptStdcFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NptStdcFile.cpp; sourceTree = "<group>"; };
+		977D7B7812B9393800D406E1 /* PPMediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMediaController.h; sourceTree = "<group>"; };
+		977D7B7912B9393800D406E1 /* PPMediaController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PPMediaController.mm; sourceTree = "<group>"; };
+		977D7B7E12B9444D00D406E1 /* PPMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMediaRenderer.h; sourceTree = "<group>"; };
+		977D7B7F12B9444D00D406E1 /* PPMediaRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PPMediaRenderer.mm; sourceTree = "<group>"; };
+		977D7B8212B944E500D406E1 /* PPMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMediaObject.h; sourceTree = "<group>"; };
+		977D7B8312B944E500D406E1 /* PPMediaObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PPMediaObject.mm; sourceTree = "<group>"; };
+		977D7B8612B944F800D406E1 /* PPMediaContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMediaContainer.h; sourceTree = "<group>"; };
+		977D7B8712B944F800D406E1 /* PPMediaContainer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PPMediaContainer.mm; sourceTree = "<group>"; };
+		977D7B8A12B9452000D406E1 /* PPMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMediaItem.h; sourceTree = "<group>"; };
+		977D7B8B12B9452000D406E1 /* PPMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPMediaItem.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* Platinum_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platinum_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		D2AAC07E0554694100DB518D /* libPlatinum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlatinum.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -622,10 +642,20 @@
 		977D761212B809D600D406E1 /* ObjectiveC */ = {
 			isa = PBXGroup;
 			children = (
-				977D761312B809D600D406E1 /* PltMediaServerObject.h */,
-				977D761412B809D600D406E1 /* PltMediaServerObject.mm */,
-				977D761512B809D600D406E1 /* PltUPnPObject.h */,
-				977D761612B809D600D406E1 /* PltUPnPObject.mm */,
+				977D761512B809D600D406E1 /* PPUPnP.h */,
+				977D761612B809D600D406E1 /* PPUPnP.mm */,
+				977D7B7812B9393800D406E1 /* PPMediaController.h */,
+				977D7B7912B9393800D406E1 /* PPMediaController.mm */,
+				977D761312B809D600D406E1 /* PPMediaServer.h */,
+				977D761412B809D600D406E1 /* PPMediaServer.mm */,
+				977D7B7E12B9444D00D406E1 /* PPMediaRenderer.h */,
+				977D7B7F12B9444D00D406E1 /* PPMediaRenderer.mm */,
+				977D7B8212B944E500D406E1 /* PPMediaObject.h */,
+				977D7B8312B944E500D406E1 /* PPMediaObject.mm */,
+				977D7B8612B944F800D406E1 /* PPMediaContainer.h */,
+				977D7B8712B944F800D406E1 /* PPMediaContainer.mm */,
+				977D7B8A12B9452000D406E1 /* PPMediaItem.h */,
+				977D7B8B12B9452000D406E1 /* PPMediaItem.m */,
 			);
 			path = ObjectiveC;
 			sourceTree = "<group>";
@@ -845,8 +875,8 @@
 				977D76A612B809D600D406E1 /* PltMimeType.h in Headers */,
 				977D76A812B809D600D406E1 /* PltProtocolInfo.h in Headers */,
 				977D76AA12B809D600D406E1 /* PltSyncMediaBrowser.h in Headers */,
-				977D76D512B809D600D406E1 /* PltMediaServerObject.h in Headers */,
-				977D76D712B809D600D406E1 /* PltUPnPObject.h in Headers */,
+				977D76D512B809D600D406E1 /* PPMediaServer.h in Headers */,
+				977D76D712B809D600D406E1 /* PPUPnP.h in Headers */,
 				977D76DA12B809D600D406E1 /* PltDownloader.h in Headers */,
 				977D76DC12B809D600D406E1 /* PltFrameBuffer.h in Headers */,
 				977D76DE12B809D600D406E1 /* PltFrameServer.h in Headers */,
@@ -901,6 +931,11 @@
 				977D78C112B80AE100D406E1 /* NptXml.h in Headers */,
 				977D78C312B80AE100D406E1 /* NptZip.h in Headers */,
 				977D796112B80AE100D406E1 /* NptCocoaMessageQueue.h in Headers */,
+				977D7B7A12B9393800D406E1 /* PPMediaController.h in Headers */,
+				977D7B8012B9444D00D406E1 /* PPMediaRenderer.h in Headers */,
+				977D7B8412B944E500D406E1 /* PPMediaObject.h in Headers */,
+				977D7B8812B944F800D406E1 /* PPMediaContainer.h in Headers */,
+				977D7B8C12B9452000D406E1 /* PPMediaItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -994,8 +1029,8 @@
 				977D76A512B809D600D406E1 /* PltMimeType.cpp in Sources */,
 				977D76A712B809D600D406E1 /* PltProtocolInfo.cpp in Sources */,
 				977D76A912B809D600D406E1 /* PltSyncMediaBrowser.cpp in Sources */,
-				977D76D612B809D600D406E1 /* PltMediaServerObject.mm in Sources */,
-				977D76D812B809D600D406E1 /* PltUPnPObject.mm in Sources */,
+				977D76D612B809D600D406E1 /* PPMediaServer.mm in Sources */,
+				977D76D812B809D600D406E1 /* PPUPnP.mm in Sources */,
 				977D76D912B809D600D406E1 /* PltDownloader.cpp in Sources */,
 				977D76DB12B809D600D406E1 /* PltFrameBuffer.cpp in Sources */,
 				977D76DD12B809D600D406E1 /* PltFrameServer.cpp in Sources */,
@@ -1051,6 +1086,11 @@
 				977D797A12B80AE100D406E1 /* NptStdcDebug.cpp in Sources */,
 				977D797B12B80AE100D406E1 /* NptStdcEnvironment.cpp in Sources */,
 				977D797C12B80AE100D406E1 /* NptStdcFile.cpp in Sources */,
+				977D7B7B12B9393800D406E1 /* PPMediaController.mm in Sources */,
+				977D7B8112B9444D00D406E1 /* PPMediaRenderer.mm in Sources */,
+				977D7B8512B944E500D406E1 /* PPMediaObject.mm in Sources */,
+				977D7B8912B944F800D406E1 /* PPMediaContainer.mm in Sources */,
+				977D7B8D12B9452000D406E1 /* PPMediaItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

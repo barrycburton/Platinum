@@ -35,19 +35,37 @@
 |   includes
 +---------------------------------------------------------------------*/
 #include "Platinum.h"
-#include "MediaBrowserWrapper.h"
+#include "PPMediaController.h"
 
-/*----------------------------------------------------------------------
-|   DiscoveryWrapper implementation
-+---------------------------------------------------------------------*/
-@implementation DiscoveryWrapper
-@end
 
-/*----------------------------------------------------------------------
-|   BrowseResponseWrapper implementation
-+---------------------------------------------------------------------*/
-@implementation BrowseResponseWrapper
-@end
+class PLT_MediaDelegate : public PLT_MediaBrowserDelegate, PLT_MediaControllerDelegate {
+public:
+    PLT_MediaDelegate(PLT_CtrlPointReference& control_point);
+    virtual PLT_MediaDelegate();
+	
+    // public methods
+    virtual void SetDelegate(id delegate) { m_Delegate = delegate; }
+    
+    // PLT_MediaBrowserDelegate methods
+    bool OnMSAdded(
+				   PLT_DeviceDataReference& device);
+    void OnMSRemoved(
+					 PLT_DeviceDataReference& device);
+    void OnBrowseResult(
+						NPT_Result               res, 
+						PLT_DeviceDataReference& device, 
+						PLT_BrowseInfo*          info, 
+						void*                    userdata);
+	
+private:
+    void NotifyAddedRemoved(
+							PLT_DeviceDataReference& device,
+							bool                     added);
+	
+
+};
+
+
 
 /*----------------------------------------------------------------------
 |   PLT_MediaBrowserWrapper::PLT_MediaBrowserWrapper
@@ -128,4 +146,20 @@ PLT_MediaBrowserWrapper::OnBrowseResult(NPT_Result               res,
         [wrapper release];
     }
 }
+
+
+@implementation PPMediaController
+
+- (id)init {
+	if ( self = [super init] ) {
+		ctrlPoint = new PLT_CtrlPoint();
+	}
+	return self;
+}
+
+
+<#methods#>
+
+@end
+
 

@@ -14,7 +14,7 @@
 
 @synthesize window;
 @synthesize navigationController;
-
+@synthesize upnp;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -22,6 +22,8 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     
     // Override point for customization after app launch    
+	self.upnp = [[PltUPnPObject alloc] init];
+	[self.upnp start];
 	
 	[window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
@@ -37,6 +39,7 @@
 #pragma mark Memory management
 
 - (void)dealloc {
+	[upnp release];
 	[navigationController release];
 	[window release];
 	[super dealloc];

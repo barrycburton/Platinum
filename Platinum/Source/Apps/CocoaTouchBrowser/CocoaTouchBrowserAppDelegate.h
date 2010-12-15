@@ -31,12 +31,15 @@
 |
 ****************************************************************/
 
+#import "PltUPnPObject.h"
+
 @interface CocoaTouchBrowserAppDelegate : NSObject <UIApplicationDelegate> {
-    
+    PLT_UPnPObject *upnp;
     UIWindow *window;
     UINavigationController *navigationController;
 }
 
+@property (nonatomic, retain) PLT_UPnPObject *upnp;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 

@@ -16,7 +16,6 @@
 		E4A7DC081085A49400E6ADE2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A7DC051085A49400E6ADE2 /* RootViewController.m */; };
 		E4A7DC0B1085A4B300E6ADE2 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A7DC091085A4B300E6ADE2 /* MainWindow.xib */; };
 		E4A7DC0C1085A4B300E6ADE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A7DC0A1085A4B300E6ADE2 /* RootViewController.xib */; };
-		E4A7DCF31085AC7000E6ADE2 /* MediaBrowserWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4A7DCF21085AC7000E6ADE2 /* MediaBrowserWrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +87,6 @@
 		977D7A8212B81E6300D406E1 /* PltMetadataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMetadataHandler.h; path = ../../../../Source/Extras/PltMetadataHandler.h; sourceTree = SOURCE_ROOT; };
 		977D7A8312B81E6300D406E1 /* PltRingBufferStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltRingBufferStream.h; path = ../../../../Source/Extras/PltRingBufferStream.h; sourceTree = SOURCE_ROOT; };
 		977D7A8412B81E6300D406E1 /* PltStreamPump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltStreamPump.h; path = ../../../../Source/Extras/PltStreamPump.h; sourceTree = SOURCE_ROOT; };
-		977D7A8512B81E8100D406E1 /* PltMediaServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaServerObject.h; path = ../../../../Source/Extras/ObjectiveC/PltMediaServerObject.h; sourceTree = SOURCE_ROOT; };
-		977D7A8612B81E8100D406E1 /* PltUPnPObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltUPnPObject.h; path = ../../../../Source/Extras/ObjectiveC/PltUPnPObject.h; sourceTree = SOURCE_ROOT; };
 		E4A7DC011085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaTouchBrowserAppDelegate.h; path = ../../../../Source/Apps/CocoaTouchBrowser/CocoaTouchBrowserAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		E4A7DC021085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CocoaTouchBrowserAppDelegate.m; path = ../../../../Source/Apps/CocoaTouchBrowser/CocoaTouchBrowserAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		E4A7DC031085A49400E6ADE2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../../Source/Apps/CocoaTouchBrowser/main.m; sourceTree = SOURCE_ROOT; };
@@ -97,8 +94,6 @@
 		E4A7DC051085A49400E6ADE2 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = ../../../../Source/Apps/CocoaTouchBrowser/RootViewController.m; sourceTree = SOURCE_ROOT; };
 		E4A7DC091085A4B300E6ADE2 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ../../../../Source/Apps/CocoaTouchBrowser/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		E4A7DC0A1085A4B300E6ADE2 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = ../../../../Source/Apps/CocoaTouchBrowser/RootViewController.xib; sourceTree = SOURCE_ROOT; };
-		E4A7DCF11085AC7000E6ADE2 /* MediaBrowserWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaBrowserWrapper.h; path = ../../../../Source/Apps/CocoaTouchBrowser/MediaBrowserWrapper.h; sourceTree = SOURCE_ROOT; };
-		E4A7DCF21085AC7000E6ADE2 /* MediaBrowserWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MediaBrowserWrapper.mm; path = ../../../../Source/Apps/CocoaTouchBrowser/MediaBrowserWrapper.mm; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,8 +257,6 @@
 		977D7A8712B81E9300D406E1 /* Objective-C */ = {
 			isa = PBXGroup;
 			children = (
-				977D7A8512B81E8100D406E1 /* PltMediaServerObject.h */,
-				977D7A8612B81E8100D406E1 /* PltUPnPObject.h */,
 			);
 			name = "Objective-C";
 			sourceTree = "<group>";
@@ -271,8 +264,6 @@
 		E4A7DC131085A4DB00E6ADE2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E4A7DCF11085AC7000E6ADE2 /* MediaBrowserWrapper.h */,
-				E4A7DCF21085AC7000E6ADE2 /* MediaBrowserWrapper.mm */,
 				E4A7DC011085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.h */,
 				E4A7DC021085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m */,
 				E4A7DC041085A49400E6ADE2 /* RootViewController.h */,
@@ -363,7 +354,6 @@
 				E4A7DC061085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m in Sources */,
 				E4A7DC071085A49400E6ADE2 /* main.m in Sources */,
 				E4A7DC081085A49400E6ADE2 /* RootViewController.m in Sources */,
-				E4A7DCF31085AC7000E6ADE2 /* MediaBrowserWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
