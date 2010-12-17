@@ -14,10 +14,10 @@ typedef struct PLT_UPnP PLT_UPnP;
 #endif
 
 @interface PPUPnP : NSObject {
-@private
     PLT_UPnP *upnp;
 }
 
+@property (nonatomic, readonly) PLT_UPnP *PLTUPnP;
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
 - (NPT_Result)start;

@@ -1,5 +1,5 @@
 //
-//  PPMediaContainer.mm
+//  PPMediaItem.m
 //  Platinum
 //
 //  Created by Barry Burton on 12/15/10.
@@ -9,21 +9,21 @@
 #import "Platinum.h"
 #import "PltMediaItem.h"
 
-#import "PPMediaContainer.h"
+#import "PPMediaItem.h"
 
 
 
-@implementation PPMediaContainer
+@implementation PPMediaItem
 
-- (id)initWithContainer:(PLT_MediaContainer *)obj {
+- (id)initWithItem:(PLT_MediaItem *)obj {
 	if ( self = [super initWithObject:obj] ) {
-		container = obj;
+		item = obj;
 	}
     return self;
 }
 
 - (void)dealloc {
-
+	
     [super dealloc];
 }
 

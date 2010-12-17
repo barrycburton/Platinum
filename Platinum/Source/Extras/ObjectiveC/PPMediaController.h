@@ -6,30 +6,32 @@
 //  Copyright 2010 Gravity Mobile. All rights reserved.
 //
 
-#import "NptTypes.h"
-#import "NptResults.h"
+#import "PPUPnP.h"
 
-#if !defined(_PLATINUM_H_)
-typedef struct PLT_CtrlPoint PLT_CtrlPoint;
-typedef struct PLT_MediaController PLT_MediaController;
-typedef struct PLT_MediaBrowser PLT_MediaBrowser;
-typedef struct PLT_MediaDelegate
-#endif
+
+typedef struct PP_MediaController PP_MediaController;
 
 
 @protocol PPMediaControllerDelegate
 
--(void) handleDiscovery: (DiscoveryWrapper*) wrapper;
--(void) handleBrowseResponse: (BrowseResponseWrapper*) wrapper;
+- (BOOL)shouldAddDevice:(void *)wrapper;
+- (void)didRemoveDevice:(void *)wrapper;
+- (void)stateVariableDidChange:(void *)wrapper;
+- (void)browseDidRespond:(void *)wrapper;
+- (void)searchDidRespond:(void *)wrapper;
 
 @end
 
 
-@class PPMediaController : NSObject {
-	PLT_CtrlPoint *ctrlPoint;
-	PLT_MediaController *mediaController;
-	PLT_MediaBrowser *mediaBrowser;
-	PLT_MediaDelegate *mediaDelegate;
+@interface PPMediaController : NSObject { 
+	PP_MediaController *mediaController;
 }
+
+@property (nonatomic, assign) id<PPMediaControllerDelegate> delegate;
+
+- (id)initWithUPnP:(PPUPnP *)upnp;
+
+- (NSArray *)mediaRenderers;
+- (NSArray *)mediaServers;
 
 @end

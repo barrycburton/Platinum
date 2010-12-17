@@ -7,8 +7,9 @@
 //
 
 #import "Platinum.h"
-#import "PPUPnP.h"
+#import "PltMediaController.h"
 
+#import "PPUPnP.h"
 
 @implementation PPUPnP
 
@@ -24,16 +25,20 @@
     [super dealloc];
 }
 
+- (PLT_UPnP*)PLTUPnP {
+	return upnp;
+}
+
+- (BOOL)isRunning {
+    return upnp->IsRunning();
+}
+
 - (NPT_Result)start {
     return upnp->Start();
 }
 
 - (NPT_Result)stop {
     return upnp->Stop();
-}
-
-- (BOOL)isRunning {
-    return upnp->IsRunning();
 }
 
 @end

@@ -6,11 +6,18 @@
 //  Copyright 2010 Gravity Mobile. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "PPMediaObject.h"
 
 
-@interface PPMediaItem : NSObject {
+#if !defined(_PLT_MEDIA_ITEM_H_)
+typedef struct PLT_MediaItem PLT_MediaItem;
+#endif
 
+
+@interface PPMediaItem : PPMediaObject {
+	PLT_MediaItem *item;
 }
+
+- (id)initWithItem:(PLT_MediaItem *)obj;
 
 @end

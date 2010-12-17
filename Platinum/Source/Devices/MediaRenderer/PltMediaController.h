@@ -280,6 +280,7 @@ public:
 	NPT_Result GetVolume(PLT_DeviceDataReference& device, NPT_UInt32 instance_id, const char* channel, void* userdata);	
 
     // methods    
+	virtual const NPT_Lock<PLT_DeviceDataReferenceList>& GetMediaRenderers() { return m_MediaRenderers; }
     virtual NPT_Result FindRenderer(const char* uuid, PLT_DeviceDataReference& device);
     virtual NPT_Result GetProtocolInfoSink(PLT_DeviceDataReference& device, NPT_List<NPT_String>& sinks);
     virtual NPT_Result FindMatchingProtocolInfo(NPT_List<NPT_String>& sinks,
@@ -329,8 +330,9 @@ public:
         }
     }
 
-private:
+// TODO TEMP change to make this public to enable passing around a REF in Obj-C
     PLT_CtrlPointReference                m_CtrlPoint;
+private:
     PLT_MediaControllerDelegate*          m_Delegate;
     NPT_Lock<PLT_DeviceDataReferenceList> m_MediaRenderers;
 };

@@ -1,165 +1,293 @@
-/*****************************************************************
-|
-|   Platinum - Media Browser Wrapper
-|
-| Copyright (c) 2004-2008, Plutinosoft, LLC.
-| All rights reserved.
-| http://www.plutinosoft.com
-|
-| This program is free software; you can redistribute it and/or
-| modify it under the terms of the GNU General Public License
-| as published by the Free Software Foundation; either version 2
-| of the License, or (at your option) any later version.
-|
-| OEMs, ISVs, VARs and other distributors that combine and 
-| distribute commercially licensed software with Platinum software
-| and do not wish to distribute the source code for the commercially
-| licensed software under version 2, or (at your option) any later
-| version, of the GNU General Public License (the "GPL") must enter
-| into a commercial license agreement with Plutinosoft, LLC.
-| 
-| This program is distributed in the hope that it will be useful,
-| but WITHOUT ANY WARRANTY; without even the implied warranty of
-| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-| GNU General Public License for more details.
-|
-| You should have received a copy of the GNU General Public License
-| along with this program; see the file LICENSE.txt. If not, write to
-| the Free Software Foundation, Inc., 
-| 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-| http://www.gnu.org/licenses/gpl-2.0.html
-|
-****************************************************************/
-
-/*----------------------------------------------------------------------
-|   includes
-+---------------------------------------------------------------------*/
-#include "Platinum.h"
-#include "PPMediaController.h"
+//
+//  PPMediaController.mm
+//  Platinum
+//
+//  Created by Barry Burton on 12/15/10.
+//  Copyright 2010 Gravity Mobile. All rights reserved.
+//
 
 
-class PLT_MediaDelegate : public PLT_MediaBrowserDelegate, PLT_MediaControllerDelegate {
+#import "Platinum.h"
+#import "PltMediaBrowser.h"
+#import "PltMediaController.h"
+
+#import "PP_MediaDevice.h"
+#import "PPMediaController.h"
+
+#import "PPMediaDevice.h"
+
+
+class PP_MediaController : public PLT_MediaBrowserDelegate, public PLT_MediaControllerDelegate {
 public:
-    PLT_MediaDelegate(PLT_CtrlPointReference& control_point);
-    virtual PLT_MediaDelegate();
+	PP_MediaController(PPMediaController *parent, PLT_UPnP *upnp) : master(parent) {
+		controlPointRef = PLT_CtrlPointReference(new PLT_CtrlPoint());
+		mediaController = new PLT_MediaController(controlPointRef, this);
+		mediaBrowser = new PLT_MediaBrowser(controlPointRef, this);
+		upnp->AddCtrlPoint(controlPointRef);
+	}
 	
-    // public methods
-    virtual void SetDelegate(id delegate) { m_Delegate = delegate; }
-    
-    // PLT_MediaBrowserDelegate methods
-    bool OnMSAdded(
-				   PLT_DeviceDataReference& device);
-    void OnMSRemoved(
-					 PLT_DeviceDataReference& device);
-    void OnBrowseResult(
-						NPT_Result               res, 
-						PLT_DeviceDataReference& device, 
-						PLT_BrowseInfo*          info, 
-						void*                    userdata);
+	virtual ~PP_MediaController() {
+		
+	}
 	
-private:
-    void NotifyAddedRemoved(
-							PLT_DeviceDataReference& device,
-							bool                     added);
-	
+	virtual bool OnMSAdded(PLT_DeviceDataReference& device) {        
 
+		return true;
+	}
+	
+	virtual void OnMSRemoved(PLT_DeviceDataReference& device) {
+
+	}
+	
+	virtual void OnMSStateVariablesChanged(PLT_Service*                  service,
+								   NPT_List<PLT_StateVariable*>* vars) {
+		[master.delegate stateVariableDidChange:master];
+	}
+	
+	virtual void OnBrowseResult(NPT_Result               res,
+						PLT_DeviceDataReference& device,
+						PLT_BrowseInfo*          info,
+						void*                    userdata) {    
+		[master.delegate browseDidRespond:master];
+	}
+	
+	virtual void OnSearchResult(NPT_Result               res,
+						PLT_DeviceDataReference& device,
+						PLT_BrowseInfo*          info,
+						void*                    userdata) {
+
+	}
+
+	
+	
+	
+	
+	// PLT_MediaControllerDelegate methods
+	virtual bool OnMRAdded(PLT_DeviceDataReference&  device ) {
+		return true;
+	}
+	
+	virtual void OnMRRemoved(PLT_DeviceDataReference&  device ) {
+	
+	}
+	
+	virtual void OnMRStateVariablesChanged(PLT_Service*                   service, 
+                                           NPT_List<PLT_StateVariable*>*  vars) {
+	
+	}
+	
+    // AVTransport
+	virtual void OnGetCurrentTransportActionsResult(NPT_Result                res,
+											PLT_DeviceDataReference&  device,
+											PLT_StringList*           actions,
+											void*                     userdata) {
+	
+	}
+	
+	virtual void OnGetDeviceCapabilitiesResult(NPT_Result                res,
+									   PLT_DeviceDataReference&  device,
+									   PLT_DeviceCapabilities*   capabilities,
+									   void*                     userdata) {
+	
+	}
+	
+	virtual void OnGetMediaInfoResult(NPT_Result                res,
+							  PLT_DeviceDataReference&  device,
+							  PLT_MediaInfo*            info,
+							  void*                     userdata) {
+	
+	}
+	
+	virtual void OnGetPositionInfoResult(NPT_Result                res,
+								 PLT_DeviceDataReference&  device,
+								 PLT_PositionInfo*         info,
+								 void*                     userdata) {
+	
+	}
+	
+	virtual void OnGetTransportInfoResult(NPT_Result                res,
+								  PLT_DeviceDataReference&  device,
+								  PLT_TransportInfo*        info,
+								  void*                     userdata) {
+	
+	}
+	
+	virtual void OnGetTransportSettingsResult(NPT_Result                res,
+									  PLT_DeviceDataReference&  device,
+									  PLT_TransportSettings*    settings,
+									  void*                     userdata) {
+	
+	}
+	
+	virtual void OnNextResult(NPT_Result                res,
+					  PLT_DeviceDataReference&  device,
+					  void*                     userdata) {
+	
+	}
+	
+	virtual void OnPauseResult(NPT_Result                res,
+					   PLT_DeviceDataReference&  device,
+					   void*                     userdata) {
+	
+	}  
+	
+	virtual void OnPlayResult(NPT_Result                res,
+					  PLT_DeviceDataReference&  device,
+					  void*                     userdata) {
+	
+	}
+	
+	virtual void OnPreviousResult(NPT_Result                res,
+						  PLT_DeviceDataReference&  device,
+						  void*                     userdata) {
+	
+	}
+	
+	virtual void OnSeekResult(NPT_Result                res,
+					  PLT_DeviceDataReference&  device,
+					  void*                     userdata) {
+	
+	}
+	
+	virtual void OnSetAVTransportURIResult(NPT_Result                res,
+								   PLT_DeviceDataReference&  device,
+								   void*                     userdata) {
+	
+	}
+	
+	virtual void OnSetPlayModeResult(NPT_Result                res,
+							 PLT_DeviceDataReference&  device,
+							 void*                     userdata) {
+	
+	}
+	
+	virtual void OnStopResult(NPT_Result                res,
+					  PLT_DeviceDataReference&  device,
+					  void*                     userdata) {
+	
+	}
+	
+    // ConnectionManager
+	virtual void OnGetCurrentConnectionIDsResult(NPT_Result               res,
+										 PLT_DeviceDataReference& device,
+										 PLT_StringList*          ids,
+										 void*                    userdata) {
+	
+	}
+	
+	virtual void OnGetCurrentConnectionInfoResult(NPT_Result               res,
+										  PLT_DeviceDataReference& device,
+										  PLT_ConnectionInfo*      info,
+										  void*                    userdata) {
+	
+	}
+	
+	virtual void OnGetProtocolInfoResult(NPT_Result               res,
+								 PLT_DeviceDataReference& device,
+								 PLT_StringList*          sources,
+								 PLT_StringList*          sinks,
+								 void*                    userdata) {
+	
+	}
+	
+    // RenderingControl
+	virtual void OnSetMuteResult(NPT_Result               res,
+						 PLT_DeviceDataReference& device,
+						 void*                    userdata) {
+	
+	}
+	
+	virtual void OnGetMuteResult(NPT_Result                res,
+						 PLT_DeviceDataReference&  device,
+						 const char*               channel,
+						 bool                      mute,
+						 void*                     userdata) {
+	
+	}
+	
+	virtual void OnSetVolumeResult(NPT_Result                res,
+						   PLT_DeviceDataReference&  device,
+						   void*                     userdata) {
+	
+	}
+	
+	virtual void OnGetVolumeResult(NPT_Result                res,
+						   PLT_DeviceDataReference&  device,
+						   const char*               channel,
+						   NPT_UInt32				 volume,
+						   void*                     userdata) {
+	
+	}	
+	
+	PPMediaController *master;
+	PLT_CtrlPointReference controlPointRef;
+	PLT_MediaController *mediaController;
+	PLT_MediaBrowser *mediaBrowser;
 };
 
 
 
-/*----------------------------------------------------------------------
-|   PLT_MediaBrowserWrapper::PLT_MediaBrowserWrapper
-+---------------------------------------------------------------------*/
-PLT_MediaBrowserWrapper::PLT_MediaBrowserWrapper(PLT_CtrlPointReference& control_point) :
-    PLT_MediaBrowser(control_point)
-{
-    PLT_MediaBrowser::SetDelegate(this);
-}
-
-/*----------------------------------------------------------------------
-|   PLT_MediaBrowserWrapper::~PLT_MediaBrowserWrapper
-+---------------------------------------------------------------------*/
-PLT_MediaBrowserWrapper::~PLT_MediaBrowserWrapper()
-{
-}
-
-/*----------------------------------------------------------------------
-|   PLT_MediaBrowserWrapper::OnMSAdded
-+---------------------------------------------------------------------*/
-bool
-PLT_MediaBrowserWrapper::OnMSAdded(PLT_DeviceDataReference& device)
-{        
-    NotifyAddedRemoved(device, true);
-    return true;
-}
-
-/*----------------------------------------------------------------------
-|   PLT_MediaBrowserWrapper::OnMSRemoved
-+---------------------------------------------------------------------*/
-void 
-PLT_MediaBrowserWrapper::OnMSRemoved(PLT_DeviceDataReference& device)
-{
-    NotifyAddedRemoved(device, false);
-}
-
-/*----------------------------------------------------------------------
-|   PLT_MediaBrowserWrapper::NotifyAddedRemoved
-+---------------------------------------------------------------------*/
-void 
-PLT_MediaBrowserWrapper::NotifyAddedRemoved(PLT_DeviceDataReference& device, 
-                                            bool                     added)
-{
-    if ([m_Delegate respondsToSelector:@selector(handleDiscovery:)]) {
-        DiscoveryWrapper* wrapper = [[DiscoveryWrapper alloc] init];
-        wrapper->device = device.AsPointer();
-        wrapper->added  = added;
-                
-        // trigger the handling of the message on the main thread
-        [m_Delegate performSelectorOnMainThread: @selector(handleDiscovery:)
-                                     withObject: wrapper
-                                  waitUntilDone: YES];
-        [wrapper release];
-    }
-}	
-
-/*----------------------------------------------------------------------
-|   PLT_MediaBrowserWrapper::OnBrowseResult
-+---------------------------------------------------------------------*/
-void 
-PLT_MediaBrowserWrapper::OnBrowseResult(NPT_Result               res, 
-                                        PLT_DeviceDataReference& device, 
-                                        PLT_BrowseInfo*          info, 
-                                        void*                    userdata)
-{    
-    if ( [m_Delegate respondsToSelector:@selector(handleBrowseResponse:)] )
-    {
-        BrowseResponseWrapper* wrapper = [[BrowseResponseWrapper alloc] init];
-        wrapper->res      = res;
-        wrapper->device   = device.AsPointer();
-        wrapper->info     = info;
-        wrapper->userdata = userdata;
-                
-        // trigger the handling of the message on the main thread
-        [m_Delegate performSelectorOnMainThread: @selector(handleBrowseResponse:)
-                                     withObject: wrapper
-                                  waitUntilDone: YES];
-        [wrapper release];
-    }
-}
-
-
 @implementation PPMediaController
 
-- (id)init {
+@synthesize delegate;
+
+- (id)initWithUPnP:(PPUPnP *)upnp {
 	if ( self = [super init] ) {
-		ctrlPoint = new PLT_CtrlPoint();
+		mediaController = new PP_MediaController(self, [upnp PLTUPnP]);
 	}
 	return self;
 }
 
+- (void)dealloc {
 
-<#methods#>
+	delete mediaController;
+	
+	[super dealloc];
+}
+
+
+
+- (NSArray *)mediaRenderers {
+	NPT_Lock<PLT_DeviceDataReferenceList> pltMediaRendererList = mediaController->mediaController->GetMediaRenderers();
+	NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
+	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
+	while ( listIter ) {
+		PLT_DeviceDataReference item = *listIter;
+		PP_MediaDevice *device = new PP_MediaDevice(item);
+		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithDevice:device];
+		[list addObject:mediaDevice];
+		
+		listIter++;
+	}
+	
+	return list;
+}
+
+
+- (NSArray *)mediaServers {
+	NPT_Lock<PLT_DeviceDataReferenceList> pltMediaRendererList = mediaController->mediaBrowser->GetMediaServers();
+	NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
+	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
+	while ( listIter ) {
+		PLT_DeviceDataReference item = *listIter;
+		PP_MediaDevice *device = new PP_MediaDevice(item);
+		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithDevice:device];
+		[list addObject:mediaDevice];
+		
+		listIter++;
+	}
+	
+	return list;
+}
+
+
+
+
+
+
+
+
+
+
 
 @end
-
-
