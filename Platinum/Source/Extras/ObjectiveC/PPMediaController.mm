@@ -58,10 +58,10 @@ public:
 
 	}
 
-	
-	
-	
-	
+
+
+
+
 	// PLT_MediaControllerDelegate methods
 	virtual bool OnMRAdded(PLT_DeviceDataReference&  device ) {
 		return true;
@@ -281,13 +281,35 @@ public:
 }
 
 
+- (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count {
+	if ( count == 0 ) {
+		count = 30;
+	}
+	
+	NPT_Result result = mediaController->mediaBrowser->Browse([server deviceData]->mediaDevice,
+															  [folderId UTF8String], 
+															  start,
+															  count,
+															  false,
+															  NULL, NULL, NULL);
+	
+	return ( result == NPT_SUCCESS );
+
+}
 
 
-
-
-
-
-
+- (BOOL)browseMetadataOfItem:(NSString *)itemId onServer:(PPMediaDevice *)server {
+	
+	NPT_Result result = mediaController->mediaBrowser->Browse([server deviceData]->mediaDevice,
+															  [itemId UTF8String], 
+															  0,
+															  1,
+															  true,
+															  NULL, NULL, NULL);
+	
+	return ( result == NPT_SUCCESS );
+	
+}
 
 
 @end

@@ -27,4 +27,8 @@
     [super dealloc];
 }
 
+- (PP_MediaDevice *)deviceData {
+	return device;
+}
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "PPUPnP.h"
-
+#import "PPMediaDevice.h"
 
 typedef struct PP_MediaController PP_MediaController;
 
@@ -18,7 +18,6 @@ typedef struct PP_MediaController PP_MediaController;
 - (void)didRemoveDevice:(void *)wrapper;
 - (void)stateVariableDidChange:(void *)wrapper;
 - (void)browseDidRespond:(void *)wrapper;
-- (void)searchDidRespond:(void *)wrapper;
 
 @end
 
@@ -33,5 +32,9 @@ typedef struct PP_MediaController PP_MediaController;
 
 - (NSArray *)mediaRenderers;
 - (NSArray *)mediaServers;
+
+- (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count;
+
+- (BOOL)browseMetadataOfItem:(NSString *)itemId onServer:(PPMediaDevice *)server;
 
 @end
