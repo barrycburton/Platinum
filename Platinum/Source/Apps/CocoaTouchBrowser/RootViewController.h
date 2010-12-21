@@ -33,11 +33,15 @@
 
 #import "PPUPnP.h"
 #import "PPMediaController.h"
+#import "SpeakerListController.h"
 
 @interface RootViewController : UITableViewController <PPMediaControllerDelegate> { }
 
 @property (nonatomic, retain) PPUPnP *upnp;
 @property (nonatomic, retain) PPMediaController *controller;
 @property (nonatomic, retain) NSArray *list;
+@property (nonatomic, retain) SpeakerListController *speakerListController;
+
+- (IBAction)showSpeakers:(id)sender;
 
 @end

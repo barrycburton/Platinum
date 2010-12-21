@@ -94,11 +94,12 @@ public:
 
 	// PLT_MediaControllerDelegate methods
 	virtual bool OnMRAdded(PLT_DeviceDataReference&  device ) {
+		[master.delegate shouldAddSpeaker:nil];
 		return true;
 	}
 	
 	virtual void OnMRRemoved(PLT_DeviceDataReference&  device ) {
-	
+		[master.delegate didRemoveSpeaker:nil];
 	}
 	
 	virtual void OnMRStateVariablesChanged(PLT_Service*                   service, 

@@ -39,6 +39,7 @@
 @synthesize upnp;
 @synthesize controller;
 @synthesize list;
+@synthesize speakerListController;
 
 - (void)awakeFromNib {
 	self.upnp = [[PPUPnP alloc] init];
@@ -52,6 +53,14 @@
 	self.list = [NSArray array];
 }
 
+- (IBAction)showSpeakers:(id)sender {
+	if ( !self.speakerListController ) {
+		self.speakerListController = [[SpeakerListController alloc] initWithController:self.controller];
+	}
+	UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:self.speakerListController];
+	[self.navigationController presentModalViewController:modal animated:YES];
+}
+
 - (BOOL)shouldAddDevice:(void *)wrapper {
 	self.list = [self.controller mediaServers];
 	[self.tableView reloadData];
@@ -61,6 +70,15 @@
 - (void)didRemoveDevice:(void *)wrapper {
 	self.list = [self.controller mediaServers];
 	[self.tableView reloadData];
+}
+
+- (BOOL)shouldAddSpeaker:(void *)wrapper {
+	[self.speakerListController refreshList];
+	return YES;
+}
+
+- (void)didRemoveSpeaker:(void *)wrapper {
+	[self.speakerListController refreshList];
 }
 
 - (void)stateVariableDidChange:(void *)wrapper {

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		9704724312BFE4D900F9D88C /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9704724212BFE4D900F9D88C /* libstdc++.dylib */; };
 		9704747712C041F500F9D88C /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9704747612C041F500F9D88C /* ServerViewController.m */; };
+		975228A012C158BB00F4639C /* SpeakerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9752289F12C158BB00F4639C /* SpeakerListController.m */; };
+		975228A712C1591800F4639C /* SpeakerViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 975228A512C1591800F4639C /* SpeakerViewController.m */; };
+		975228A812C1591800F4639C /* SpeakerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 975228A612C1591800F4639C /* SpeakerViewController.xib */; };
 		977D7A1012B81B1F00D406E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */; };
 		977D7A1212B81B1F00D406E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1112B81B1F00D406E1 /* Foundation.framework */; };
 		977D7A1412B81B1F00D406E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1312B81B1F00D406E1 /* UIKit.framework */; };
@@ -49,6 +52,11 @@
 		9704724212BFE4D900F9D88C /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		9704747512C041F500F9D88C /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerViewController.h; path = ../../../../Source/Apps/CocoaTouchBrowser/ServerViewController.h; sourceTree = SOURCE_ROOT; };
 		9704747612C041F500F9D88C /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerViewController.m; path = ../../../../Source/Apps/CocoaTouchBrowser/ServerViewController.m; sourceTree = SOURCE_ROOT; };
+		9752289E12C158BB00F4639C /* SpeakerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeakerListController.h; path = ../../../../Source/Apps/CocoaTouchBrowser/SpeakerListController.h; sourceTree = SOURCE_ROOT; };
+		9752289F12C158BB00F4639C /* SpeakerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeakerListController.m; path = ../../../../Source/Apps/CocoaTouchBrowser/SpeakerListController.m; sourceTree = SOURCE_ROOT; };
+		975228A412C1591800F4639C /* SpeakerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpeakerViewController.h; path = ../../../../Source/Apps/CocoaTouchBrowser/SpeakerViewController.h; sourceTree = SOURCE_ROOT; };
+		975228A512C1591800F4639C /* SpeakerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpeakerViewController.m; path = ../../../../Source/Apps/CocoaTouchBrowser/SpeakerViewController.m; sourceTree = SOURCE_ROOT; };
+		975228A612C1591800F4639C /* SpeakerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SpeakerViewController.xib; path = ../../../../Source/Apps/CocoaTouchBrowser/SpeakerViewController.xib; sourceTree = SOURCE_ROOT; };
 		977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		977D7A1112B81B1F00D406E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		977D7A1312B81B1F00D406E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -166,6 +174,11 @@
 				E4A7DC051085A49400E6ADE2 /* RootViewController.m */,
 				9704747512C041F500F9D88C /* ServerViewController.h */,
 				9704747612C041F500F9D88C /* ServerViewController.m */,
+				9752289E12C158BB00F4639C /* SpeakerListController.h */,
+				9752289F12C158BB00F4639C /* SpeakerListController.m */,
+				975228A412C1591800F4639C /* SpeakerViewController.h */,
+				975228A512C1591800F4639C /* SpeakerViewController.m */,
+				975228A612C1591800F4639C /* SpeakerViewController.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -238,6 +251,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4A7DC0B1085A4B300E6ADE2 /* MainWindow.xib in Resources */,
+				975228A712C1591800F4639C /* SpeakerViewController.m in Resources */,
+				975228A812C1591800F4639C /* SpeakerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +267,7 @@
 				E4A7DC071085A49400E6ADE2 /* main.m in Sources */,
 				E4A7DC081085A49400E6ADE2 /* RootViewController.m in Sources */,
 				9704747712C041F500F9D88C /* ServerViewController.m in Sources */,
+				975228A012C158BB00F4639C /* SpeakerListController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
