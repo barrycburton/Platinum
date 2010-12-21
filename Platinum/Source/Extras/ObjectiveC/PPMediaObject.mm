@@ -8,26 +8,12 @@
 
 #import "Platinum.h"
 #import "PltMediaItem.h"
+#import "PP_MediaObject.h"
 
 #import "PPMediaObject.h"
 #import "PPMediaContainer.h"
 #import "PPMediaItem.h"
 
-
-class PP_MediaObject {
-public:
-	PP_MediaObject(PLT_MediaObject *object) : mediaObject(object) {
-		
-	}
-	
-	virtual ~PP_MediaObject() {
-		
-	}
-	
-	
-	PLT_MediaObject *mediaObject;
-	PLT_MediaObjectListReference childList;
-};
 
 
 
@@ -67,6 +53,14 @@ public:
 
 - (BOOL)isContainer {
 	return (BOOL)object->mediaObject->IsContainer();
+}
+
+- (void)setOwner:(id)parent {
+	object->owner = parent;
+}
+
+- (id)getOwner {
+	return object->owner;
 }
 
 - (PP_MediaObject *)getMediaObject {

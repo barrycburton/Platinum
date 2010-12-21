@@ -35,20 +35,15 @@
 		self.controller = theController;
 		self.server = theServer;
 		self.container = theContainer;
+		[self.container setOwner:self];
+		
 		self.list = [NSArray array];
+
+		self.title = [self.container name];
+
+		NSLog(@"Object Id: %@", [self.container objectId]);
 		
-		if ( self.container ) {
-			self.title = [self.container name];
-		} else {
-			self.title = [self.server name];
-		}
-		NSString *folderId = nil;
-		if ( self.container ) {
-			folderId = [[self.container objectId] retain];
-		}
-		NSLog(@"Object Id: %@", folderId);
-		
-		[self.controller browseContentsOfFolder:folderId onServer:self.server fromIndex:0 forNumber:30 userData:self];
+		[self.controller browseContentsOfFolder:[self.container objectId] onServer:self.server fromIndex:0 forNumber:30 userData:self.container];
     }
     return self;
 }

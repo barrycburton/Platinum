@@ -11,11 +11,15 @@
 #import "PltMediaBrowser.h"
 #import "PltMediaController.h"
 
-#import "PP_MediaDevice.h"
 #import "PPMediaController.h"
 
+#import "PP_MediaDevice.h"
 #import "PPMediaDevice.h"
+
+#import "PP_MediaObject.h"
 #import "PPMediaObject.h"
+
+
 
 
 class PP_MediaController : public PLT_MediaBrowserDelegate, public PLT_MediaControllerDelegate {
@@ -53,10 +57,14 @@ public:
 		// First convert result to Obj-C Objects
 		NSLog(@"browse container id: %s", (char *)info->object_id);
 		
-		static PLT_MediaObjectListReference pltListRef = PLT_MediaObjectListReference(info->items);
+		// PLT_MediaObjectListReference pltListRef = PLT_MediaObjectListReference(info->items);
+		
+		PPMediaObject *user = (PPMediaObject *)userdata;
+		PP_MediaObject *usercpp = [user getMediaObject];
+		usercpp->childList = info->items;
 			  
 		NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
-		PLT_MediaObjectList::Iterator listIter = pltListRef->GetFirstItem();
+		PLT_MediaObjectList::Iterator listIter = info->items->GetFirstItem();
 		while ( listIter ) {
 			PLT_MediaObject *item = *listIter;
 			NSLog(@"title: %s", (char*)item->m_Title);
@@ -308,11 +316,6 @@ public:
 - (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count userData:(id)userData {
 	if ( count == 0 ) {
 		count = 30;
-	}
-	
-	if ( !folderId ) {
-		// root 
-		folderId = @"0";
 	}
 	
 	NPT_Result result = mediaController->mediaBrowser->Browse([server deviceData]->mediaDevice,

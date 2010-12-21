@@ -7,6 +7,7 @@
 //
 
 #import "PPUPnP.h"
+#import "PPMediaContainer.h"
 
 
 #if !defined(_PP_MEDIA_DEVICE_H_)
@@ -22,5 +23,7 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 - (PP_MediaDevice *)deviceData;
 
 - (NSString *)name;
+
+- (PPMediaContainer *)rootContainer;
 
 @end

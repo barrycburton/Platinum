@@ -69,7 +69,7 @@
 
 - (void)browseDidRespond:(NSArray *)newList toQuery:(id)userData {
 	if ( userData ) {
-		ServerViewController *item = userData;
+		ServerViewController *item = [(PPMediaObject *)userData getOwner];
 		[item setContainerList:newList];
 	}
 }
@@ -163,7 +163,7 @@
 
 	PPMediaDevice *device = [self.list objectAtIndex:[indexPath row]];
 	
-	ServerViewController *next = [[ServerViewController alloc] initWithController:self.controller server:device container:nil];
+	ServerViewController *next = [[ServerViewController alloc] initWithController:self.controller server:device container:[device rootContainer]];
 	
 	[self.navigationController pushViewController:next animated:YES];
 	

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9704749A12C11FB200F9D88C /* PP_MediaObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 9704749812C11FB200F9D88C /* PP_MediaObject.h */; };
 		977D756F12B8099D00D406E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D756E12B8099D00D406E1 /* Foundation.framework */; };
 		977D766112B809D600D406E1 /* PltAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 977D758C12B809D600D406E1 /* PltAction.cpp */; };
 		977D766212B809D600D406E1 /* PltAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D758D12B809D600D406E1 /* PltAction.h */; };
@@ -208,6 +209,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9704749812C11FB200F9D88C /* PP_MediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PP_MediaObject.h; sourceTree = "<group>"; };
 		977D756E12B8099D00D406E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		977D758C12B809D600D406E1 /* PltAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PltAction.cpp; sourceTree = "<group>"; };
 		977D758D12B809D600D406E1 /* PltAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PltAction.h; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 				977D7D4E12BB370800D406E1 /* PP_MediaDevice.h */,
 				977D7CFE12BB1F3900D406E1 /* PPMediaDevice.mm */,
 				977D7B8212B944E500D406E1 /* PPMediaObject.h */,
+				9704749812C11FB200F9D88C /* PP_MediaObject.h */,
 				977D7B8312B944E500D406E1 /* PPMediaObject.mm */,
 				977D7B8612B944F800D406E1 /* PPMediaContainer.h */,
 				977D7B8712B944F800D406E1 /* PPMediaContainer.mm */,
@@ -933,6 +936,7 @@
 				977D7B8C12B9452000D406E1 /* PPMediaItem.h in Headers */,
 				977D7CFF12BB1F3900D406E1 /* PPMediaDevice.h in Headers */,
 				977D7D5012BB370800D406E1 /* PP_MediaDevice.h in Headers */,
+				9704749A12C11FB200F9D88C /* PP_MediaObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

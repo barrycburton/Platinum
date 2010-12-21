@@ -12,6 +12,7 @@
 #import "PP_MediaDevice.h"
 #import "PPMediaDevice.h"
 
+#import "PltMediaItem.h"
 
 @implementation PPMediaDevice
 
@@ -33,6 +34,14 @@
 
 - (NSString *)name {
 	return [NSString stringWithUTF8String:(char*)device->mediaDevice->GetFriendlyName()];
+}
+
+- (PPMediaContainer *)rootContainer {
+	PLT_MediaContainer *rootcpp = new PLT_MediaContainer();
+	rootcpp->m_ObjectID = NPT_String("0");
+	rootcpp->m_Title = NPT_String(device->mediaDevice->GetFriendlyName());
+	PPMediaContainer *root = [[PPMediaContainer alloc] initWithContainer:rootcpp];
+	return root;
 }
 
 @end
