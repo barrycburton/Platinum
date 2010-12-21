@@ -31,7 +31,13 @@
 |
 ****************************************************************/
 
-@interface RootViewController : UITableViewController {
-}
+#import "PPUPnP.h"
+#import "PPMediaController.h"
+
+@interface RootViewController : UITableViewController <PPMediaControllerDelegate> { }
+
+@property (nonatomic, retain) PPUPnP *upnp;
+@property (nonatomic, retain) PPMediaController *controller;
+@property (nonatomic, retain) NSArray *list;
 
 @end

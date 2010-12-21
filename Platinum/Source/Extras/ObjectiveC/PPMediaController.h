@@ -17,7 +17,7 @@ typedef struct PP_MediaController PP_MediaController;
 - (BOOL)shouldAddDevice:(void *)wrapper;
 - (void)didRemoveDevice:(void *)wrapper;
 - (void)stateVariableDidChange:(void *)wrapper;
-- (void)browseDidRespond:(void *)wrapper;
+- (void)browseDidRespond:(NSArray *)list toQuery:(id)userData;
 
 @end
 
@@ -33,8 +33,8 @@ typedef struct PP_MediaController PP_MediaController;
 - (NSArray *)mediaRenderers;
 - (NSArray *)mediaServers;
 
-- (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count;
+- (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count userData:(id)userData;
 
-- (BOOL)browseMetadataOfItem:(NSString *)itemId onServer:(PPMediaDevice *)server;
+- (BOOL)browseMetadataOfItem:(NSString *)itemId onServer:(PPMediaDevice *)server userData:(id)userData;
 
 @end

@@ -32,9 +32,47 @@
 ****************************************************************/
 
 #import "RootViewController.h"
-
+#import "ServerViewController.h"
 
 @implementation RootViewController
+
+@synthesize upnp;
+@synthesize controller;
+@synthesize list;
+
+- (void)awakeFromNib {
+	self.upnp = [[PPUPnP alloc] init];
+	
+	self.controller = [[PPMediaController alloc] initWithUPnP:self.upnp];
+	self.controller.delegate = self;
+	
+	int res = [self.upnp start];
+	NSLog(@"awake. start result:%d", res);
+	
+	self.list = [NSArray array];
+}
+
+- (BOOL)shouldAddDevice:(void *)wrapper {
+	self.list = [self.controller mediaServers];
+	[self.tableView reloadData];
+	return YES;
+}
+
+- (void)didRemoveDevice:(void *)wrapper {
+	self.list = [self.controller mediaServers];
+	[self.tableView reloadData];
+}
+
+- (void)stateVariableDidChange:(void *)wrapper {
+	
+}
+
+- (void)browseDidRespond:(NSArray *)newList toQuery:(id)userData {
+	if ( userData ) {
+		ServerViewController *item = userData;
+		[item setContainerList:newList];
+	}
+}
 
 /*
 - (void)viewDidLoad {
@@ -96,7 +134,7 @@
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [self.list count];
 }
 
 
@@ -111,22 +149,30 @@
     }
     
 	// Configure the cell.
+	PPMediaDevice *device = [self.list objectAtIndex:[indexPath row]];
+	cell.textLabel.text = [device name];
 
     return cell;
 }
 
 
 
-/*
+
 // Override to support row selection in the table view.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+	PPMediaDevice *device = [self.list objectAtIndex:[indexPath row]];
+	
+	ServerViewController *next = [[ServerViewController alloc] initWithController:self.controller server:device container:nil];
+	
+	[self.navigationController pushViewController:next animated:YES];
+	
     // Navigation logic may go here -- for example, create and push another view controller.
 	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
 	// [self.navigationController pushViewController:anotherViewController animated:YES];
 	// [anotherViewController release];
 }
-*/
+
 
 
 /*
@@ -170,6 +216,12 @@
 
 
 - (void)dealloc {
+	[self.upnp stop];
+	
+	[self.list release];
+	[self.controller release];
+	[self.upnp release];
+	
     [super dealloc];
 }
 

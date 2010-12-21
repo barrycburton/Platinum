@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9704724312BFE4D900F9D88C /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9704724212BFE4D900F9D88C /* libstdc++.dylib */; };
+		9704747712C041F500F9D88C /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9704747612C041F500F9D88C /* ServerViewController.m */; };
 		977D7A1012B81B1F00D406E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */; };
 		977D7A1212B81B1F00D406E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1112B81B1F00D406E1 /* Foundation.framework */; };
 		977D7A1412B81B1F00D406E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1312B81B1F00D406E1 /* UIKit.framework */; };
@@ -15,7 +17,6 @@
 		E4A7DC071085A49400E6ADE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A7DC031085A49400E6ADE2 /* main.m */; };
 		E4A7DC081085A49400E6ADE2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A7DC051085A49400E6ADE2 /* RootViewController.m */; };
 		E4A7DC0B1085A4B300E6ADE2 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A7DC091085A4B300E6ADE2 /* MainWindow.xib */; };
-		E4A7DC0C1085A4B300E6ADE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4A7DC0A1085A4B300E6ADE2 /* RootViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,61 +40,25 @@
 		1D6058910D05DD3D006BFB54 /* CocoaTouchBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaTouchBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A0AAE50D9B0CCF005BE974 /* CocoaTouchBrowser_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaTouchBrowser_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* CocoaTouchBrowser-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CocoaTouchBrowser-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		970471A012BFDBD200F9D88C /* PPMediaContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPMediaContainer.h; path = ../../../../Source/Extras/ObjectiveC/PPMediaContainer.h; sourceTree = SOURCE_ROOT; };
+		970471A112BFDBD200F9D88C /* PPMediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPMediaController.h; path = ../../../../Source/Extras/ObjectiveC/PPMediaController.h; sourceTree = SOURCE_ROOT; };
+		970471A212BFDBD200F9D88C /* PPMediaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPMediaDevice.h; path = ../../../../Source/Extras/ObjectiveC/PPMediaDevice.h; sourceTree = SOURCE_ROOT; };
+		970471A312BFDBD200F9D88C /* PPMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPMediaItem.h; path = ../../../../Source/Extras/ObjectiveC/PPMediaItem.h; sourceTree = SOURCE_ROOT; };
+		970471A412BFDBD200F9D88C /* PPMediaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPMediaObject.h; path = ../../../../Source/Extras/ObjectiveC/PPMediaObject.h; sourceTree = SOURCE_ROOT; };
+		970471A512BFDBD200F9D88C /* PPUPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPUPnP.h; path = ../../../../Source/Extras/ObjectiveC/PPUPnP.h; sourceTree = SOURCE_ROOT; };
+		9704724212BFE4D900F9D88C /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		9704747512C041F500F9D88C /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerViewController.h; path = ../../../../Source/Apps/CocoaTouchBrowser/ServerViewController.h; sourceTree = SOURCE_ROOT; };
+		9704747612C041F500F9D88C /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerViewController.m; path = ../../../../Source/Apps/CocoaTouchBrowser/ServerViewController.m; sourceTree = SOURCE_ROOT; };
 		977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		977D7A1112B81B1F00D406E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		977D7A1312B81B1F00D406E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		977D7A1D12B81B6A00D406E1 /* Platinum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Platinum.xcodeproj; path = ../Platinum/Platinum.xcodeproj; sourceTree = SOURCE_ROOT; };
-		977D7A5112B81C0E00D406E1 /* Platinum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Platinum.h; path = ../../../../Source/Platinum/Platinum.h; sourceTree = SOURCE_ROOT; };
-		977D7A5212B81C0E00D406E1 /* PltSvnVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltSvnVersion.h; path = ../../../../Source/Platinum/PltSvnVersion.h; sourceTree = SOURCE_ROOT; };
-		977D7A5312B81C0E00D406E1 /* PltVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltVersion.h; path = ../../../../Source/Platinum/PltVersion.h; sourceTree = SOURCE_ROOT; };
-		977D7A5412B81C6600D406E1 /* PltAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltAction.h; path = ../../../../Source/Core/PltAction.h; sourceTree = SOURCE_ROOT; };
-		977D7A5512B81C6600D406E1 /* PltArgument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltArgument.h; path = ../../../../Source/Core/PltArgument.h; sourceTree = SOURCE_ROOT; };
-		977D7A5612B81C6600D406E1 /* PltConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltConstants.h; path = ../../../../Source/Core/PltConstants.h; sourceTree = SOURCE_ROOT; };
-		977D7A5712B81C6600D406E1 /* PltCtrlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltCtrlPoint.h; path = ../../../../Source/Core/PltCtrlPoint.h; sourceTree = SOURCE_ROOT; };
-		977D7A5812B81C6600D406E1 /* PltCtrlPointTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltCtrlPointTask.h; path = ../../../../Source/Core/PltCtrlPointTask.h; sourceTree = SOURCE_ROOT; };
-		977D7A5912B81C6600D406E1 /* PltDatagramStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltDatagramStream.h; path = ../../../../Source/Core/PltDatagramStream.h; sourceTree = SOURCE_ROOT; };
-		977D7A5A12B81C6600D406E1 /* PltDeviceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltDeviceData.h; path = ../../../../Source/Core/PltDeviceData.h; sourceTree = SOURCE_ROOT; };
-		977D7A5B12B81C6600D406E1 /* PltDeviceHost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltDeviceHost.h; path = ../../../../Source/Core/PltDeviceHost.h; sourceTree = SOURCE_ROOT; };
-		977D7A5C12B81C6600D406E1 /* PltEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltEvent.h; path = ../../../../Source/Core/PltEvent.h; sourceTree = SOURCE_ROOT; };
-		977D7A5D12B81C6600D406E1 /* PltHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltHttp.h; path = ../../../../Source/Core/PltHttp.h; sourceTree = SOURCE_ROOT; };
-		977D7A5E12B81C6600D406E1 /* PltHttpClientTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltHttpClientTask.h; path = ../../../../Source/Core/PltHttpClientTask.h; sourceTree = SOURCE_ROOT; };
-		977D7A5F12B81C6600D406E1 /* PltHttpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltHttpServer.h; path = ../../../../Source/Core/PltHttpServer.h; sourceTree = SOURCE_ROOT; };
-		977D7A6012B81C6600D406E1 /* PltHttpServerTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltHttpServerTask.h; path = ../../../../Source/Core/PltHttpServerTask.h; sourceTree = SOURCE_ROOT; };
-		977D7A6112B81C6600D406E1 /* PltService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltService.h; path = ../../../../Source/Core/PltService.h; sourceTree = SOURCE_ROOT; };
-		977D7A6212B81C6600D406E1 /* PltSsdp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltSsdp.h; path = ../../../../Source/Core/PltSsdp.h; sourceTree = SOURCE_ROOT; };
-		977D7A6312B81C6600D406E1 /* PltStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltStateVariable.h; path = ../../../../Source/Core/PltStateVariable.h; sourceTree = SOURCE_ROOT; };
-		977D7A6412B81C6600D406E1 /* PltTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltTaskManager.h; path = ../../../../Source/Core/PltTaskManager.h; sourceTree = SOURCE_ROOT; };
-		977D7A6512B81C6600D406E1 /* PltThreadTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltThreadTask.h; path = ../../../../Source/Core/PltThreadTask.h; sourceTree = SOURCE_ROOT; };
-		977D7A6612B81C6600D406E1 /* PltUPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltUPnP.h; path = ../../../../Source/Core/PltUPnP.h; sourceTree = SOURCE_ROOT; };
-		977D7A6712B81C6600D406E1 /* PltUPnPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltUPnPHelper.h; path = ../../../../Source/Core/PltUPnPHelper.h; sourceTree = SOURCE_ROOT; };
-		977D7A6812B81C6600D406E1 /* PltXmlHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltXmlHelper.h; path = ../../../../Source/Core/PltXmlHelper.h; sourceTree = SOURCE_ROOT; };
-		977D7A6B12B81D6800D406E1 /* PltMediaConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaConnect.h; path = ../../../../Source/Devices/MediaConnect/PltMediaConnect.h; sourceTree = SOURCE_ROOT; };
-		977D7A6C12B81D6800D406E1 /* PltMediaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaController.h; path = ../../../../Source/Devices/MediaRenderer/PltMediaController.h; sourceTree = SOURCE_ROOT; };
-		977D7A6D12B81D6800D406E1 /* PltMediaRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaRenderer.h; path = ../../../../Source/Devices/MediaRenderer/PltMediaRenderer.h; sourceTree = SOURCE_ROOT; };
-		977D7A6E12B81D6800D406E1 /* PltDidl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltDidl.h; path = ../../../../Source/Devices/MediaServer/PltDidl.h; sourceTree = SOURCE_ROOT; };
-		977D7A6F12B81D6800D406E1 /* PltFileMediaServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltFileMediaServer.h; path = ../../../../Source/Devices/MediaServer/PltFileMediaServer.h; sourceTree = SOURCE_ROOT; };
-		977D7A7012B81D6800D406E1 /* PltMediaBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaBrowser.h; path = ../../../../Source/Devices/MediaServer/PltMediaBrowser.h; sourceTree = SOURCE_ROOT; };
-		977D7A7112B81D6800D406E1 /* PltMediaCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaCache.h; path = ../../../../Source/Devices/MediaServer/PltMediaCache.h; sourceTree = SOURCE_ROOT; };
-		977D7A7212B81D6800D406E1 /* PltMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaItem.h; path = ../../../../Source/Devices/MediaServer/PltMediaItem.h; sourceTree = SOURCE_ROOT; };
-		977D7A7312B81D6800D406E1 /* PltMediaServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMediaServer.h; path = ../../../../Source/Devices/MediaServer/PltMediaServer.h; sourceTree = SOURCE_ROOT; };
-		977D7A7412B81D6800D406E1 /* PltMimeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMimeType.h; path = ../../../../Source/Devices/MediaServer/PltMimeType.h; sourceTree = SOURCE_ROOT; };
-		977D7A7512B81D6800D406E1 /* PltProtocolInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltProtocolInfo.h; path = ../../../../Source/Devices/MediaServer/PltProtocolInfo.h; sourceTree = SOURCE_ROOT; };
-		977D7A7612B81D6800D406E1 /* PltSyncMediaBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltSyncMediaBrowser.h; path = ../../../../Source/Devices/MediaServer/PltSyncMediaBrowser.h; sourceTree = SOURCE_ROOT; };
-		977D7A7D12B81E6300D406E1 /* PltDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltDownloader.h; path = ../../../../Source/Extras/PltDownloader.h; sourceTree = SOURCE_ROOT; };
-		977D7A7E12B81E6300D406E1 /* PltFrameBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltFrameBuffer.h; path = ../../../../Source/Extras/PltFrameBuffer.h; sourceTree = SOURCE_ROOT; };
-		977D7A7F12B81E6300D406E1 /* PltFrameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltFrameServer.h; path = ../../../../Source/Extras/PltFrameServer.h; sourceTree = SOURCE_ROOT; };
-		977D7A8012B81E6300D406E1 /* PltFrameStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltFrameStream.h; path = ../../../../Source/Extras/PltFrameStream.h; sourceTree = SOURCE_ROOT; };
-		977D7A8112B81E6300D406E1 /* PltLeaks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltLeaks.h; path = ../../../../Source/Extras/PltLeaks.h; sourceTree = SOURCE_ROOT; };
-		977D7A8212B81E6300D406E1 /* PltMetadataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltMetadataHandler.h; path = ../../../../Source/Extras/PltMetadataHandler.h; sourceTree = SOURCE_ROOT; };
-		977D7A8312B81E6300D406E1 /* PltRingBufferStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltRingBufferStream.h; path = ../../../../Source/Extras/PltRingBufferStream.h; sourceTree = SOURCE_ROOT; };
-		977D7A8412B81E6300D406E1 /* PltStreamPump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PltStreamPump.h; path = ../../../../Source/Extras/PltStreamPump.h; sourceTree = SOURCE_ROOT; };
 		E4A7DC011085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaTouchBrowserAppDelegate.h; path = ../../../../Source/Apps/CocoaTouchBrowser/CocoaTouchBrowserAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		E4A7DC021085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CocoaTouchBrowserAppDelegate.m; path = ../../../../Source/Apps/CocoaTouchBrowser/CocoaTouchBrowserAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		E4A7DC031085A49400E6ADE2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../../Source/Apps/CocoaTouchBrowser/main.m; sourceTree = SOURCE_ROOT; };
 		E4A7DC041085A49400E6ADE2 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = ../../../../Source/Apps/CocoaTouchBrowser/RootViewController.h; sourceTree = SOURCE_ROOT; };
 		E4A7DC051085A49400E6ADE2 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = ../../../../Source/Apps/CocoaTouchBrowser/RootViewController.m; sourceTree = SOURCE_ROOT; };
 		E4A7DC091085A4B300E6ADE2 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = ../../../../Source/Apps/CocoaTouchBrowser/MainWindow.xib; sourceTree = SOURCE_ROOT; };
-		E4A7DC0A1085A4B300E6ADE2 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = ../../../../Source/Apps/CocoaTouchBrowser/RootViewController.xib; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +70,7 @@
 				977D7A1212B81B1F00D406E1 /* Foundation.framework in Frameworks */,
 				977D7A1412B81B1F00D406E1 /* UIKit.framework in Frameworks */,
 				977D7B3812B82DD200D406E1 /* libPlatinum.a in Frameworks */,
+				9704724312BFE4D900F9D88C /* libstdc++.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				E4A7DC091085A4B300E6ADE2 /* MainWindow.xib */,
-				E4A7DC0A1085A4B300E6ADE2 /* RootViewController.xib */,
 				8D1107310486CEB800E47090 /* CocoaTouchBrowser-Info.plist */,
 			);
 			name = Resources;
@@ -154,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				977D7A3012B81B9100D406E1 /* Platinum.framework */,
+				9704724212BFE4D900F9D88C /* libstdc++.dylib */,
 				977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */,
 				977D7A1112B81B1F00D406E1 /* Foundation.framework */,
 				977D7A1312B81B1F00D406E1 /* UIKit.framework */,
@@ -181,84 +147,14 @@
 		977D7A3112B81BAB00D406E1 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				977D7A8712B81E9300D406E1 /* Objective-C */,
-				977D7A6912B81C8D00D406E1 /* Core */,
-				977D7A6A12B81C9B00D406E1 /* Devices */,
-				977D7A7C12B81E3900D406E1 /* Extras */,
-				977D7A5112B81C0E00D406E1 /* Platinum.h */,
-				977D7A5212B81C0E00D406E1 /* PltSvnVersion.h */,
-				977D7A5312B81C0E00D406E1 /* PltVersion.h */,
+				970471A512BFDBD200F9D88C /* PPUPnP.h */,
+				970471A112BFDBD200F9D88C /* PPMediaController.h */,
+				970471A212BFDBD200F9D88C /* PPMediaDevice.h */,
+				970471A412BFDBD200F9D88C /* PPMediaObject.h */,
+				970471A012BFDBD200F9D88C /* PPMediaContainer.h */,
+				970471A312BFDBD200F9D88C /* PPMediaItem.h */,
 			);
 			name = Headers;
-			sourceTree = "<group>";
-		};
-		977D7A6912B81C8D00D406E1 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				977D7A5412B81C6600D406E1 /* PltAction.h */,
-				977D7A5512B81C6600D406E1 /* PltArgument.h */,
-				977D7A5612B81C6600D406E1 /* PltConstants.h */,
-				977D7A5712B81C6600D406E1 /* PltCtrlPoint.h */,
-				977D7A5812B81C6600D406E1 /* PltCtrlPointTask.h */,
-				977D7A5912B81C6600D406E1 /* PltDatagramStream.h */,
-				977D7A5A12B81C6600D406E1 /* PltDeviceData.h */,
-				977D7A5B12B81C6600D406E1 /* PltDeviceHost.h */,
-				977D7A5C12B81C6600D406E1 /* PltEvent.h */,
-				977D7A5D12B81C6600D406E1 /* PltHttp.h */,
-				977D7A5E12B81C6600D406E1 /* PltHttpClientTask.h */,
-				977D7A5F12B81C6600D406E1 /* PltHttpServer.h */,
-				977D7A6012B81C6600D406E1 /* PltHttpServerTask.h */,
-				977D7A6112B81C6600D406E1 /* PltService.h */,
-				977D7A6212B81C6600D406E1 /* PltSsdp.h */,
-				977D7A6312B81C6600D406E1 /* PltStateVariable.h */,
-				977D7A6412B81C6600D406E1 /* PltTaskManager.h */,
-				977D7A6512B81C6600D406E1 /* PltThreadTask.h */,
-				977D7A6612B81C6600D406E1 /* PltUPnP.h */,
-				977D7A6712B81C6600D406E1 /* PltUPnPHelper.h */,
-				977D7A6812B81C6600D406E1 /* PltXmlHelper.h */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		977D7A6A12B81C9B00D406E1 /* Devices */ = {
-			isa = PBXGroup;
-			children = (
-				977D7A6B12B81D6800D406E1 /* PltMediaConnect.h */,
-				977D7A6C12B81D6800D406E1 /* PltMediaController.h */,
-				977D7A6D12B81D6800D406E1 /* PltMediaRenderer.h */,
-				977D7A6E12B81D6800D406E1 /* PltDidl.h */,
-				977D7A6F12B81D6800D406E1 /* PltFileMediaServer.h */,
-				977D7A7012B81D6800D406E1 /* PltMediaBrowser.h */,
-				977D7A7112B81D6800D406E1 /* PltMediaCache.h */,
-				977D7A7212B81D6800D406E1 /* PltMediaItem.h */,
-				977D7A7312B81D6800D406E1 /* PltMediaServer.h */,
-				977D7A7412B81D6800D406E1 /* PltMimeType.h */,
-				977D7A7512B81D6800D406E1 /* PltProtocolInfo.h */,
-				977D7A7612B81D6800D406E1 /* PltSyncMediaBrowser.h */,
-			);
-			name = Devices;
-			sourceTree = "<group>";
-		};
-		977D7A7C12B81E3900D406E1 /* Extras */ = {
-			isa = PBXGroup;
-			children = (
-				977D7A7D12B81E6300D406E1 /* PltDownloader.h */,
-				977D7A7E12B81E6300D406E1 /* PltFrameBuffer.h */,
-				977D7A7F12B81E6300D406E1 /* PltFrameServer.h */,
-				977D7A8012B81E6300D406E1 /* PltFrameStream.h */,
-				977D7A8112B81E6300D406E1 /* PltLeaks.h */,
-				977D7A8212B81E6300D406E1 /* PltMetadataHandler.h */,
-				977D7A8312B81E6300D406E1 /* PltRingBufferStream.h */,
-				977D7A8412B81E6300D406E1 /* PltStreamPump.h */,
-			);
-			name = Extras;
-			sourceTree = "<group>";
-		};
-		977D7A8712B81E9300D406E1 /* Objective-C */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Objective-C";
 			sourceTree = "<group>";
 		};
 		E4A7DC131085A4DB00E6ADE2 /* Classes */ = {
@@ -268,6 +164,8 @@
 				E4A7DC021085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m */,
 				E4A7DC041085A49400E6ADE2 /* RootViewController.h */,
 				E4A7DC051085A49400E6ADE2 /* RootViewController.m */,
+				9704747512C041F500F9D88C /* ServerViewController.h */,
+				9704747612C041F500F9D88C /* ServerViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -340,7 +238,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4A7DC0B1085A4B300E6ADE2 /* MainWindow.xib in Resources */,
-				E4A7DC0C1085A4B300E6ADE2 /* RootViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +251,7 @@
 				E4A7DC061085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m in Sources */,
 				E4A7DC071085A49400E6ADE2 /* main.m in Sources */,
 				E4A7DC081085A49400E6ADE2 /* RootViewController.m in Sources */,
+				9704747712C041F500F9D88C /* ServerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,15 +270,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CocoaTouchBrowser_Prefix.pch;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "CocoaTouchBrowser-Info.plist";
 				PRODUCT_NAME = CocoaTouchBrowser;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
 			name = Debug;
 		};
@@ -388,12 +291,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CocoaTouchBrowser_Prefix.pch;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "CocoaTouchBrowser-Info.plist";
 				PRODUCT_NAME = CocoaTouchBrowser;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 			};
 			name = Release;
 		};

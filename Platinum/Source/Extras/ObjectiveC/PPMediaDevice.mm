@@ -31,4 +31,8 @@
 	return device;
 }
 
+- (NSString *)name {
+	return [NSString stringWithUTF8String:(char*)device->mediaDevice->GetFriendlyName()];
+}
+
 @end

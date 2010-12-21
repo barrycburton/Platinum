@@ -21,4 +21,6 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 - (id)initWithDevice:(PP_MediaDevice *)deviceData;
 - (PP_MediaDevice *)deviceData;
 
+- (NSString *)name;
+
 @end

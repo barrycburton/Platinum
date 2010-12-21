@@ -12,12 +12,18 @@
 #if !defined(_PLT_MEDIA_ITEM_H_)
 typedef struct PLT_MediaObject PLT_MediaObject;
 #endif
-
+typedef struct PP_MediaObject PP_MediaObject;
 
 @interface PPMediaObject : NSObject {
-	PLT_MediaObject *object;
+	PP_MediaObject *object;
 }
 
++ (id)PPMediaObjectWithObject:(PLT_MediaObject *)obj;
+
 - (id)initWithObject:(PLT_MediaObject *)obj;
+
+- (NSString *)name;
+- (NSString *)objectId;
+- (BOOL)isContainer;
 
 @end
