@@ -50,7 +50,7 @@
 	int res = [self.upnp start];
 	NSLog(@"awake. start result:%d", res);
 	
-	self.list = [NSArray array];
+	self.list = [self.controller mediaServers];
 }
 
 - (IBAction)showSpeakers:(id)sender {

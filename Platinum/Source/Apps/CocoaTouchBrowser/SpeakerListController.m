@@ -7,6 +7,7 @@
 //
 
 #import "SpeakerListController.h"
+#import "SpeakerViewController.h"
 
 
 @implementation SpeakerListController
@@ -177,6 +178,14 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	PPMediaDevice *device = [self.list objectAtIndex:[indexPath row]];
+
+	SpeakerViewController *next = [[SpeakerViewController alloc] initWithController:self.controller speaker:device];
+		
+	[self.navigationController pushViewController:next animated:YES];
+	
+	
     // Navigation logic may go here. Create and push another view controller.
     /*
     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

@@ -11,6 +11,10 @@
 
 @implementation SpeakerViewController
 
+@synthesize controller;
+@synthesize speaker;
+
+
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -26,6 +30,8 @@
 	self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization.
+		self.controller = theController;
+		self.speaker = theSpeaker;
 
     }
     return self;

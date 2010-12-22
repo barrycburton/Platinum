@@ -12,6 +12,7 @@
 		975228A012C158BB00F4639C /* SpeakerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9752289F12C158BB00F4639C /* SpeakerListController.m */; };
 		975228A712C1591800F4639C /* SpeakerViewController.m in Resources */ = {isa = PBXBuildFile; fileRef = 975228A512C1591800F4639C /* SpeakerViewController.m */; };
 		975228A812C1591800F4639C /* SpeakerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 975228A612C1591800F4639C /* SpeakerViewController.xib */; };
+		9752291F12C174CF00F4639C /* SpeakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 975228A512C1591800F4639C /* SpeakerViewController.m */; };
 		977D7A1012B81B1F00D406E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */; };
 		977D7A1212B81B1F00D406E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1112B81B1F00D406E1 /* Foundation.framework */; };
 		977D7A1412B81B1F00D406E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1312B81B1F00D406E1 /* UIKit.framework */; };
@@ -268,6 +269,7 @@
 				E4A7DC081085A49400E6ADE2 /* RootViewController.m in Sources */,
 				9704747712C041F500F9D88C /* ServerViewController.m in Sources */,
 				975228A012C158BB00F4639C /* SpeakerListController.m in Sources */,
+				9752291F12C174CF00F4639C /* SpeakerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

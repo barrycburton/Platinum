@@ -13,6 +13,9 @@
 
 @interface SpeakerViewController : UIViewController { }
 
+@property (nonatomic, retain) PPMediaController *controller;
+@property (nonatomic, retain) PPMediaDevice *speaker;
+
 - (id)initWithController:(PPMediaController *)theController speaker:(PPMediaDevice *)theSpeaker;
 
 @end
