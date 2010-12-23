@@ -14,6 +14,14 @@
 @synthesize controller;
 @synthesize speaker;
 
+@synthesize artistName;
+@synthesize albumName;
+@synthesize trackName;
+@synthesize currentTime;
+@synthesize totalTime;
+
+@synthesize playButton;
+@synthesize nextButton;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*

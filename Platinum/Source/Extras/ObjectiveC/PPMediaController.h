@@ -8,6 +8,7 @@
 
 #import "PPUPnP.h"
 #import "PPMediaDevice.h"
+#import "PPMediaItem.h"
 
 typedef struct PP_MediaController PP_MediaController;
 
@@ -38,5 +39,28 @@ typedef struct PP_MediaController PP_MediaController;
 - (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count userData:(id)userData;
 
 - (BOOL)browseMetadataOfItem:(NSString *)itemId onServer:(PPMediaDevice *)server userData:(id)userData;
+
+
+- (BOOL)updateMediaInfoForSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)updatePositionInfoForSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)updateTransportInfoForSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)pauseSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)playSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)stopSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)setCurrentSong:(PPMediaItem *)song onSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)setMuted:(BOOL)mute onSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)updateMutedForSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)setVolume:(NSUInteger)volume onSpeaker:(PPMediaDevice *)speaker;
+
+- (BOOL)updateVolumeForSpeaker:(PPMediaDevice *)speaker;
 
 @end

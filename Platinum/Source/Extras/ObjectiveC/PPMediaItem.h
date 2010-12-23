@@ -20,4 +20,6 @@ typedef struct PLT_MediaItem PLT_MediaItem;
 
 - (id)initWithItem:(PLT_MediaItem *)obj;
 
+- (NSString *)metaData;
+
 @end

@@ -12,7 +12,6 @@
 #import "PPMediaItem.h"
 
 
-
 @implementation PPMediaItem
 
 - (id)initWithItem:(PLT_MediaItem *)obj {
@@ -25,6 +24,10 @@
 - (void)dealloc {
 	
     [super dealloc];
+}
+
+- (NSString *)metaData {
+	return [NSString stringWithUTF8String:(char *)item->m_Didl];
 }
 
 @end

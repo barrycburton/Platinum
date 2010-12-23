@@ -21,7 +21,6 @@
 
 
 
-
 class PP_MediaController : public PLT_MediaBrowserDelegate, public PLT_MediaControllerDelegate {
 public:
 	PP_MediaController(PPMediaController *parent, PLT_UPnP *upnp) : master(parent) {
@@ -278,6 +277,8 @@ public:
 
 
 
+// Device lists
+
 - (NSArray *)mediaRenderers {
 	PLT_DeviceDataReferenceList pltMediaRendererList = PLT_DeviceDataReferenceList(mediaController->mediaController->GetMediaRenderers());
 	
@@ -314,6 +315,9 @@ public:
 }
 
 
+
+// Server browsing
+
 - (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count userData:(id)userData {
 	if ( count == 0 ) {
 		count = 30;
@@ -344,5 +348,124 @@ public:
 	
 }
 
+
+
+// Renderer controlling
+
+- (BOOL)updateMediaInfoForSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->GetMediaInfo(
+									[speaker deviceData]->mediaDevice,
+									0,
+									speaker);
+	
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)updatePositionInfoForSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->GetPositionInfo(
+									[speaker deviceData]->mediaDevice,
+									0,
+									speaker);
+	
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)updateTransportInfoForSpeaker:(PPMediaDevice *)speaker {
+NPT_Result result = mediaController->mediaController->GetTransportInfo(
+									[speaker deviceData]->mediaDevice,
+									0,
+									speaker);
+
+	return ( result == NPT_SUCCESS );
+}
+
+
+- (BOOL)pauseSpeaker:(PPMediaDevice *)speaker {
+NPT_Result result = mediaController->mediaController->Pause(
+									[speaker deviceData]->mediaDevice,
+									0,
+									speaker);
+
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)playSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->Play(
+									[speaker deviceData]->mediaDevice,
+									0,
+									NPT_String("1"),
+									speaker);
+
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)stopSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->Stop(
+									[speaker deviceData]->mediaDevice,
+									0,
+									speaker);
+
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)setCurrentSong:(PPMediaItem *)song onSpeaker:(PPMediaDevice *)speaker {
+	NPT_Cardinal resource_index = 0;
+	PLT_MediaObject *track = [song getMediaObject]->mediaObject;
+	NPT_Result result = mediaController->mediaController->FindBestResource([speaker deviceData]->mediaDevice, *track, resource_index);
+	
+	if ( result == NPT_SUCCESS ) {
+		result = mediaController->mediaController->SetAVTransportURI(
+								[speaker deviceData]->mediaDevice,
+								0,
+								(const char*)track->m_Resources[resource_index].m_Uri,
+								track->m_Didl,
+								speaker);
+	}
+
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)setMuted:(BOOL)mute onSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->SetMute(
+								[speaker deviceData]->mediaDevice,
+								0,
+								"1",
+								mute,
+								speaker);
+	
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)updateMutedForSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->GetMute(
+							  [speaker deviceData]->mediaDevice,
+							  0,
+							  "1",
+							  speaker);
+	
+	return ( result == NPT_SUCCESS );	
+}
+
+
+- (BOOL)setVolume:(NSUInteger)volume onSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->SetVolume(
+							  [speaker deviceData]->mediaDevice,
+							  0,
+							  "1",
+							  volume,
+							  speaker);
+	
+	return ( result == NPT_SUCCESS );
+}
+
+- (BOOL)updateVolumeForSpeaker:(PPMediaDevice *)speaker {
+	NPT_Result result = mediaController->mediaController->GetVolume(
+							  [speaker deviceData]->mediaDevice,
+							  0,
+							  "1",
+							  speaker);
+	
+	return ( result == NPT_SUCCESS );	
+}
 
 @end

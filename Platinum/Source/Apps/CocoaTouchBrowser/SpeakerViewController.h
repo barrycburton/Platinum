@@ -16,6 +16,16 @@
 @property (nonatomic, retain) PPMediaController *controller;
 @property (nonatomic, retain) PPMediaDevice *speaker;
 
+@property (nonatomic, retain) IBOutlet UILabel *artistName;
+@property (nonatomic, retain) IBOutlet UILabel *albumName;
+@property (nonatomic, retain) IBOutlet UILabel *trackName;
+@property (nonatomic, retain) IBOutlet UILabel *currentTime;
+@property (nonatomic, retain) IBOutlet UILabel *totalTime;
+
+@property (nonatomic, retain) IBOutlet UIButton *playButton;
+@property (nonatomic, retain) IBOutlet UIButton *nextButton;
+
+
 - (id)initWithController:(PPMediaController *)theController speaker:(PPMediaDevice *)theSpeaker;
 
 @end
