@@ -19,8 +19,8 @@ typedef struct PP_MediaController PP_MediaController;
 - (void)didRemoveDevice:(void *)wrapper;
 - (BOOL)shouldAddSpeaker:(void *)wrapper;
 - (void)didRemoveSpeaker:(void *)wrapper;
-- (void)stateVariableDidChange:(void *)wrapper;
 - (void)browseDidRespond:(NSArray *)list toQuery:(id)userData;
+- (void)speakerUpdated:(PPMediaDevice *)speaker;
 
 @end
 

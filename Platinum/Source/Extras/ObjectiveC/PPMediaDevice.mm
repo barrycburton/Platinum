@@ -16,6 +16,12 @@
 
 @implementation PPMediaDevice
 
+@synthesize mute;
+@synthesize volume;
+@synthesize song;
+@synthesize position;
+
+
 - (id)initWithDevice:(PP_MediaDevice *)deviceData {
 	if ( self = [super init] ) {
 		device = deviceData;

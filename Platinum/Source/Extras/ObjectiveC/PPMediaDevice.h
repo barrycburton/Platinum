@@ -8,6 +8,7 @@
 
 #import "PPUPnP.h"
 #import "PPMediaContainer.h"
+#import "PPMediaItem.h"
 
 
 #if !defined(_PP_MEDIA_DEVICE_H_)
@@ -18,6 +19,11 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @interface PPMediaDevice : NSObject {
 	PP_MediaDevice *device;
 }
+
+@property (nonatomic) BOOL mute;
+@property (nonatomic) NSUInteger volume;
+@property (nonatomic, retain) PPMediaItem *song;
+@property (nonatomic) NSUInteger position;
 
 - (id)initWithDevice:(PP_MediaDevice *)deviceData;
 - (PP_MediaDevice *)deviceData;

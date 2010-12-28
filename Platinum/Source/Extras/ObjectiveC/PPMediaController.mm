@@ -19,6 +19,8 @@
 #import "PP_MediaObject.h"
 #import "PPMediaObject.h"
 
+#import "PltDidl.h"
+
 
 
 class PP_MediaController : public PLT_MediaBrowserDelegate, public PLT_MediaControllerDelegate {
@@ -45,7 +47,7 @@ public:
 	
 	virtual void OnMSStateVariablesChanged(PLT_Service*                  service,
 										   NPT_List<PLT_StateVariable*>* vars) {
-		[master.delegate stateVariableDidChange:master];
+		
 	}
 	
 	virtual void OnBrowseResult(NPT_Result               res,
@@ -103,7 +105,9 @@ public:
 	
 	virtual void OnMRStateVariablesChanged(PLT_Service*                   service, 
                                            NPT_List<PLT_StateVariable*>*  vars) {
-	
+		
+		// TODO be more fine grained
+		[master.delegate speakerUpdated:nil];
 	}
 	
     // AVTransport
@@ -118,27 +122,75 @@ public:
 									   PLT_DeviceDataReference&  device,
 									   PLT_DeviceCapabilities*   capabilities,
 									   void*                     userdata) {
-	
+		/*
+		typedef struct {
+			PLT_StringList play_media;
+			PLT_StringList rec_media;
+			PLT_StringList rec_quality_modes;
+		} PLT_DeviceCapabilities;
+		*/
 	}
 	
 	virtual void OnGetMediaInfoResult(NPT_Result                res,
 							  PLT_DeviceDataReference&  device,
 							  PLT_MediaInfo*            info,
 							  void*                     userdata) {
-	
+		/*
+		typedef struct {
+			NPT_UInt32    num_tracks;
+			NPT_TimeStamp media_duration;
+			NPT_String    cur_uri;
+			NPT_String    cur_metadata;
+			NPT_String    next_uri;
+			NPT_String    next_metadata;
+			NPT_String    play_medium;
+			NPT_String    rec_medium;
+			NPT_String    write_status;
+		} PLT_MediaInfo;
+		 */
+		
+		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+		speaker.song;
+		[master.delegate speakerUpdated:speaker];
 	}
 	
 	virtual void OnGetPositionInfoResult(NPT_Result                res,
 								 PLT_DeviceDataReference&  device,
 								 PLT_PositionInfo*         info,
 								 void*                     userdata) {
-	
+		/*
+		typedef struct {
+			NPT_UInt32    track;
+			NPT_TimeStamp track_duration;
+			NPT_String    track_metadata;
+			NPT_String    track_uri;
+			NPT_TimeStamp rel_time;
+			NPT_TimeStamp abs_time;
+			NPT_Int32     rel_count;
+			NPT_Int32     abs_count;
+		} PLT_PositionInfo;
+		 */
+		
+		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+		if ( info->track_metadata.IsEmpty() ) {
+			PLT_MediaObjectListReference objects;
+			PLT_Didl::FromDidl((char *)info->track_metadata, objects);
+		}
+		speaker.position = info->rel_time;
+		[master.delegate speakerUpdated:speaker];
 	}
 	
 	virtual void OnGetTransportInfoResult(NPT_Result                res,
 								  PLT_DeviceDataReference&  device,
 								  PLT_TransportInfo*        info,
 								  void*                     userdata) {
+		/*
+		typedef struct {
+			NPT_String cur_transport_state;
+			NPT_String cur_transport_status;
+			NPT_String cur_speed;
+		} PLT_TransportInfo;
+		 */
 	
 	}
 	
@@ -146,6 +198,12 @@ public:
 									  PLT_DeviceDataReference&  device,
 									  PLT_TransportSettings*    settings,
 									  void*                     userdata) {
+		/*
+		typedef struct {
+			NPT_String play_mode;
+			NPT_String rec_quality_mode;
+		} PLT_TransportSettings;
+		 */
 	
 	}
 	
@@ -209,6 +267,17 @@ public:
 										  PLT_DeviceDataReference& device,
 										  PLT_ConnectionInfo*      info,
 										  void*                    userdata) {
+		/*
+		typedef struct {
+			NPT_UInt32 rcs_id;
+			NPT_UInt32 avtransport_id;
+			NPT_String protocol_info;
+			NPT_String peer_connection_mgr;
+			NPT_UInt32 peer_connection_id;
+			NPT_String direction;
+			NPT_String status;
+		} PLT_ConnectionInfo;
+		*/
 	
 	}
 	
@@ -232,13 +301,16 @@ public:
 						 const char*               channel,
 						 bool                      mute,
 						 void*                     userdata) {
+		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+		speaker.mute = mute;
+		[master.delegate speakerUpdated:speaker];
 	
 	}
 	
 	virtual void OnSetVolumeResult(NPT_Result                res,
 						   PLT_DeviceDataReference&  device,
 						   void*                     userdata) {
-	
+		// TODO provide for undo here
 	}
 	
 	virtual void OnGetVolumeResult(NPT_Result                res,
@@ -247,6 +319,9 @@ public:
 						   NPT_UInt32				 volume,
 						   void*                     userdata) {
 	
+		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+		speaker.volume = volume;
+		[master.delegate speakerUpdated:speaker];
 	}	
 	
 	PPMediaController *master;
