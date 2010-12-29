@@ -22,4 +22,9 @@ typedef struct PLT_MediaItem PLT_MediaItem;
 
 - (NSString *)metaData;
 
+@property (nonatomic, readonly) NSString *trackName;
+@property (nonatomic, readonly) NSString *albumName;
+@property (nonatomic, readonly) NSString *artistName;
+@property (nonatomic, readonly) NSUInteger duration;
+
 @end

@@ -30,4 +30,22 @@
 	return [NSString stringWithUTF8String:(char *)item->m_Didl];
 }
 
+- (NSString *)trackName {
+	return [super name];
+}
+
+- (NSString *)albumName {
+	return [NSString stringWithUTF8String:(char *)item->m_Affiliation.album];
+}
+
+- (NSString *)artistName {
+	return [NSString stringWithUTF8String:(char *)item->m_Creator];
+}
+
+- (NSUInteger)duration {
+	PLT_MediaItemResource resource = item->m_Resources[0];
+	return resource.m_Duration;
+}
+
+
 @end

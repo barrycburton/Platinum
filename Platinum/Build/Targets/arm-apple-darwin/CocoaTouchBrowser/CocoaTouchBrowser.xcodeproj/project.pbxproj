@@ -328,8 +328,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sylvain Rebaud (6P38YKF298)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sylvain Rebaud (6P38YKF298)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -341,8 +341,8 @@
 					../../../../Source/Devices/MediaServer,
 				);
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "903EF7A2-9AA4-43A6-9084-B8D7CCA20A7E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "903EF7A2-9AA4-43A6-9084-B8D7CCA20A7E";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -351,8 +351,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sylvain Rebaud (6P38YKF298)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sylvain Rebaud (6P38YKF298)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -364,8 +364,8 @@
 					../../../../Source/Devices/MediaServer,
 				);
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "903EF7A2-9AA4-43A6-9084-B8D7CCA20A7E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "903EF7A2-9AA4-43A6-9084-B8D7CCA20A7E";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

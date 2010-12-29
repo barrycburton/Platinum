@@ -8,6 +8,9 @@
 
 #import "SpeakerListController.h"
 #import "SpeakerViewController.h"
+#import <objc/runtime.h>
+
+extern char kSpeakerControllerKey;
 
 
 @implementation SpeakerListController
@@ -182,6 +185,8 @@
 	PPMediaDevice *device = [self.list objectAtIndex:[indexPath row]];
 
 	SpeakerViewController *next = [[SpeakerViewController alloc] initWithController:self.controller speaker:device];
+	
+	objc_setAssociatedObject(device, &kSpeakerControllerKey, next, OBJC_ASSOCIATION_RETAIN);
 		
 	[self.navigationController pushViewController:next animated:YES];
 	

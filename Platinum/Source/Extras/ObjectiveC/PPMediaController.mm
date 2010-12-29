@@ -150,7 +150,15 @@ public:
 		 */
 		
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-		speaker.song;
+		if ( !speaker.song && !info->cur_metadata.IsEmpty() ) {
+			PLT_MediaObjectListReference objects;
+			PLT_MediaObject *object;
+			PLT_Didl::FromDidl((char *)info->cur_metadata, objects);
+			objects->Get(0, object);
+			if ( object ) {
+				speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
+			}
+		}
 		[master.delegate speakerUpdated:speaker];
 	}
 	
@@ -172,11 +180,16 @@ public:
 		 */
 		
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-		if ( info->track_metadata.IsEmpty() ) {
+		if ( !speaker.song && !info->track_metadata.IsEmpty() ) {
 			PLT_MediaObjectListReference objects;
+			PLT_MediaObject *object;
 			PLT_Didl::FromDidl((char *)info->track_metadata, objects);
+			objects->Get(0, object);
+			if ( object ) {
+				speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
+			}
 		}
-		speaker.position = info->rel_time;
+		speaker.position = info->rel_time.ToSeconds();
 		[master.delegate speakerUpdated:speaker];
 	}
 	
@@ -310,7 +323,7 @@ public:
 	virtual void OnSetVolumeResult(NPT_Result                res,
 						   PLT_DeviceDataReference&  device,
 						   void*                     userdata) {
-		// TODO provide for undo here
+
 	}
 	
 	virtual void OnGetVolumeResult(NPT_Result                res,

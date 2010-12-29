@@ -20,6 +20,7 @@
 @synthesize volume;
 @synthesize song;
 @synthesize position;
+@synthesize isPlaying;
 
 
 - (id)initWithDevice:(PP_MediaDevice *)deviceData {

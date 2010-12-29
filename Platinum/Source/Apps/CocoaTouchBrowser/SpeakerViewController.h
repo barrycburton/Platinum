@@ -28,4 +28,9 @@
 
 - (id)initWithController:(PPMediaController *)theController speaker:(PPMediaDevice *)theSpeaker;
 
+- (void)speakerUpdated:(PPMediaDevice *)speaker;
+
+- (IBAction)playPressed:(id)sender;
+- (IBAction)nextPressed:(id)sender;
+
 @end

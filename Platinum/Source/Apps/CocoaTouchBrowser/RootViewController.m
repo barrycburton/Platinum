@@ -33,6 +33,10 @@
 
 #import "RootViewController.h"
 #import "ServerViewController.h"
+#import "SpeakerViewController.h"
+#import <objc/runtime.h>
+
+char kSpeakerControllerKey = 'a';
 
 @implementation RootViewController
 
@@ -81,15 +85,17 @@
 	[self.speakerListController refreshList];
 }
 
-- (void)stateVariableDidChange:(void *)wrapper {
-	
-}
-
 - (void)browseDidRespond:(NSArray *)newList toQuery:(id)userData {
 	if ( userData ) {
 		ServerViewController *item = [(PPMediaObject *)userData getOwner];
 		[item setContainerList:newList];
 	}
+}
+
+- (void)speakerUpdated:(PPMediaDevice *)speaker {
+	SpeakerViewController *associatedController =
+		(SpeakerViewController *)objc_getAssociatedObject(speaker, &kSpeakerControllerKey);
+	[associatedController speakerUpdated:speaker];
 }
 
 /*
