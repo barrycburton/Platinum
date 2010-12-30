@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "PPMediaController.h"
 
+@class RootViewController;
+
 @interface SpeakerListController : UITableViewController { }
 
 @property (nonatomic, retain) PPMediaController *controller;
 @property (nonatomic, retain) NSArray *list;
 @property (nonatomic, retain) UIBarButtonItem *doneButtonItem;
+@property (nonatomic, assign) RootViewController *rootVC;
 
-- (id)initWithController:(PPMediaController *)theController;
+- (id)initWithController:(PPMediaController *)theController andRootViewController:(RootViewController *)theRootVC;
 - (void)refreshList;
 
 @end

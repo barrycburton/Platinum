@@ -44,6 +44,7 @@ char kSpeakerControllerKey = 'a';
 @synthesize controller;
 @synthesize list;
 @synthesize speakerListController;
+@synthesize selectedSong;
 
 - (void)awakeFromNib {
 	self.upnp = [[PPUPnP alloc] init];
@@ -59,7 +60,7 @@ char kSpeakerControllerKey = 'a';
 
 - (IBAction)showSpeakers:(id)sender {
 	if ( !self.speakerListController ) {
-		self.speakerListController = [[SpeakerListController alloc] initWithController:self.controller];
+		self.speakerListController = [[SpeakerListController alloc] initWithController:self.controller andRootViewController:self];
 	}
 	UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:self.speakerListController];
 	[self.navigationController presentModalViewController:modal animated:YES];
@@ -86,10 +87,18 @@ char kSpeakerControllerKey = 'a';
 }
 
 - (void)browseDidRespond:(NSArray *)newList toQuery:(id)userData {
-	if ( userData ) {
-		ServerViewController *item = [(PPMediaObject *)userData getOwner];
-		[item setContainerList:newList];
+	if ( newList ) {
+		if ( userData ) {
+			ServerViewController *item = [(PPMediaObject *)userData getOwner];
+			[item setContainerList:newList];
+		}
+	} else {
+		if ( userData ) {
+			[self setSelectedSong:(PPMediaItem *)userData];
+		}
+		[self.navigationController popToRootViewControllerAnimated:YES];
 	}
+		
 }
 
 - (void)speakerUpdated:(PPMediaDevice *)speaker {

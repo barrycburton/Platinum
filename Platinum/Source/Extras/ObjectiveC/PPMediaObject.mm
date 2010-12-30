@@ -67,4 +67,8 @@
 	return object;
 }
 
+- (void)setObject:(PLT_MediaObject *)newObject {
+	object->mediaObject = newObject;
+}
+
 @end

@@ -41,6 +41,7 @@
 @property (nonatomic, retain) PPMediaController *controller;
 @property (nonatomic, retain) NSArray *list;
 @property (nonatomic, retain) SpeakerListController *speakerListController;
+@property (nonatomic, retain) PPMediaItem *selectedSong;
 
 - (IBAction)showSpeakers:(id)sender;
 

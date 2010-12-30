@@ -40,6 +40,9 @@
         // Custom initialization.
 		self.controller = theController;
 		self.speaker = theSpeaker;
+		if ( self.speaker.song ) {
+			[self.controller setCurrentSong:self.speaker.song onSpeaker:self.speaker];
+		}
 		[self speakerUpdated:self.speaker];
 		[self.controller updateMediaInfoForSpeaker:self.speaker];
 		[self.controller updatePositionInfoForSpeaker:self.speaker];

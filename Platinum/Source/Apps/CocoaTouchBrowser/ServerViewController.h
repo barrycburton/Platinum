@@ -10,6 +10,7 @@
 #import "PPMediaController.h"
 #import "PPMediaDevice.h"
 #import "PPMediaContainer.h"
+#import "RootViewController.h"
 
 @interface ServerViewController : UITableViewController { }
 

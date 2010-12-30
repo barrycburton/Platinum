@@ -8,6 +8,7 @@
 
 #import "SpeakerListController.h"
 #import "SpeakerViewController.h"
+#import "RootViewController.h"
 #import <objc/runtime.h>
 
 extern char kSpeakerControllerKey;
@@ -19,12 +20,13 @@ extern char kSpeakerControllerKey;
 @synthesize controller;
 @synthesize list;
 @synthesize doneButtonItem;
+@synthesize rootVC;
 
 
 #pragma mark -
 #pragma mark Initialization
 
-- (id)initWithController:(PPMediaController *)theController {
+- (id)initWithController:(PPMediaController *)theController andRootViewController:(RootViewController *)theRootVC {
 	self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         // Custom initialization.
@@ -32,6 +34,7 @@ extern char kSpeakerControllerKey;
 		self.list = [self.controller mediaRenderers];
 		self.title = @"Speakers";
 		self.doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
+		self.rootVC = theRootVC;
     }
     return self;
 }
@@ -183,6 +186,10 @@ extern char kSpeakerControllerKey;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	PPMediaDevice *device = [self.list objectAtIndex:[indexPath row]];
+	if ( self.rootVC.selectedSong ) {
+		device.song = self.rootVC.selectedSong;
+		self.rootVC.selectedSong = nil;
+	}
 
 	SpeakerViewController *next = [[SpeakerViewController alloc] initWithController:self.controller speaker:device];
 	

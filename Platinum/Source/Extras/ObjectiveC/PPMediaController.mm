@@ -56,25 +56,59 @@ public:
 								void*                    userdata) {
 		
 		// First convert result to Obj-C Objects
-		NSLog(@"browse container id: %s", (char *)info->object_id);
+		NSLog(@"browse item id: %s", (char *)info->object_id);
 		
-		// PLT_MediaObjectListReference pltListRef = PLT_MediaObjectListReference(info->items);
+		/*
+		typedef struct {
+			NPT_String                   object_id;
+			PLT_MediaObjectListReference items;
+			NPT_UInt32                   nr;
+			NPT_UInt32                   tm;
+			NPT_UInt32                   uid;
+		} PLT_BrowseInfo;
+		*/
 		
 		PPMediaObject *user = (PPMediaObject *)userdata;
 		PP_MediaObject *usercpp = [user getMediaObject];
 		usercpp->childList = info->items;
-			  
-		NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
-		PLT_MediaObjectList::Iterator listIter = info->items->GetFirstItem();
-		while ( listIter ) {
-			PLT_MediaObject *item = *listIter;
-			NSLog(@"title: %s", (char*)item->m_Title);
-			PPMediaObject *object = [PPMediaObject PPMediaObjectWithObject:item];
-			[list addObject:object];
-			
-			listIter++;
-			
-			NSLog(@"new title: %@", [object name]);
+		
+		NSMutableArray *list = nil;
+		
+		if ( [user isContainer] ) {
+			// New Folder List
+				  
+			list = [NSMutableArray arrayWithCapacity:10];
+			PLT_MediaObjectList::Iterator listIter = info->items->GetFirstItem();
+			while ( listIter ) {
+				PLT_MediaObject *item = *listIter;
+				NSLog(@"title: %s", (char*)item->m_Title);
+				
+				if ( item->m_Resources.GetItemCount() > 0 ) {
+					NSLog(@"Has resources");
+				}
+				
+				PPMediaObject *object = [PPMediaObject PPMediaObjectWithObject:item];
+				[list addObject:object];
+				
+				listIter++;
+				
+				NSLog(@"new title: %@", [object name]);
+			}
+		} else if ( info->items->GetItemCount() > 0 ) {
+			// Song but with full info
+			PLT_MediaObject *item;
+			info->items->Get(0, item);
+			if ( item ) {
+				NSLog(@"title: %s", (char*)item->m_Title);
+				
+				if ( item->m_Resources.GetItemCount() > 0 ) {
+					NSLog(@"Has resources");
+				}
+				
+				[user setObject:item];
+			}
+		} else {
+			NSLog(@"No data found");
 		}
 		
 		// Call delegate with new Objects
@@ -149,17 +183,19 @@ public:
 		} PLT_MediaInfo;
 		 */
 		
-		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-		if ( !speaker.song && !info->cur_metadata.IsEmpty() ) {
-			PLT_MediaObjectListReference objects;
-			PLT_MediaObject *object;
-			PLT_Didl::FromDidl((char *)info->cur_metadata, objects);
-			objects->Get(0, object);
-			if ( object ) {
-				speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
+		if ( info ) {
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			if ( 0 && !speaker.song && !info->cur_metadata.IsEmpty() ) {
+				PLT_MediaObjectListReference objects;
+				PLT_MediaObject *object;
+				PLT_Didl::FromDidl((char *)info->cur_metadata, objects);
+				objects->Get(0, object);
+				if ( object ) {
+					speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
+				}
 			}
+			[master.delegate speakerUpdated:speaker];
 		}
-		[master.delegate speakerUpdated:speaker];
 	}
 	
 	virtual void OnGetPositionInfoResult(NPT_Result                res,
@@ -179,18 +215,20 @@ public:
 		} PLT_PositionInfo;
 		 */
 		
-		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-		if ( !speaker.song && !info->track_metadata.IsEmpty() ) {
-			PLT_MediaObjectListReference objects;
-			PLT_MediaObject *object;
-			PLT_Didl::FromDidl((char *)info->track_metadata, objects);
-			objects->Get(0, object);
-			if ( object ) {
-				speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
+		if ( info ) {
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			if ( !speaker.song && !info->track_metadata.IsEmpty() ) {
+				PLT_MediaObjectListReference objects;
+				PLT_MediaObject *object;
+				PLT_Didl::FromDidl((char *)info->track_metadata, objects);
+				objects->Get(0, object);
+				if ( object ) {
+					speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
+				}
 			}
+			speaker.position = info->rel_time.ToSeconds();
+			[master.delegate speakerUpdated:speaker];
 		}
-		speaker.position = info->rel_time.ToSeconds();
-		[master.delegate speakerUpdated:speaker];
 	}
 	
 	virtual void OnGetTransportInfoResult(NPT_Result                res,
@@ -253,6 +291,9 @@ public:
 	virtual void OnSetAVTransportURIResult(NPT_Result                res,
 								   PLT_DeviceDataReference&  device,
 								   void*                     userdata) {
+		if ( NPT_SUCCESS == res ) {
+			NSLog(@"Set");
+		}
 	
 	}
 	
@@ -375,7 +416,7 @@ public:
 	while ( listIter ) {
 		PLT_DeviceDataReference item = *listIter;
 		PP_MediaDevice *device = new PP_MediaDevice(item);
-		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithDevice:device];
+		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
 		[list addObject:mediaDevice];
 		
 		listIter++;
@@ -393,7 +434,7 @@ public:
 	while ( listIter ) {
 		PLT_DeviceDataReference item = *listIter;
 		PP_MediaDevice *device = new PP_MediaDevice(item);
-		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithDevice:device];
+		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
 		[list addObject:mediaDevice];
 		
 		listIter++;
@@ -416,7 +457,9 @@ public:
 															  start,
 															  count,
 															  false,
-															  NULL, NULL, userData);
+															  "dc:date,upnp:genre,res,res@duration,res@size,upnp:albumArtURI,upnp:originalTrackNumber,upnp:album,upnp:artist,upnp:author",
+															  "",
+															  userData);
 	
 	return ( result == NPT_SUCCESS );
 
@@ -428,9 +471,11 @@ public:
 	NPT_Result result = mediaController->mediaBrowser->Browse([server deviceData]->mediaDevice,
 															  [itemId UTF8String], 
 															  0,
-															  1,
+															  0,
 															  true,
-															  NULL, NULL, userData);
+															  "dc:date,upnp:genre,res,res@duration,res@size,upnp:albumArtURI,upnp:originalTrackNumber,upnp:album,upnp:artist,upnp:author",
+															  "",
+															  userData);
 	
 	return ( result == NPT_SUCCESS );
 	
@@ -501,14 +546,12 @@ NPT_Result result = mediaController->mediaController->Pause(
 	PLT_MediaObject *track = [song getMediaObject]->mediaObject;
 	NPT_Result result = mediaController->mediaController->FindBestResource([speaker deviceData]->mediaDevice, *track, resource_index);
 	
-	if ( result == NPT_SUCCESS ) {
-		result = mediaController->mediaController->SetAVTransportURI(
-								[speaker deviceData]->mediaDevice,
-								0,
-								(const char*)track->m_Resources[resource_index].m_Uri,
-								track->m_Didl,
-								speaker);
-	}
+	result = mediaController->mediaController->SetAVTransportURI(
+							[speaker deviceData]->mediaDevice,
+							0,
+							(const char*)track->m_Resources[resource_index].m_Uri,
+							track->m_Didl,
+							speaker);
 
 	return ( result == NPT_SUCCESS );
 }

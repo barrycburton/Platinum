@@ -14,6 +14,10 @@
 
 #import "PltMediaItem.h"
 
+#import "PPMediaController.h"
+
+#import <CoreFoundation/CFDate.h>
+
 @implementation PPMediaDevice
 
 @synthesize mute;
@@ -21,11 +25,12 @@
 @synthesize song;
 @synthesize position;
 @synthesize isPlaying;
+@synthesize controller;
 
-
-- (id)initWithDevice:(PP_MediaDevice *)deviceData {
+- (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData {
 	if ( self = [super init] ) {
 		device = deviceData;
+		controller = theController;
 	}
     return self;
 }
@@ -45,10 +50,33 @@
 
 - (PPMediaContainer *)rootContainer {
 	PLT_MediaContainer *rootcpp = new PLT_MediaContainer();
+	rootcpp->m_ObjectClass.type = NPT_String("object.container");
 	rootcpp->m_ObjectID = NPT_String("0");
 	rootcpp->m_Title = NPT_String(device->mediaDevice->GetFriendlyName());
 	PPMediaContainer *root = [[PPMediaContainer alloc] initWithContainer:rootcpp];
 	return root;
 }
+
+- (void)setIsPlaying:(BOOL)playing {
+	isPlaying = playing;
+	if ( isPlaying ) {
+		// start timer
+		absoluteTime = CFAbsoluteTimeGetCurrent();
+		[self performSelector:@selector(updateTime) withObject:nil afterDelay:0.1];
+	}
+}
+
+- (void)updateTime {
+	if ( isPlaying ) {
+		CFAbsoluteTime newTime = CFAbsoluteTimeGetCurrent();
+		if ( newTime - absoluteTime >= 1.0 ) {
+			position += (NSUInteger)(newTime - absoluteTime);
+			absoluteTime = newTime;
+			[self.controller.delegate speakerUpdated:self];
+		}
+		[self performSelector:@selector(updateTime) withObject:nil afterDelay:0.1];
+	}
+}
+
 
 @end

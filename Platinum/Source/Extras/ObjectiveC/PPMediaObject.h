@@ -28,5 +28,6 @@ typedef struct PP_MediaObject PP_MediaObject;
 - (void)setOwner:(id)parent;
 - (id)getOwner;
 - (PP_MediaObject *)getMediaObject;
+- (void)setObject:(PLT_MediaObject *)newObject;
 
 @end

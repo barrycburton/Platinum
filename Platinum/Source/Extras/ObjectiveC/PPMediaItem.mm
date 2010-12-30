@@ -43,8 +43,11 @@
 }
 
 - (NSUInteger)duration {
-	PLT_MediaItemResource resource = item->m_Resources[0];
-	return resource.m_Duration;
+	if ( item->m_Resources.GetItemCount() > 0 ) {
+		PLT_MediaItemResource resource = item->m_Resources[0];
+		return resource.m_Duration;
+	}
+	return 0;
 }
 
 

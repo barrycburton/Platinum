@@ -18,7 +18,6 @@
 @synthesize list;
 
 
-
 #pragma mark -
 #pragma mark Initialization
 
@@ -183,6 +182,7 @@
 		[self.navigationController pushViewController:next animated:YES];
 	} else {
 		NSLog(@"Song selected");
+		[self.controller browseMetadataOfItem:[object objectId] onServer:self.server userData:object];
 	}
 	
     // Navigation logic may go here. Create and push another view controller.
