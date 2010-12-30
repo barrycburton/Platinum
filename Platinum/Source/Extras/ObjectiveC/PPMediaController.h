@@ -40,7 +40,6 @@ typedef struct PP_MediaController PP_MediaController;
 
 - (BOOL)browseMetadataOfItem:(NSString *)itemId onServer:(PPMediaDevice *)server userData:(id)userData;
 
-
 - (BOOL)updateMediaInfoForSpeaker:(PPMediaDevice *)speaker;
 
 - (BOOL)updatePositionInfoForSpeaker:(PPMediaDevice *)speaker;

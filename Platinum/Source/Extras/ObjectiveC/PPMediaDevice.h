@@ -28,11 +28,13 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (nonatomic) NSUInteger position;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic, assign) PPMediaController *controller;
+@property (nonatomic, assign) BOOL isSpeaker;
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData;
 - (PP_MediaDevice *)deviceData;
 
 - (NSString *)name;
+- (NSString *)uuid;
 
 - (PPMediaContainer *)rootContainer;
 

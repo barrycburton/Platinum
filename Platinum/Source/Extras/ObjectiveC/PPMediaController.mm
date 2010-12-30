@@ -417,6 +417,7 @@ public:
 		PLT_DeviceDataReference item = *listIter;
 		PP_MediaDevice *device = new PP_MediaDevice(item);
 		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
+		mediaDevice.isSpeaker = YES;
 		[list addObject:mediaDevice];
 		
 		listIter++;
@@ -435,6 +436,7 @@ public:
 		PLT_DeviceDataReference item = *listIter;
 		PP_MediaDevice *device = new PP_MediaDevice(item);
 		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
+		mediaDevice.isSpeaker = NO;
 		[list addObject:mediaDevice];
 		
 		listIter++;

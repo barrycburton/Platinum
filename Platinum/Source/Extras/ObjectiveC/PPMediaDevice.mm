@@ -26,6 +26,7 @@
 @synthesize position;
 @synthesize isPlaying;
 @synthesize controller;
+@synthesize isSpeaker;
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData {
 	if ( self = [super init] ) {
@@ -46,6 +47,10 @@
 
 - (NSString *)name {
 	return [NSString stringWithUTF8String:(char*)device->mediaDevice->GetFriendlyName()];
+}
+
+- (NSString *)uuid {
+	return [NSString stringWithUTF8String:(char*)device->mediaDevice->GetUUID()];
 }
 
 - (PPMediaContainer *)rootContainer {
