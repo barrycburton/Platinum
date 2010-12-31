@@ -6,6 +6,9 @@
 //  Copyright 2010 Gravity Mobile. All rights reserved.
 //
 
+#import "NptTypes.h"
+#import "NptResults.h"
+
 #import "Platinum.h"
 #import "PltMediaItem.h"
 
@@ -19,6 +22,11 @@
 		item = obj;
 	}
     return self;
+}
+
+- (id)init {
+	PLT_MediaItem *obj = new PLT_MediaItem();
+	return [self initWithItem:obj];
 }
 
 - (void)dealloc {

@@ -6,6 +6,8 @@
 //  Copyright 2010 Gravity Mobile. All rights reserved.
 //
 
+#import "NptTypes.h"
+#import "NptResults.h"
 
 #import "Platinum.h"
 #import "PltMediaBrowser.h"

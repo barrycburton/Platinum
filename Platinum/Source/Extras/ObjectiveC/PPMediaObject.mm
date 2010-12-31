@@ -6,6 +6,9 @@
 //  Copyright 2010 Gravity Mobile. All rights reserved.
 //
 
+#import "NptTypes.h"
+#import "NptResults.h"
+
 #import "Platinum.h"
 #import "PltMediaItem.h"
 #import "PP_MediaObject.h"
@@ -53,6 +56,11 @@
 
 - (BOOL)isContainer {
 	return (BOOL)object->mediaObject->IsContainer();
+}
+
+- (void)setName:(NSString *)name {
+	PLT_MediaObject *mediaObject = object->mediaObject;
+	mediaObject->m_Title = (char *)[name UTF8String];
 }
 
 - (void)setOwner:(id)parent {

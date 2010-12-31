@@ -1111,6 +1111,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Platinum_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)/usr/lib/gcc/arm-apple-darwin10/4.0.1\"",
+					"\"$(SDKROOT)/usr/lib/gcc/arm-apple-darwin10/4.2.1\"",
+				);
 				PRODUCT_NAME = Platinum;
 			};
 			name = Debug;
@@ -1125,6 +1130,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Platinum_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SDKROOT)/usr/lib/gcc/arm-apple-darwin10/4.0.1\"",
+					"\"$(SDKROOT)/usr/lib/gcc/arm-apple-darwin10/4.2.1\"",
+				);
 				PRODUCT_NAME = Platinum;
 			};
 			name = Release;

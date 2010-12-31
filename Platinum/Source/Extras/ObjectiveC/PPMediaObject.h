@@ -25,6 +25,7 @@ typedef struct PP_MediaObject PP_MediaObject;
 - (NSString *)name;
 - (NSString *)objectId;
 - (BOOL)isContainer;
+- (void)setName:(NSString *)name;
 - (void)setOwner:(id)parent;
 - (id)getOwner;
 - (PP_MediaObject *)getMediaObject;

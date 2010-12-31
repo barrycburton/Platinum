@@ -6,6 +6,9 @@
 //  Copyright 2010 Plutinosoft LLC. All rights reserved.
 //
 
+#import "NptTypes.h"
+#import "NptResults.h"
+
 #import "Platinum.h"
 #import "PltMediaController.h"
 
@@ -33,12 +36,12 @@
     return upnp->IsRunning();
 }
 
-- (NPT_Result)start {
-    return upnp->Start();
+- (BOOL)start {
+    return upnp->Start() == NPT_SUCCESS;
 }
 
-- (NPT_Result)stop {
-    return upnp->Stop();
+- (BOOL)stop {
+    return upnp->Stop() == NPT_SUCCESS;
 }
 
 @end
