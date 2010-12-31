@@ -564,7 +564,7 @@ NPT_Result result = mediaController->mediaController->Pause(
 	NPT_Result result = mediaController->mediaController->SetMute(
 								[speaker deviceData]->mediaDevice,
 								0,
-								"1",
+								"Master",
 								mute,
 								speaker);
 	
@@ -575,7 +575,7 @@ NPT_Result result = mediaController->mediaController->Pause(
 	NPT_Result result = mediaController->mediaController->GetMute(
 							  [speaker deviceData]->mediaDevice,
 							  0,
-							  "1",
+							  "Master",
 							  speaker);
 	
 	return ( result == NPT_SUCCESS );	
@@ -586,7 +586,7 @@ NPT_Result result = mediaController->mediaController->Pause(
 	NPT_Result result = mediaController->mediaController->SetVolume(
 							  [speaker deviceData]->mediaDevice,
 							  0,
-							  "1",
+							  "Master",
 							  volume,
 							  speaker);
 	
@@ -597,7 +597,7 @@ NPT_Result result = mediaController->mediaController->Pause(
 	NPT_Result result = mediaController->mediaController->GetVolume(
 							  [speaker deviceData]->mediaDevice,
 							  0,
-							  "1",
+							  "Master",
 							  speaker);
 	
 	return ( result == NPT_SUCCESS );	
