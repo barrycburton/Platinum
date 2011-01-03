@@ -40,4 +40,9 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 
 - (void)setIsPlaying:(BOOL)playing;
 
+- (void)setOwner:(id)parent;
+- (id)getOwner;
+
+- (BOOL)isDeviceEqual:(void *)device;
+
 @end

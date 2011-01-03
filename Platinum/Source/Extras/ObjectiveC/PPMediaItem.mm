@@ -13,6 +13,8 @@
 #import "PltMediaItem.h"
 
 #import "PPMediaItem.h"
+#import "PP_MediaObject.h"
+#import "PltDidl.h"
 
 
 @implementation PPMediaItem
@@ -22,6 +24,18 @@
 		item = obj;
 	}
     return self;
+}
+
+- (id)initWithMetaData:(NSString *)metaData {
+	PLT_MediaObjectListReference songs;
+	PLT_MediaObject *song;
+	PLT_Didl::FromDidl((char *)[metaData UTF8String], songs);
+	songs->Get(0, song);
+	self = [self initWithItem:(PLT_MediaItem *)song];
+	if ( self ) {
+		[self getMediaObject]->childList = songs;
+	}
+	return self;
 }
 
 - (id)init {
@@ -47,13 +61,19 @@
 }
 
 - (NSString *)artistName {
-	return [NSString stringWithUTF8String:(char *)item->m_Creator];
+	if ( item->m_People.artists.GetItemCount() > 0 ) {
+		PLT_PersonRole artist;
+		
+		item->m_People.artists.Get(0, artist);
+	
+		return [NSString stringWithUTF8String:(char *)artist.name];
+	}
+	return nil;
 }
 
 - (NSUInteger)duration {
 	if ( item->m_Resources.GetItemCount() > 0 ) {
-		PLT_MediaItemResource resource = item->m_Resources[0];
-		return resource.m_Duration;
+		return item->m_Resources[0].m_Duration;
 	}
 	return 0;
 }

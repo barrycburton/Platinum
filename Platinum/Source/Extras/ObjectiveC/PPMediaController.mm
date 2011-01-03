@@ -21,8 +21,6 @@
 #import "PP_MediaObject.h"
 #import "PPMediaObject.h"
 
-#import "PltDidl.h"
-
 
 
 class PP_MediaController : public PLT_MediaBrowserDelegate, public PLT_MediaControllerDelegate {
@@ -49,7 +47,8 @@ public:
 	
 	virtual void OnMSStateVariablesChanged(PLT_Service*                  service,
 										   NPT_List<PLT_StateVariable*>* vars) {
-		
+		PLT_DeviceData *speakerDevice = service->GetDevice();
+		[master.delegate speakerDeviceUpdated:speakerDevice];
 	}
 	
 	virtual void OnBrowseResult(NPT_Result               res,
@@ -188,13 +187,7 @@ public:
 		if ( info ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			if ( 0 && !speaker.song && !info->cur_metadata.IsEmpty() ) {
-				PLT_MediaObjectListReference objects;
-				PLT_MediaObject *object;
-				PLT_Didl::FromDidl((char *)info->cur_metadata, objects);
-				objects->Get(0, object);
-				if ( object ) {
-					speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
-				}
+				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->cur_metadata]];
 			}
 			[master.delegate speakerUpdated:speaker];
 		}
@@ -220,13 +213,7 @@ public:
 		if ( info ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			if ( !speaker.song && !info->track_metadata.IsEmpty() ) {
-				PLT_MediaObjectListReference objects;
-				PLT_MediaObject *object;
-				PLT_Didl::FromDidl((char *)info->track_metadata, objects);
-				objects->Get(0, object);
-				if ( object ) {
-					speaker.song = [[PPMediaItem alloc] initWithItem:(PLT_MediaItem *)object];
-				}
+				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->track_metadata]];
 			}
 			speaker.position = info->rel_time.ToSeconds();
 			[master.delegate speakerUpdated:speaker];
@@ -244,7 +231,12 @@ public:
 			NPT_String cur_speed;
 		} PLT_TransportInfo;
 		 */
+		
+		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+		
+		BOOL isPlaying = info->cur_transport_state.Compare("PLAYING", true) == 0 ? YES : NO;
 	
+		[speaker setIsPlaying:isPlaying];
 	}
 	
 	virtual void OnGetTransportSettingsResult(NPT_Result                res,
@@ -269,13 +261,19 @@ public:
 	virtual void OnPauseResult(NPT_Result                res,
 					   PLT_DeviceDataReference&  device,
 					   void*                     userdata) {
-	
+		if ( res == NPT_SUCCESS ) {
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			[speaker setIsPlaying:NO];
+		}
 	}  
 	
 	virtual void OnPlayResult(NPT_Result                res,
 					  PLT_DeviceDataReference&  device,
 					  void*                     userdata) {
-	
+		if ( res == NPT_SUCCESS ) {
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			[speaker setIsPlaying:YES];
+		}
 	}
 	
 	virtual void OnPreviousResult(NPT_Result                res,
@@ -308,7 +306,10 @@ public:
 	virtual void OnStopResult(NPT_Result                res,
 					  PLT_DeviceDataReference&  device,
 					  void*                     userdata) {
-	
+		if ( res == NPT_SUCCESS ) {
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			[speaker setIsPlaying:NO];
+		}
 	}
 	
     // ConnectionManager
@@ -508,7 +509,7 @@ public:
 }
 
 - (BOOL)updateTransportInfoForSpeaker:(PPMediaDevice *)speaker {
-NPT_Result result = mediaController->mediaController->GetTransportInfo(
+	NPT_Result result = mediaController->mediaController->GetTransportInfo(
 									[speaker deviceData]->mediaDevice,
 									0,
 									speaker);
@@ -518,11 +519,15 @@ NPT_Result result = mediaController->mediaController->GetTransportInfo(
 
 
 - (BOOL)pauseSpeaker:(PPMediaDevice *)speaker {
-NPT_Result result = mediaController->mediaController->Pause(
+	NPT_Result result = mediaController->mediaController->Pause(
 									[speaker deviceData]->mediaDevice,
 									0,
 									speaker);
 
+	if ( result == NPT_SUCCESS ) {
+		speaker.isPlaying = NO;
+	}
+	
 	return ( result == NPT_SUCCESS );
 }
 
@@ -532,6 +537,10 @@ NPT_Result result = mediaController->mediaController->Pause(
 									0,
 									NPT_String("1"),
 									speaker);
+	
+	if ( result == NPT_SUCCESS ) {
+		speaker.isPlaying = YES;
+	}
 
 	return ( result == NPT_SUCCESS );
 }
@@ -542,6 +551,10 @@ NPT_Result result = mediaController->mediaController->Pause(
 									0,
 									speaker);
 
+	if ( result == NPT_SUCCESS ) {
+		speaker.isPlaying = NO;
+	}
+	
 	return ( result == NPT_SUCCESS );
 }
 
@@ -556,6 +569,10 @@ NPT_Result result = mediaController->mediaController->Pause(
 							(const char*)track->m_Resources[resource_index].m_Uri,
 							track->m_Didl,
 							speaker);
+	
+	if ( result == NPT_SUCCESS ) {
+		speaker.song = song;
+	}
 
 	return ( result == NPT_SUCCESS );
 }
@@ -589,6 +606,9 @@ NPT_Result result = mediaController->mediaController->Pause(
 							  "Master",
 							  volume,
 							  speaker);
+	if ( result == NPT_SUCCESS ) {
+		speaker.volume = volume;
+	}
 	
 	return ( result == NPT_SUCCESS );
 }

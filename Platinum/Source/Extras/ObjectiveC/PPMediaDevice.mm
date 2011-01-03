@@ -65,13 +65,8 @@
 	return root;
 }
 
-- (void)setIsPlaying:(BOOL)playing {
-	isPlaying = playing;
-	if ( isPlaying ) {
-		// start timer
-		absoluteTime = CFAbsoluteTimeGetCurrent();
-		[self performSelector:@selector(updateTime) withObject:nil afterDelay:0.1];
-	}
+- (void)setVolume:(NSUInteger)newVolume {
+	volume = newVolume;
 }
 
 - (void)updateTime {
@@ -86,5 +81,42 @@
 	}
 }
 
+- (void)startTimer {
+	absoluteTime = CFAbsoluteTimeGetCurrent();
+	[self performSelector:@selector(updateTime) withObject:nil afterDelay:0.1];
+}
+
+- (void)setIsPlaying:(BOOL)playing {
+	if ( isPlaying != playing ) {
+		isPlaying = playing;
+		if ( isPlaying ) {
+			// start timer
+			[self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
+		}
+	}
+}
+
+- (NSUInteger)volume {
+	NSUInteger ret = volume;
+	return ret;
+}
+
+- (BOOL)isPlaying {
+	BOOL ret = isPlaying;
+	return ret;
+}
+
+- (void)setOwner:(id)parent {
+	device->owner = parent;
+}
+
+- (id)getOwner {
+	return device->owner;
+}
+
+- (BOOL)isDeviceEqual:(void *)otherDevice {
+	PLT_DeviceData *speakerDevice = (PLT_DeviceData *)otherDevice;
+	return device->mediaDevice->GetUUID().Compare(speakerDevice->GetUUID(), true);
+}
 
 @end

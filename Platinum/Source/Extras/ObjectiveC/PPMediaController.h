@@ -21,6 +21,7 @@ typedef struct PP_MediaController PP_MediaController;
 - (void)didRemoveSpeaker:(void *)wrapper;
 - (void)browseDidRespond:(NSArray *)list toQuery:(id)userData;
 - (void)speakerUpdated:(PPMediaDevice *)speaker;
+- (void)speakerDeviceUpdated:(void *)speakerDevice;
 
 @end
 

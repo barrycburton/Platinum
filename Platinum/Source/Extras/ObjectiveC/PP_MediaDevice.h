@@ -12,7 +12,8 @@
 
 class PP_MediaDevice {
 public:
-	PP_MediaDevice(PLT_DeviceDataReference device) : mediaDevice(device) {
+	PP_MediaDevice(PLT_DeviceDataReference device) : mediaDevice(device)
+													, owner(0) {
 
 	}
 	
@@ -22,6 +23,7 @@ public:
 
 
 	PLT_DeviceDataReference mediaDevice;
+	id owner;
 };
 
 #endif /* _PP_MEDIA_DEVICE_H_ */
