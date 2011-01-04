@@ -167,6 +167,10 @@ public:
 					if ( speaker.wasPlaying == speaker.isPlaying ) {
 						speaker.wasPlaying = NO;
 					}
+					if ( speaker.stopRequested ) {
+						speaker.stopRequested = NO;
+						speaker.wasPlaying = NO;
+					}
 				} else if ( item->GetName().Compare("RelativeTimePosition", true) == 0 ) {
 					NPT_UInt32 relTime = 0;
 					PLT_Didl::ParseTimeStamp(item->GetValue(), relTime);
@@ -184,8 +188,8 @@ public:
 				listIter++;
 			}
 
-			[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
-			//[master.delegate speakerUpdated:speaker];
+			//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
+			[master.delegate speakerUpdated:speaker];
 		}
 	}
 	
@@ -583,9 +587,6 @@ public:
 									0,
 									speaker);
 
-	if ( result == NPT_SUCCESS ) {
-		speaker.isPlaying = NO;
-	}
 	
 	return ( result == NPT_SUCCESS );
 }
@@ -597,9 +598,6 @@ public:
 									NPT_String("1"),
 									speaker);
 	
-	if ( result == NPT_SUCCESS ) {
-		speaker.isPlaying = YES;
-	}
 
 	return ( result == NPT_SUCCESS );
 }
@@ -609,10 +607,9 @@ public:
 									[speaker deviceData]->mediaDevice,
 									0,
 									speaker);
-
+	
 	if ( result == NPT_SUCCESS ) {
-		speaker.isPlaying = NO;
-		speaker.position = 0;
+		speaker.stopRequested = YES;
 	}
 	
 	return ( result == NPT_SUCCESS );
@@ -630,10 +627,6 @@ public:
 							track->m_Didl,
 							speaker);
 	
-	if ( result == NPT_SUCCESS ) {
-		speaker.song = song;
-		speaker.position = 0;
-	}
 
 	return ( result == NPT_SUCCESS );
 }
@@ -667,9 +660,6 @@ public:
 							  "Master",
 							  volume,
 							  speaker);
-	if ( result == NPT_SUCCESS ) {
-		speaker.volume = volume;
-	}
 	
 	return ( result == NPT_SUCCESS );
 }

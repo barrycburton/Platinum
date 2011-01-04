@@ -31,6 +31,8 @@
 @synthesize wasPlaying;
 @synthesize controller;
 @synthesize isSpeaker;
+@synthesize stopRequested;
+
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData {
 	if ( self = [super init] ) {

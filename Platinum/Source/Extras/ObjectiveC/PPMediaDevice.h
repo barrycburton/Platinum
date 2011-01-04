@@ -29,7 +29,8 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (nonatomic) BOOL isPlaying;
 @property (nonatomic) BOOL wasPlaying;
 @property (nonatomic, assign) PPMediaController *controller;
-@property (nonatomic, assign) BOOL isSpeaker;
+@property (nonatomic) BOOL isSpeaker;
+@property (nonatomic) BOOL stopRequested;
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData;
 - (PP_MediaDevice *)deviceData;
