@@ -19,6 +19,8 @@
 
 @implementation PPMediaItem
 
+@synthesize isList;
+
 - (id)initWithItem:(PLT_MediaItem *)obj {
 	if ( self = [super initWithObject:obj] ) {
 		item = obj;
