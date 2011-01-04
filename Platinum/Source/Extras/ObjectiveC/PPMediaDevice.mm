@@ -25,6 +25,7 @@
 
 @synthesize mute;
 @synthesize volume;
+@synthesize deviceVolume;
 @synthesize song;
 @synthesize position;
 @synthesize isPlaying;
@@ -32,6 +33,8 @@
 @synthesize controller;
 @synthesize isSpeaker;
 @synthesize stopRequested;
+@synthesize songFinished;
+@synthesize lastVolChange;
 
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData {
@@ -68,17 +71,24 @@
 	return root;
 }
 
-- (void)setVolume:(NSUInteger)newVolume {
-	volume = newVolume;
-}
-
 - (void)updateTime {
 	if ( isPlaying ) {
 		CFAbsoluteTime newTime = CFAbsoluteTimeGetCurrent();
+		if ( newTime < absoluteTime ) {
+			absoluteTime = CFAbsoluteTimeGetCurrent();
+		}
 		if ( newTime - absoluteTime >= 1.0 ) {
 			position += (NSUInteger)(newTime - absoluteTime);
 			absoluteTime = newTime;
+			if ( position >= song.duration ) {
+				position = song.duration;
+				self.songFinished = YES;
+			}
 			[self.controller.delegate speakerUpdated:self];
+		}
+		if ( newTime - lastSync >= 10 || newTime < lastSync ) {
+			lastSync = newTime;
+			[self.controller updatePositionInfoForSpeaker:self];
 		}
 		[self performSelector:@selector(updateTime) withObject:nil afterDelay:0.1];
 	}
@@ -86,6 +96,7 @@
 
 - (void)startTimer {
 	absoluteTime = CFAbsoluteTimeGetCurrent();
+	lastSync = CFAbsoluteTimeGetCurrent();
 	[self performSelector:@selector(updateTime) withObject:nil afterDelay:0.1];
 }
 
@@ -97,11 +108,6 @@
 			[self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
 		}
 	}
-}
-
-- (NSUInteger)volume {
-	NSUInteger ret = volume;
-	return ret;
 }
 
 - (BOOL)isPlaying {

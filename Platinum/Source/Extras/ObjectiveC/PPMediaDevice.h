@@ -20,10 +20,12 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @interface PPMediaDevice : NSObject {
 	PP_MediaDevice *device;
 	CFAbsoluteTime absoluteTime;
+	CFAbsoluteTime lastSync;
 }
 
 @property (nonatomic) BOOL mute;
 @property (nonatomic) NSUInteger volume;
+@property (nonatomic) NSUInteger deviceVolume;
 @property (nonatomic, retain) PPMediaItem *song;
 @property (nonatomic) NSUInteger position;
 @property (nonatomic) BOOL isPlaying;
@@ -31,6 +33,8 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (nonatomic, assign) PPMediaController *controller;
 @property (nonatomic) BOOL isSpeaker;
 @property (nonatomic) BOOL stopRequested;
+@property (nonatomic) BOOL songFinished;
+@property (assign) CFAbsoluteTime lastVolChange;
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData;
 - (PP_MediaDevice *)deviceData;

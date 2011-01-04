@@ -157,8 +157,11 @@ public:
 				PLT_StateVariable *item = *listIter;
 				
 				if ( item->GetName().Compare("Volume", true) == 0 ) {
-					speaker.volume = [[NSString stringWithUTF8String:(char *)item->GetValue()] integerValue];
-					NSLog(@"Got new volue: %d", speaker.volume);
+					speaker.deviceVolume = [[NSString stringWithUTF8String:(char *)item->GetValue()] integerValue];
+					CFAbsoluteTime timeNow = CFAbsoluteTimeGetCurrent();
+					if ( timeNow - speaker.lastVolChange > 1 ) {
+						speaker.volume = speaker.deviceVolume;
+					}
 				} else if ( item->GetName().Compare("Mute", true) == 0 ) {
 					speaker.mute = [[NSString stringWithUTF8String:(char *)item->GetValue()] boolValue];
 				} else if ( item->GetName().Compare("TransportState", true) == 0 ) {
@@ -171,10 +174,15 @@ public:
 						speaker.stopRequested = NO;
 						speaker.wasPlaying = NO;
 					}
+					if ( !speaker.isPlaying ) {
+						speaker.position = 0;
+					}
 				} else if ( item->GetName().Compare("RelativeTimePosition", true) == 0 ) {
 					NPT_UInt32 relTime = 0;
 					PLT_Didl::ParseTimeStamp(item->GetValue(), relTime);
-					speaker.position = relTime;
+					if ( !speaker.stopRequested ) {
+						speaker.position = relTime;
+					}
 				} else if ( item->GetName().Compare("CurrentTrackURI", true) == 0 ) {
 					// TODO remain tolerant of remote changes
 				} else if ( item->GetName().Compare("AVTransportURI", true) == 0 ) {
@@ -188,7 +196,6 @@ public:
 				listIter++;
 			}
 
-			//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 			[master.delegate speakerUpdated:speaker];
 		}
 	}
@@ -237,7 +244,6 @@ public:
 			if ( 0 && !speaker.song && !info->cur_metadata.IsEmpty() ) {
 				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->cur_metadata]];
 			}
-			//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 			[master.delegate speakerUpdated:speaker];
 		}
 	}
@@ -264,8 +270,9 @@ public:
 			if ( !speaker.song && !info->track_metadata.IsEmpty() ) {
 				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->track_metadata]];
 			}
-			speaker.position = info->rel_time.ToSeconds();
-			//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
+			if ( !speaker.stopRequested ) {
+				speaker.position = info->rel_time.ToSeconds();
+			}
 			[master.delegate speakerUpdated:speaker];
 		}
 	}
@@ -314,7 +321,6 @@ public:
 					   void*                     userdata) {
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-			[speaker setIsPlaying:NO];
 			[master updatePositionInfoForSpeaker:speaker];
 		}
 	}  
@@ -324,7 +330,6 @@ public:
 					  void*                     userdata) {
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-			[speaker setIsPlaying:YES];
 			[master updatePositionInfoForSpeaker:speaker];
 		}
 	}
@@ -365,7 +370,6 @@ public:
 					  void*                     userdata) {
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-			[speaker setIsPlaying:NO];
 			[master updatePositionInfoForSpeaker:speaker];
 		}
 	}
@@ -418,7 +422,6 @@ public:
 						 void*                     userdata) {
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 		speaker.mute = mute;
-		// [master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 		[master.delegate speakerUpdated:speaker];
 	
 	}
@@ -427,6 +430,14 @@ public:
 						   PLT_DeviceDataReference&  device,
 						   void*                     userdata) {
 
+		if ( res == NPT_SUCCESS ) {
+			CFAbsoluteTime timeNow = CFAbsoluteTimeGetCurrent();
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			if ( timeNow - speaker.lastVolChange > 1 ) {
+				speaker.volume = speaker.deviceVolume;
+				[master.delegate speakerUpdated:speaker];
+			}
+		}
 	}
 	
 	virtual void OnGetVolumeResult(NPT_Result                res,
@@ -436,9 +447,12 @@ public:
 						   void*                     userdata) {
 	
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-		speaker.volume = volume;
-		//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
-		[master.delegate speakerUpdated:speaker];
+		speaker.deviceVolume = volume;
+		CFAbsoluteTime timeNow = CFAbsoluteTimeGetCurrent();
+		if ( timeNow - speaker.lastVolChange > 1 ) {
+			speaker.volume = speaker.deviceVolume;
+			[master.delegate speakerUpdated:speaker];
+		}
 	}	
 	
 	PPMediaController *master;
@@ -610,6 +624,7 @@ public:
 	
 	if ( result == NPT_SUCCESS ) {
 		speaker.stopRequested = YES;
+		speaker.position = 0;
 	}
 	
 	return ( result == NPT_SUCCESS );
@@ -627,6 +642,9 @@ public:
 							track->m_Didl,
 							speaker);
 	
+	if ( result == NPT_SUCCESS ) {
+		speaker.song = song;
+	}
 
 	return ( result == NPT_SUCCESS );
 }
@@ -654,12 +672,18 @@ public:
 
 
 - (BOOL)setVolume:(NSUInteger)volume onSpeaker:(PPMediaDevice *)speaker {
-	NPT_Result result = mediaController->mediaController->SetVolume(
+	NPT_Result result = NPT_SUCCESS;
+	speaker.volume = volume;
+	CFAbsoluteTime timeNow = CFAbsoluteTimeGetCurrent();
+	if ( timeNow - speaker.lastVolChange > .2 ) {
+		speaker.lastVolChange = timeNow;
+		result = mediaController->mediaController->SetVolume(
 							  [speaker deviceData]->mediaDevice,
 							  0,
 							  "Master",
 							  volume,
 							  speaker);
+	}
 	
 	return ( result == NPT_SUCCESS );
 }
