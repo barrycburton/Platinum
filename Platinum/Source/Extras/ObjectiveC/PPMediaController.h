@@ -15,22 +15,22 @@ typedef struct PP_MediaController PP_MediaController;
 
 @protocol PPMediaControllerDelegate
 
-- (BOOL)shouldAddDevice:(void *)wrapper;
-- (void)didRemoveDevice:(void *)wrapper;
-- (BOOL)shouldAddSpeaker:(void *)wrapper;
-- (void)didRemoveSpeaker:(void *)wrapper;
+- (BOOL)shouldAddDevice;
+- (void)didRemoveDevice;
+- (BOOL)shouldAddSpeaker;
+- (void)didRemoveSpeaker;
 - (void)browseDidRespond:(NSArray *)list toQuery:(id)userData;
 - (void)speakerUpdated:(PPMediaDevice *)speaker;
 - (void)speakerDeviceUpdated:(void *)speakerDevice;
+- (PPMediaDevice *)speakerForSpeakerDevice:(void *)speakerDevice;
 
 @end
-
 
 @interface PPMediaController : NSObject { 
 	PP_MediaController *mediaController;
 }
 
-@property (nonatomic, assign) id<PPMediaControllerDelegate> delegate;
+@property (nonatomic, assign) NSObject<PPMediaControllerDelegate> *delegate;
 
 - (id)initWithUPnP:(PPUPnP *)upnp;
 

@@ -28,6 +28,7 @@
 @synthesize song;
 @synthesize position;
 @synthesize isPlaying;
+@synthesize wasPlaying;
 @synthesize controller;
 @synthesize isSpeaker;
 

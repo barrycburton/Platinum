@@ -27,6 +27,7 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (nonatomic, retain) PPMediaItem *song;
 @property (nonatomic) NSUInteger position;
 @property (nonatomic) BOOL isPlaying;
+@property (nonatomic) BOOL wasPlaying;
 @property (nonatomic, assign) PPMediaController *controller;
 @property (nonatomic, assign) BOOL isSpeaker;
 

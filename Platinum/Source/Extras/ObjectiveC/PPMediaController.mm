@@ -21,6 +21,9 @@
 #import "PP_MediaObject.h"
 #import "PPMediaObject.h"
 
+#import "PltStateVariable.h"
+#import "PltDidl.h"
+
 
 
 class PP_MediaController : public PLT_MediaBrowserDelegate, public PLT_MediaControllerDelegate {
@@ -37,24 +40,27 @@ public:
 	}
 	
 	virtual bool OnMSAdded(PLT_DeviceDataReference& device) {        
-		[master.delegate shouldAddDevice:nil];
+		[master.delegate shouldAddDevice];		 
 		return true;
 	}
 	
 	virtual void OnMSRemoved(PLT_DeviceDataReference& device) {
-		[master.delegate didRemoveDevice:nil];
+		[master.delegate didRemoveDevice];
 	}
 	
 	virtual void OnMSStateVariablesChanged(PLT_Service*                  service,
 										   NPT_List<PLT_StateVariable*>* vars) {
-		PLT_DeviceData *speakerDevice = service->GetDevice();
-		[master.delegate speakerDeviceUpdated:speakerDevice];
+
 	}
 	
 	virtual void OnBrowseResult(NPT_Result               res,
 								PLT_DeviceDataReference& device,
 								PLT_BrowseInfo*          info,
 								void*                    userdata) {
+		
+		if ( !info ) {
+			return;
+		}
 		
 		// First convert result to Obj-C Objects
 		NSLog(@"browse item id: %s", (char *)info->object_id);
@@ -130,19 +136,57 @@ public:
 
 	// PLT_MediaControllerDelegate methods
 	virtual bool OnMRAdded(PLT_DeviceDataReference&  device ) {
-		[master.delegate shouldAddSpeaker:nil];
+		[master.delegate shouldAddSpeaker];
 		return true;
 	}
 	
 	virtual void OnMRRemoved(PLT_DeviceDataReference&  device ) {
-		[master.delegate didRemoveSpeaker:nil];
+		[master.delegate didRemoveSpeaker];
 	}
 	
 	virtual void OnMRStateVariablesChanged(PLT_Service*                   service, 
                                            NPT_List<PLT_StateVariable*>*  vars) {
+
 		
-		// TODO be more fine grained
-		[master.delegate speakerUpdated:nil];
+		PPMediaDevice *speaker = [master.delegate speakerForSpeakerDevice:service->GetDevice()];
+		
+		if ( speaker ) {
+			NPT_List<PLT_StateVariable *>::Iterator listIter = vars->GetFirstItem();
+			
+			while ( listIter ) {
+				PLT_StateVariable *item = *listIter;
+				
+				if ( item->GetName().Compare("Volume", true) == 0 ) {
+					speaker.volume = [[NSString stringWithUTF8String:(char *)item->GetValue()] integerValue];
+					NSLog(@"Got new volue: %d", speaker.volume);
+				} else if ( item->GetName().Compare("Mute", true) == 0 ) {
+					speaker.mute = [[NSString stringWithUTF8String:(char *)item->GetValue()] boolValue];
+				} else if ( item->GetName().Compare("TransportState", true) == 0 ) {
+					speaker.wasPlaying = speaker.isPlaying;
+					speaker.isPlaying = item->GetValue().Compare("PLAYING", true) == 0 ? YES : NO;
+					if ( speaker.wasPlaying == speaker.isPlaying ) {
+						speaker.wasPlaying = NO;
+					}
+				} else if ( item->GetName().Compare("RelativeTimePosition", true) == 0 ) {
+					NPT_UInt32 relTime = 0;
+					PLT_Didl::ParseTimeStamp(item->GetValue(), relTime);
+					speaker.position = relTime;
+				} else if ( item->GetName().Compare("CurrentTrackURI", true) == 0 ) {
+					// TODO remain tolerant of remote changes
+				} else if ( item->GetName().Compare("AVTransportURI", true) == 0 ) {
+					// TODO remain tolerant of remote changes
+				} else if ( item->GetName().Compare("CurrentTrackMetaData", true) == 0 ) {	
+					// TODO remain tolerant of remote changes
+				} else if ( item->GetName().Compare("AVTransportURIMetaData", true) == 0 ) {
+					// TODO remain tolerant of remote changes
+				}
+				
+				listIter++;
+			}
+
+			[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
+			//[master.delegate speakerUpdated:speaker];
+		}
 	}
 	
     // AVTransport
@@ -189,6 +233,7 @@ public:
 			if ( 0 && !speaker.song && !info->cur_metadata.IsEmpty() ) {
 				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->cur_metadata]];
 			}
+			//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 			[master.delegate speakerUpdated:speaker];
 		}
 	}
@@ -216,6 +261,7 @@ public:
 				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->track_metadata]];
 			}
 			speaker.position = info->rel_time.ToSeconds();
+			//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 			[master.delegate speakerUpdated:speaker];
 		}
 	}
@@ -231,12 +277,13 @@ public:
 			NPT_String cur_speed;
 		} PLT_TransportInfo;
 		 */
-		
-		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-		
-		BOOL isPlaying = info->cur_transport_state.Compare("PLAYING", true) == 0 ? YES : NO;
+		if ( info ) {
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			
+			BOOL isPlaying = info->cur_transport_state.Compare("PLAYING", true) == 0 ? YES : NO;
 	
-		[speaker setIsPlaying:isPlaying];
+			[speaker setIsPlaying:isPlaying];
+		}
 	}
 	
 	virtual void OnGetTransportSettingsResult(NPT_Result                res,
@@ -264,6 +311,7 @@ public:
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			[speaker setIsPlaying:NO];
+			[master updatePositionInfoForSpeaker:speaker];
 		}
 	}  
 	
@@ -273,6 +321,7 @@ public:
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			[speaker setIsPlaying:YES];
+			[master updatePositionInfoForSpeaker:speaker];
 		}
 	}
 	
@@ -293,6 +342,10 @@ public:
 								   void*                     userdata) {
 		if ( NPT_SUCCESS == res ) {
 			NSLog(@"Set");
+			
+			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
+			[master playSpeaker:speaker];
+			[master updatePositionInfoForSpeaker:speaker];
 		}
 	
 	}
@@ -309,6 +362,7 @@ public:
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			[speaker setIsPlaying:NO];
+			[master updatePositionInfoForSpeaker:speaker];
 		}
 	}
 	
@@ -360,6 +414,7 @@ public:
 						 void*                     userdata) {
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 		speaker.mute = mute;
+		// [master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 		[master.delegate speakerUpdated:speaker];
 	
 	}
@@ -378,6 +433,7 @@ public:
 	
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 		speaker.volume = volume;
+		//[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 		[master.delegate speakerUpdated:speaker];
 	}	
 	
@@ -418,10 +474,13 @@ public:
 	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
 	while ( listIter ) {
 		PLT_DeviceDataReference item = *listIter;
-		PP_MediaDevice *device = new PP_MediaDevice(item);
-		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
-		mediaDevice.isSpeaker = YES;
-		[list addObject:mediaDevice];
+		
+		if ( item->m_Manufacturer.Compare("Sonos, Inc.", true) != 0 ) {
+			PP_MediaDevice *device = new PP_MediaDevice(item);
+			PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
+			mediaDevice.isSpeaker = YES;
+			[list addObject:mediaDevice];
+		}
 		
 		listIter++;
 	}
@@ -553,6 +612,7 @@ public:
 
 	if ( result == NPT_SUCCESS ) {
 		speaker.isPlaying = NO;
+		speaker.position = 0;
 	}
 	
 	return ( result == NPT_SUCCESS );
@@ -572,6 +632,7 @@ public:
 	
 	if ( result == NPT_SUCCESS ) {
 		speaker.song = song;
+		speaker.position = 0;
 	}
 
 	return ( result == NPT_SUCCESS );
