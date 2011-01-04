@@ -49,6 +49,10 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 - (void)setOwner:(id)parent;
 - (id)getOwner;
 
+- (PP_MediaDevice *)getDevice;
+
 - (BOOL)isDeviceEqual:(void *)device;
+
+- (BOOL)isEqual:(PPMediaDevice *)mediaDevice;
 
 @end

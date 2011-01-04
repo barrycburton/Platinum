@@ -675,7 +675,7 @@ public:
 	NPT_Result result = NPT_SUCCESS;
 	speaker.volume = volume;
 	CFAbsoluteTime timeNow = CFAbsoluteTimeGetCurrent();
-	if ( timeNow - speaker.lastVolChange > .2 ) {
+	if ( timeNow - speaker.lastVolChange > 0.5 ) {
 		speaker.lastVolChange = timeNow;
 		result = mediaController->mediaController->SetVolume(
 							  [speaker deviceData]->mediaDevice,

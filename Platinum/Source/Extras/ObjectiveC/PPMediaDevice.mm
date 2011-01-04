@@ -128,4 +128,16 @@
 	return device->mediaDevice->GetUUID().Compare(speakerDevice->GetUUID(), true) == 0 ? YES : NO;
 }
 
+- (PP_MediaDevice *)getDevice {
+	return device;
+}
+
+- (BOOL)isEqual:(PPMediaDevice *)mediaDevice {
+	if ( [mediaDevice isKindOfClass:[PPMediaDevice class]] ) {
+		PP_MediaDevice *otherDevice = [mediaDevice getDevice];
+		return device->mediaDevice->GetUUID().Compare(otherDevice->mediaDevice->GetUUID(), true) == 0 ? YES : NO;
+	}
+	return NO;
+}
+
 @end
