@@ -117,7 +117,7 @@
 
 - (BOOL)isDeviceEqual:(void *)otherDevice {
 	PLT_DeviceData *speakerDevice = (PLT_DeviceData *)otherDevice;
-	return device->mediaDevice->GetUUID().Compare(speakerDevice->GetUUID(), true);
+	return device->mediaDevice->GetUUID().Compare(speakerDevice->GetUUID(), true) == 0 ? YES : NO;
 }
 
 @end
