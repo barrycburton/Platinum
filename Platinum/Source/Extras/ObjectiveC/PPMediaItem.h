@@ -26,6 +26,7 @@ typedef struct PLT_MediaItem PLT_MediaItem;
 @property (nonatomic, readonly) NSString *trackName;
 @property (nonatomic, readonly) NSString *albumName;
 @property (nonatomic, readonly) NSString *artistName;
+@property (nonatomic, readonly) NSURL *albumArtURL;
 @property (nonatomic, readonly) NSUInteger duration;
 @property (nonatomic, assign) BOOL isList;
 

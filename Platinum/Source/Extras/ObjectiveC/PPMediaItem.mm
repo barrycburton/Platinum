@@ -73,6 +73,15 @@
 	return nil;
 }
 
+- (NSURL *)albumArtURL {
+	if ( !item->m_ExtraInfo.album_art_uri.IsEmpty() ) {
+		NSString *url = [NSString stringWithUTF8String:(char *)item->m_ExtraInfo.album_art_uri];
+		NSLog(@"Alburm ART AT: %@", url);
+		return [NSURL URLWithString:url];
+	}
+	return nil;
+}
+
 - (NSUInteger)duration {
 	if ( item->m_Resources.GetItemCount() > 0 ) {
 		return item->m_Resources[0].m_Duration;
