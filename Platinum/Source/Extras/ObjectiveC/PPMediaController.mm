@@ -368,10 +368,7 @@ public:
 	virtual void OnStopResult(NPT_Result                res,
 					  PLT_DeviceDataReference&  device,
 					  void*                     userdata) {
-		if ( res == NPT_SUCCESS ) {
-			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
-			[master updatePositionInfoForSpeaker:speaker];
-		}
+
 	}
 	
     // ConnectionManager
