@@ -82,6 +82,8 @@
 			absoluteTime = newTime;
 			if ( position >= song.duration ) {
 				position = song.duration;
+			}
+			if ( position + 2 >= song.duration ) {
 				self.songFinished = YES;
 			}
 			[self.controller.delegate speakerUpdated:self];
