@@ -490,12 +490,12 @@ public:
 	while ( listIter ) {
 		PLT_DeviceDataReference item = *listIter;
 		
-		if ( item->m_Manufacturer.Compare("Sonos, Inc.", true) != 0 ) {
+		// if ( item->m_Manufacturer.Compare("Sonos, Inc.", true) != 0 ) {
 			PP_MediaDevice *device = new PP_MediaDevice(item);
 			PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
 			mediaDevice.isSpeaker = YES;
 			[list addObject:mediaDevice];
-		}
+		// }
 		
 		listIter++;
 	}
