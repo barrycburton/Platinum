@@ -39,18 +39,34 @@ public:
 		
 	}
 	
-	virtual bool OnMSAdded(PLT_DeviceDataReference& device) {        
-		[master.delegate shouldAddDevice];		 
+	virtual bool OnMSAdded(PLT_DeviceDataReference& device) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		NSLog(@"%@", master.delegate);
+		[master.delegate shouldAddDevice];
+		
+		[pool release];
+		
 		return true;
 	}
 	
 	virtual void OnMSRemoved(PLT_DeviceDataReference& device) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		NSLog(@"%@", master.delegate);
 		[master.delegate didRemoveDevice];
+		
+		[pool release];
 	}
 	
 	virtual void OnMSStateVariablesChanged(PLT_Service*                  service,
 										   NPT_List<PLT_StateVariable*>* vars) {
-
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		[pool release];
 	}
 	
 	virtual void OnBrowseResult(NPT_Result               res,
@@ -61,6 +77,8 @@ public:
 		if ( !info ) {
 			return;
 		}
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		// First convert result to Obj-C Objects
 		NSLog(@"browse item id: %s", (char *)info->object_id);
@@ -119,15 +137,20 @@ public:
 		}
 		
 		// Call delegate with new Objects
+		NSLog(@"%@", master.delegate);
 		[master.delegate browseDidRespond:list toQuery:(id)userdata];
+		
+		[pool release];
 	}
 	
 	virtual void OnSearchResult(NPT_Result               res,
 						PLT_DeviceDataReference& device,
 						PLT_BrowseInfo*          info,
 						void*                    userdata) {
-
 		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+		[pool release];
 	}
 
 
@@ -136,17 +159,31 @@ public:
 
 	// PLT_MediaControllerDelegate methods
 	virtual bool OnMRAdded(PLT_DeviceDataReference&  device ) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		NSLog(@"%@", master.delegate);
 		[master.delegate shouldAddSpeaker];
+		
+		[pool release];
+		
 		return true;
 	}
 	
 	virtual void OnMRRemoved(PLT_DeviceDataReference&  device ) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		NSLog(@"%@", master.delegate);
 		[master.delegate didRemoveSpeaker];
+		
+		[pool release];
 	}
 	
 	virtual void OnMRStateVariablesChanged(PLT_Service*                   service, 
                                            NPT_List<PLT_StateVariable*>*  vars) {
 
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
 		PPMediaDevice *speaker = [master.delegate speakerForSpeakerDevice:service->GetDevice()];
 		
@@ -196,8 +233,11 @@ public:
 				listIter++;
 			}
 
+			NSLog(@"%@", master.delegate);
 			[master.delegate speakerUpdated:speaker];
 		}
+		
+		[pool release];
 	}
 	
     // AVTransport
@@ -205,13 +245,19 @@ public:
 											PLT_DeviceDataReference&  device,
 											PLT_StringList*           actions,
 											void*                     userdata) {
-	
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		[pool release];
 	}
 	
 	virtual void OnGetDeviceCapabilitiesResult(NPT_Result                res,
 									   PLT_DeviceDataReference&  device,
 									   PLT_DeviceCapabilities*   capabilities,
 									   void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		/*
 		typedef struct {
 			PLT_StringList play_media;
@@ -219,12 +265,17 @@ public:
 			PLT_StringList rec_quality_modes;
 		} PLT_DeviceCapabilities;
 		*/
+		
+		[pool release];
 	}
 	
 	virtual void OnGetMediaInfoResult(NPT_Result                res,
 							  PLT_DeviceDataReference&  device,
 							  PLT_MediaInfo*            info,
 							  void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		/*
 		typedef struct {
 			NPT_UInt32    num_tracks;
@@ -244,14 +295,20 @@ public:
 			if ( 0 && !speaker.song && !info->cur_metadata.IsEmpty() ) {
 				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->cur_metadata]];
 			}
+			NSLog(@"%@", master.delegate);
 			[master.delegate speakerUpdated:speaker];
 		}
+		
+		[pool release];
 	}
 	
 	virtual void OnGetPositionInfoResult(NPT_Result                res,
 								 PLT_DeviceDataReference&  device,
 								 PLT_PositionInfo*         info,
 								 void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		/*
 		typedef struct {
 			NPT_UInt32    track;
@@ -273,14 +330,20 @@ public:
 			if ( !speaker.stopRequested ) {
 				speaker.position = info->rel_time.ToSeconds();
 			}
+			NSLog(@"%@", master.delegate);
 			[master.delegate speakerUpdated:speaker];
 		}
+		
+		[pool release];
 	}
 	
 	virtual void OnGetTransportInfoResult(NPT_Result                res,
 								  PLT_DeviceDataReference&  device,
 								  PLT_TransportInfo*        info,
 								  void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		/*
 		typedef struct {
 			NPT_String cur_transport_state;
@@ -295,12 +358,17 @@ public:
 	
 			[speaker setIsPlaying:isPlaying];
 		}
+		
+		[pool release];
 	}
 	
 	virtual void OnGetTransportSettingsResult(NPT_Result                res,
 									  PLT_DeviceDataReference&  device,
 									  PLT_TransportSettings*    settings,
 									  void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		/*
 		typedef struct {
 			NPT_String play_mode;
@@ -308,47 +376,70 @@ public:
 		} PLT_TransportSettings;
 		 */
 	
+		[pool release];
 	}
 	
 	virtual void OnNextResult(NPT_Result                res,
 					  PLT_DeviceDataReference&  device,
 					  void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+		[pool release];
 	}
 	
 	virtual void OnPauseResult(NPT_Result                res,
 					   PLT_DeviceDataReference&  device,
 					   void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			[master updatePositionInfoForSpeaker:speaker];
 		}
+		
+		[pool release];
 	}  
 	
 	virtual void OnPlayResult(NPT_Result                res,
 					  PLT_DeviceDataReference&  device,
 					  void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		if ( res == NPT_SUCCESS ) {
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			[master updatePositionInfoForSpeaker:speaker];
 		}
+		
+		[pool release];
 	}
 	
 	virtual void OnPreviousResult(NPT_Result                res,
 						  PLT_DeviceDataReference&  device,
 						  void*                     userdata) {
-	
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
+		[pool release];
 	}
 	
 	virtual void OnSeekResult(NPT_Result                res,
 					  PLT_DeviceDataReference&  device,
 					  void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+		[pool release];
 	}
 	
 	virtual void OnSetAVTransportURIResult(NPT_Result                res,
 								   PLT_DeviceDataReference&  device,
 								   void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		if ( NPT_SUCCESS == res ) {
 			NSLog(@"Set");
 			
@@ -357,18 +448,25 @@ public:
 			[master updatePositionInfoForSpeaker:speaker];
 		}
 	
+		[pool release];
 	}
 	
 	virtual void OnSetPlayModeResult(NPT_Result                res,
 							 PLT_DeviceDataReference&  device,
 							 void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+		[pool release];
 	}
 	
 	virtual void OnStopResult(NPT_Result                res,
 					  PLT_DeviceDataReference&  device,
 					  void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
+		[pool release];
 	}
 	
     // ConnectionManager
@@ -376,13 +474,19 @@ public:
 										 PLT_DeviceDataReference& device,
 										 PLT_StringList*          ids,
 										 void*                    userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+		[pool release];
 	}
 	
 	virtual void OnGetCurrentConnectionInfoResult(NPT_Result               res,
 										  PLT_DeviceDataReference& device,
 										  PLT_ConnectionInfo*      info,
 										  void*                    userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		/*
 		typedef struct {
 			NPT_UInt32 rcs_id;
@@ -395,6 +499,7 @@ public:
 		} PLT_ConnectionInfo;
 		*/
 	
+		[pool release];
 	}
 	
 	virtual void OnGetProtocolInfoResult(NPT_Result               res,
@@ -402,14 +507,20 @@ public:
 								 PLT_StringList*          sources,
 								 PLT_StringList*          sinks,
 								 void*                    userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+		[pool release];
 	}
 	
     // RenderingControl
 	virtual void OnSetMuteResult(NPT_Result               res,
 						 PLT_DeviceDataReference& device,
 						 void*                    userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+		[pool release];
 	}
 	
 	virtual void OnGetMuteResult(NPT_Result                res,
@@ -417,24 +528,36 @@ public:
 						 const char*               channel,
 						 bool                      mute,
 						 void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+		
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 		speaker.mute = mute;
+		
+		NSLog(@"%@", master.delegate);
 		[master.delegate speakerUpdated:speaker];
 	
+		[pool release];
 	}
 	
 	virtual void OnSetVolumeResult(NPT_Result                res,
 						   PLT_DeviceDataReference&  device,
 						   void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 		if ( res == NPT_SUCCESS ) {
 			CFAbsoluteTime timeNow = CFAbsoluteTimeGetCurrent();
 			PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 			if ( timeNow - speaker.lastVolChange > 1 ) {
 				speaker.volume = speaker.deviceVolume;
+				
+				NSLog(@"%@", master.delegate);
 				[master.delegate speakerUpdated:speaker];
 			}
 		}
+		
+		[pool release];
 	}
 	
 	virtual void OnGetVolumeResult(NPT_Result                res,
@@ -442,14 +565,21 @@ public:
 						   const char*               channel,
 						   NPT_UInt32				 volume,
 						   void*                     userdata) {
+		
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 		speaker.deviceVolume = volume;
 		CFAbsoluteTime timeNow = CFAbsoluteTimeGetCurrent();
 		if ( timeNow - speaker.lastVolChange > 1 ) {
 			speaker.volume = speaker.deviceVolume;
+			
+			NSLog(@"%@", master.delegate);
+			// TODO make all delegate calls on main thread
 			[master.delegate speakerUpdated:speaker];
 		}
+		
+		[pool release];
 	}	
 	
 	PPMediaController *master;
