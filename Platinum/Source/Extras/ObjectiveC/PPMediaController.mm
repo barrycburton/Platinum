@@ -43,8 +43,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		NSLog(@"%@", master.delegate);
-		[master.delegate shouldAddDevice];
+		[master.delegate performSelectorOnMainThread:@selector(shouldAddDevice) withObject:nil waitUntilDone:NO];
 		
 		[pool release];
 		
@@ -55,8 +54,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		NSLog(@"%@", master.delegate);
-		[master.delegate didRemoveDevice];
+		[master.delegate performSelectorOnMainThread:@selector(didRemoveDevice) withObject:nil waitUntilDone:NO];
 		
 		[pool release];
 	}
@@ -102,7 +100,7 @@ public:
 		if ( [user isContainer] ) {
 			// New Folder List
 				  
-			list = [NSMutableArray arrayWithCapacity:10];
+			list = [[NSMutableArray arrayWithCapacity:10] retain];
 			PLT_MediaObjectList::Iterator listIter = info->items->GetFirstItem();
 			while ( listIter ) {
 				PLT_MediaObject *item = *listIter;
@@ -137,8 +135,8 @@ public:
 		}
 		
 		// Call delegate with new Objects
-		NSLog(@"%@", master.delegate);
-		[master.delegate browseDidRespond:list toQuery:(id)userdata];
+		[list insertObject:(id)userdata atIndex:0];
+		[master.delegate performSelectorOnMainThread:@selector(browseDidRespond:) withObject:list waitUntilDone:NO];
 		
 		[pool release];
 	}
@@ -162,8 +160,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		NSLog(@"%@", master.delegate);
-		[master.delegate shouldAddSpeaker];
+		[master.delegate performSelectorOnMainThread:@selector(shouldAddSpeaker) withObject:nil waitUntilDone:NO];
 		
 		[pool release];
 		
@@ -174,8 +171,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		NSLog(@"%@", master.delegate);
-		[master.delegate didRemoveSpeaker];
+		[master.delegate performSelectorOnMainThread:@selector(didRemoveSpeaker) withObject:nil waitUntilDone:NO];
 		
 		[pool release];
 	}
@@ -185,7 +181,7 @@ public:
 
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		PPMediaDevice *speaker = [master.delegate speakerForSpeakerDevice:service->GetDevice()];
+		PPMediaDevice *speaker = [[master.delegate speakerForSpeakerDevice:service->GetDevice()] retain];
 		
 		if ( speaker ) {
 			NPT_List<PLT_StateVariable *>::Iterator listIter = vars->GetFirstItem();
@@ -233,8 +229,7 @@ public:
 				listIter++;
 			}
 
-			NSLog(@"%@", master.delegate);
-			[master.delegate speakerUpdated:speaker];
+			[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 		}
 		
 		[pool release];
@@ -295,8 +290,7 @@ public:
 			if ( 0 && !speaker.song && !info->cur_metadata.IsEmpty() ) {
 				speaker.song = [[PPMediaItem alloc] initWithMetaData:[NSString stringWithUTF8String:(char *)info->cur_metadata]];
 			}
-			NSLog(@"%@", master.delegate);
-			[master.delegate speakerUpdated:speaker];
+			[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 		}
 		
 		[pool release];
@@ -330,8 +324,7 @@ public:
 			if ( !speaker.stopRequested ) {
 				speaker.position = info->rel_time.ToSeconds();
 			}
-			NSLog(@"%@", master.delegate);
-			[master.delegate speakerUpdated:speaker];
+			[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 		}
 		
 		[pool release];
@@ -534,8 +527,7 @@ public:
 		PPMediaDevice *speaker = (PPMediaDevice *)userdata;
 		speaker.mute = mute;
 		
-		NSLog(@"%@", master.delegate);
-		[master.delegate speakerUpdated:speaker];
+		[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 	
 		[pool release];
 	}
@@ -552,8 +544,7 @@ public:
 			if ( timeNow - speaker.lastVolChange > 1 ) {
 				speaker.volume = speaker.deviceVolume;
 				
-				NSLog(@"%@", master.delegate);
-				[master.delegate speakerUpdated:speaker];
+				[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 			}
 		}
 		
@@ -574,9 +565,7 @@ public:
 		if ( timeNow - speaker.lastVolChange > 1 ) {
 			speaker.volume = speaker.deviceVolume;
 			
-			NSLog(@"%@", master.delegate);
-			// TODO make all delegate calls on main thread
-			[master.delegate speakerUpdated:speaker];
+			[master.delegate performSelectorOnMainThread:@selector(speakerUpdated:) withObject:speaker waitUntilDone:NO];
 		}
 		
 		[pool release];
