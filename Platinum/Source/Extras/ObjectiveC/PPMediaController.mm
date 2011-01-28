@@ -611,7 +611,7 @@ public:
 		
 		// if ( item->m_Manufacturer.Compare("Sonos, Inc.", true) != 0 ) {
 			PP_MediaDevice *device = new PP_MediaDevice(item);
-			PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
+			PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:device] retain];
 			mediaDevice.isSpeaker = YES;
 			[list addObject:mediaDevice];
 		// }
@@ -631,7 +631,7 @@ public:
 	while ( listIter ) {
 		PLT_DeviceDataReference item = *listIter;
 		PP_MediaDevice *device = new PP_MediaDevice(item);
-		PPMediaDevice *mediaDevice = [[PPMediaDevice alloc] initWithController:self andDevice:device];
+		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:device] retain];
 		mediaDevice.isSpeaker = NO;
 		[list addObject:mediaDevice];
 		

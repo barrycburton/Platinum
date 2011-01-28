@@ -76,7 +76,6 @@
 - (NSURL *)albumArtURL {
 	if ( !item->m_ExtraInfo.album_art_uri.IsEmpty() ) {
 		NSString *url = [NSString stringWithUTF8String:(char *)item->m_ExtraInfo.album_art_uri];
-		NSLog(@"Alburm ART AT: %@", url);
 		return [NSURL URLWithString:url];
 	}
 	return nil;

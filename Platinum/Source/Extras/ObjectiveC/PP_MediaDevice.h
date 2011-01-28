@@ -13,7 +13,7 @@
 class PP_MediaDevice {
 public:
 	PP_MediaDevice(PLT_DeviceDataReference device) : mediaDevice(device)
-													, owner(0) {
+													, owner(nil) {
 
 	}
 	

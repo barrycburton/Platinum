@@ -30,7 +30,7 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (assign) NSUInteger position;
 @property (assign) BOOL isPlaying;
 @property (assign) BOOL wasPlaying;
-@property (assign) PPMediaController *controller;
+@property (retain) PPMediaController *controller;
 @property (assign) BOOL isSpeaker;
 @property (assign) BOOL stopRequested;
 @property (assign) BOOL songFinished;

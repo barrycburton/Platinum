@@ -107,7 +107,7 @@
 		isPlaying = playing;
 		if ( isPlaying ) {
 			// start timer
-			[self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
+			//[self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
 		}
 	}
 }
@@ -118,7 +118,11 @@
 }
 
 - (void)setOwner:(id)parent {
-	device->owner = parent;
+	if ( parent != device->owner ) {
+		[parent retain];
+		[device->owner release];
+		device->owner = parent;
+	}
 }
 
 - (id)getOwner {

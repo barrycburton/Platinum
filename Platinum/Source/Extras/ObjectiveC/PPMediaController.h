@@ -30,7 +30,7 @@ typedef struct PP_MediaController PP_MediaController;
 	PP_MediaController *mediaController;
 }
 
-@property (nonatomic, assign) NSObject<PPMediaControllerDelegate> *delegate;
+@property (nonatomic, retain) NSObject<PPMediaControllerDelegate> *delegate;
 
 - (id)initWithUPnP:(PPUPnP *)upnp;
 
