@@ -54,10 +54,6 @@
 	return [NSString stringWithUTF8String:(char*)object->mediaObject->m_ObjectID];
 }
 
-- (BOOL)isContainer {
-	return (BOOL)object->mediaObject->IsContainer();
-}
-
 - (void)setName:(NSString *)name {
 	PLT_MediaObject *mediaObject = object->mediaObject;
 	mediaObject->m_Title = (char *)[name UTF8String];

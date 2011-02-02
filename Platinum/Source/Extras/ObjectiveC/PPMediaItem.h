@@ -21,13 +21,11 @@ typedef struct PLT_MediaItem PLT_MediaItem;
 - (id)initWithItem:(PLT_MediaItem *)obj;
 - (id)initWithMetaData:(NSString *)metaData;
 
-- (NSString *)metaData;
-
+@property (nonatomic, readonly) NSString *metaData;
 @property (nonatomic, readonly) NSString *trackName;
 @property (nonatomic, readonly) NSString *albumName;
 @property (nonatomic, readonly) NSString *artistName;
 @property (nonatomic, readonly) NSURL *albumArtURL;
 @property (nonatomic, readonly) NSUInteger duration;
-@property (nonatomic, assign) BOOL isList;
 
 @end

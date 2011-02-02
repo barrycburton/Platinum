@@ -25,6 +25,23 @@
     return self;
 }
 
+- (NSUInteger)childCount {
+	return container->m_ChildrenCount;
+}
+
+- (void)setChildCount:(NSUInteger)childCount {
+	container->m_ChildrenCount = childCount;
+}
+
+- (BOOL)updateChildCount:(NSUInteger)newChildCount {
+	if ( self.childCount == -1 && newChildCount != -1 ) {
+		self.childCount = newChildCount;
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
 - (void)dealloc {
 
     [super dealloc];

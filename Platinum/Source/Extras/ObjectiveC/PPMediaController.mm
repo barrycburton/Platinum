@@ -97,9 +97,9 @@ public:
 		
 		NSMutableArray *list = nil;
 		
-		if ( [user isContainer] ) {
+		if ( [user isKindOfClass:[PPMediaContainer class]] ) {
 			// New Folder List
-				  
+			[(PPMediaContainer *)user updateChildCount:info->tm];
 			list = [[NSMutableArray arrayWithCapacity:10] retain];
 			PLT_MediaObjectList::Iterator listIter = info->items->GetFirstItem();
 			while ( listIter ) {
@@ -181,7 +181,7 @@ public:
 
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		PPMediaDevice *speaker = [[master.delegate speakerForSpeakerDevice:service->GetDevice()] retain];
+		PPMediaDevice *speaker = [[master.delegate mediaSpeakerForPltDevice:service->GetDevice()] retain];
 		
 		if ( speaker ) {
 			NPT_List<PLT_StateVariable *>::Iterator listIter = vars->GetFirstItem();
@@ -604,7 +604,7 @@ public:
 - (NSArray *)mediaRenderers {
 	PLT_DeviceDataReferenceList pltMediaRendererList = PLT_DeviceDataReferenceList(mediaController->mediaController->GetMediaRenderers());
 	
-	NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
+	NSMutableArray *list = [[NSMutableArray arrayWithCapacity:10] retain];
 	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
 	while ( listIter ) {
 		PLT_DeviceDataReference item = *listIter;
@@ -626,7 +626,7 @@ public:
 - (NSArray *)mediaServers {
 	PLT_DeviceDataReferenceList pltMediaRendererList = PLT_DeviceDataReferenceList(mediaController->mediaBrowser->GetMediaServers());
 	
-	NSMutableArray *list = [NSMutableArray arrayWithCapacity:10];
+	NSMutableArray *list = [[NSMutableArray arrayWithCapacity:10] retain];
 	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
 	while ( listIter ) {
 		PLT_DeviceDataReference item = *listIter;

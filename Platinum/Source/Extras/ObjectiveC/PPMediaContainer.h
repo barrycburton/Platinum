@@ -16,6 +16,9 @@ typedef struct PLT_MediaContainer PLT_MediaContainer;
 	PLT_MediaContainer *container;
 }
 
+@property (nonatomic, assign) NSUInteger childCount;
+
 - (id)initWithContainer:(PLT_MediaContainer *)obj;
+- (BOOL)updateChildCount:(NSUInteger)newChildCount;
 
 @end

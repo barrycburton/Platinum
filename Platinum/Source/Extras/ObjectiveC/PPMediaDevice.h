@@ -36,23 +36,16 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (assign) BOOL songFinished;
 @property (assign) CFAbsoluteTime lastVolChange;
 
+@property (readonly) PPMediaContainer *rootContainer;
+@property (readonly) PP_MediaDevice *deviceData;
+@property (readonly) NSString *name;
+@property (readonly) NSString *uuid;
+
+@property (assign) id owner;
+
 - (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData;
-- (PP_MediaDevice *)deviceData;
 
-- (NSString *)name;
-- (NSString *)uuid;
-
-- (PPMediaContainer *)rootContainer;
-
-- (void)setIsPlaying:(BOOL)playing;
-
-- (void)setOwner:(id)parent;
-- (id)getOwner;
-
-- (PP_MediaDevice *)getDevice;
-
-- (BOOL)isDeviceEqual:(void *)device;
-
-- (BOOL)isEqual:(PPMediaDevice *)mediaDevice;
+- (BOOL)isEqualToMediaDevice:(PPMediaDevice *)mediaDevice;
+- (BOOL)isEqualToPltDevice:(void *)pltDevice;
 
 @end

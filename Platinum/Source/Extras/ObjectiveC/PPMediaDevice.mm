@@ -107,7 +107,7 @@
 		isPlaying = playing;
 		if ( isPlaying ) {
 			// start timer
-			//[self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
+			[self performSelectorOnMainThread:@selector(startTimer) withObject:nil waitUntilDone:NO];
 		}
 	}
 }
@@ -125,25 +125,25 @@
 	}
 }
 
-- (id)getOwner {
+- (id)owner {
 	return device->owner;
-}
-
-- (BOOL)isDeviceEqual:(void *)otherDevice {
-	PLT_DeviceData *speakerDevice = (PLT_DeviceData *)otherDevice;
-	return device->mediaDevice->GetUUID().Compare(speakerDevice->GetUUID(), true) == 0 ? YES : NO;
 }
 
 - (PP_MediaDevice *)getDevice {
 	return device;
 }
 
-- (BOOL)isEqual:(PPMediaDevice *)mediaDevice {
+- (BOOL)isEqualToMediaDevice:(PPMediaDevice *)mediaDevice {
 	if ( [mediaDevice isKindOfClass:[PPMediaDevice class]] ) {
 		PP_MediaDevice *otherDevice = [mediaDevice getDevice];
 		return device->mediaDevice->GetUUID().Compare(otherDevice->mediaDevice->GetUUID(), true) == 0 ? YES : NO;
 	}
 	return NO;
+}
+
+- (BOOL)isEqualToPltDevice:(void *)pltDevice {
+	PLT_DeviceData *pltDeviceData = (PLT_DeviceData *)pltDevice;
+	return device->mediaDevice->GetUUID().Compare(pltDeviceData->GetUUID(), true) == 0 ? YES : NO;
 }
 
 @end
