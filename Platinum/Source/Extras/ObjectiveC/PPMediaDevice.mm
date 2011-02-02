@@ -117,6 +117,10 @@
 	return ret;
 }
 
+- (BOOL)supportsFolderURLs {
+	return YES;
+}
+
 - (void)setOwner:(id)parent {
 	if ( parent != device->owner ) {
 		[parent retain];

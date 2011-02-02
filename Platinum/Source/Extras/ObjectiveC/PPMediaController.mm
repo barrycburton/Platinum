@@ -206,9 +206,9 @@ public:
 					if ( speaker.stopRequested ) {
 						speaker.stopRequested = NO;
 						speaker.wasPlaying = NO;
-					}
-					if ( !speaker.isPlaying ) {
-						speaker.position = 0;
+						if ( !speaker.isPlaying ) {
+							speaker.position = 0;
+						}
 					}
 				} else if ( item->GetName().Compare("RelativeTimePosition", true) == 0 ) {
 					NPT_UInt32 relTime = 0;
