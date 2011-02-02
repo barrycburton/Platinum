@@ -33,7 +33,7 @@
 	songs->Get(0, song);
 	self = [self initWithItem:(PLT_MediaItem *)song];
 	if ( self ) {
-		[self getMediaObject]->childList = songs;
+		[self getMediaObject]->childList.Add(songs);
 	}
 	return self;
 }

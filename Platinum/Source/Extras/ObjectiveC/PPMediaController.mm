@@ -93,7 +93,7 @@ public:
 		
 		PPMediaObject *user = (PPMediaObject *)userdata;
 		PP_MediaObject *usercpp = [user getMediaObject];
-		usercpp->childList = info->items;
+		usercpp->childList.Add(info->items);
 		
 		NSMutableArray *list = nil;
 		

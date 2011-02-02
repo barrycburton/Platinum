@@ -14,7 +14,8 @@ public:
 	PP_MediaObject(PLT_MediaObject *object)
 		: mediaObject(object)
 		, owner(0)
-		, childList() {
+		, childList()
+	{
 		
 	}
 	
@@ -25,7 +26,7 @@ public:
 	
 	PLT_MediaObject *mediaObject;
 	id owner;
-	PLT_MediaObjectListReference childList;
+	NPT_List<PLT_MediaObjectListReference> childList;
 };
 
 #endif /* _PP_MEDIA_OBJECT_H_ */
