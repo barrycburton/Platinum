@@ -17,6 +17,8 @@ typedef struct PLT_UPnP PLT_UPnP;
 @property (nonatomic, readonly) PLT_UPnP *PLTUPnP;
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 
++ (PPUPnP *)sharedUPnP;
+
 - (BOOL)start;
 - (BOOL)stop;
 

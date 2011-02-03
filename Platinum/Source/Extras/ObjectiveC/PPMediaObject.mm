@@ -10,9 +10,8 @@
 #import "NptResults.h"
 
 #import "Platinum.h"
-#import "PltMediaItem.h"
-#import "PP_MediaObject.h"
 
+#import "PP_MediaObject.h"
 #import "PPMediaObject.h"
 #import "PPMediaContainer.h"
 #import "PPMediaItem.h"

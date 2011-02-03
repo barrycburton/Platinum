@@ -44,6 +44,8 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 
 @property (assign) id owner;
 
+@property (readonly) NSString *key;
+
 - (BOOL)isEqualToMediaDevice:(PPMediaDevice *)mediaDevice;
 - (BOOL)isEqualToPltDevice:(void *)pltDevice;
 

@@ -43,7 +43,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+		PPMediaDevice *mediaDevice = [[PPMediaDevice mediaDeviceForPltDevice:device] retain];
 
 		[master.delegate performSelectorOnMainThread:@selector(shouldAddServer:) withObject:mediaDevice waitUntilDone:NO];
 		
@@ -56,7 +56,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+		PPMediaDevice *mediaDevice = [[PPMediaDevice mediaDeviceForPltDevice:device] retain];
 		
 		[master.delegate performSelectorOnMainThread:@selector(didRemoveServer:) withObject:mediaDevice waitUntilDone:NO];
 		
@@ -82,65 +82,16 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		// First convert result to Obj-C Objects
-		NSLog(@"browse item id: %s", (char *)info->object_id);
-		
-		/*
-		typedef struct {
-			NPT_String                   object_id;
-			PLT_MediaObjectListReference items;
-			NPT_UInt32                   nr;
-			NPT_UInt32                   tm;
-			NPT_UInt32                   uid;
-		} PLT_BrowseInfo;
-		*/
-		
 		PPMediaObject *user = (PPMediaObject *)userdata;
-		PP_MediaObject *usercpp = [user getMediaObject];
-		usercpp->childList.Add(info->items);
-		
-		NSMutableArray *list = nil;
-		
+
 		if ( [user isKindOfClass:[PPMediaContainer class]] ) {
-			// New Folder List
-			[(PPMediaContainer *)user updateChildCount:info->tm];
-			list = [[NSMutableArray arrayWithCapacity:10] retain];
-			PLT_MediaObjectList::Iterator listIter = info->items->GetFirstItem();
-			while ( listIter ) {
-				PLT_MediaObject *item = *listIter;
-				NSLog(@"title: %s", (char*)item->m_Title);
-				
-				if ( item->m_Resources.GetItemCount() > 0 ) {
-					NSLog(@"Has resources");
-				}
-				
-				PPMediaObject *object = [PPMediaObject PPMediaObjectWithObject:item];
-				[list addObject:object];
-				
-				listIter++;
-				
-				NSLog(@"new title: %@", [object name]);
-			}
-		} else if ( info->items->GetItemCount() > 0 ) {
-			// Song but with full info
-			PLT_MediaObject *item;
-			info->items->Get(0, item);
-			if ( item ) {
-				NSLog(@"title: %s", (char*)item->m_Title);
-				
-				if ( item->m_Resources.GetItemCount() > 0 ) {
-					NSLog(@"Has resources");
-				}
-				
-				[user setObject:item];
-			}
+			[(PPMediaContainer *)user updateDataWithBrowseInfo:info];
 		} else {
-			NSLog(@"No data found");
+			NSLog(@"ERROR: Browse Response but not for Container.");
 		}
 		
 		// Call delegate with new Objects
-		[list insertObject:(id)userdata atIndex:0];
-		[master.delegate performSelectorOnMainThread:@selector(browseDidRespond:) withObject:list waitUntilDone:NO];
+		[master.delegate performSelectorOnMainThread:@selector(browseDidRespond:) withObject:user waitUntilDone:NO];
 		
 		[pool release];
 	}
@@ -164,7 +115,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+		PPMediaDevice *mediaDevice = [[PPMediaDevice mediaDeviceForPltDevice:device] retain];
 		
 		[master.delegate performSelectorOnMainThread:@selector(shouldAddSpeaker:) withObject:mediaDevice waitUntilDone:NO];
 		
@@ -177,7 +128,7 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+		PPMediaDevice *mediaDevice = [[PPMediaDevice mediaDeviceForPltDevice:device] retain];
 		
 		[master.delegate performSelectorOnMainThread:@selector(didRemoveSpeaker:) withObject:mediaDevice waitUntilDone:NO];
 		
@@ -189,7 +140,7 @@ public:
 
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		PPMediaDevice *speaker = [[master.delegate mediaSpeakerForPltDevice:service->GetDevice()] retain];
+		PPMediaDevice *speaker = [PPMediaDevice lookupMediaDeviceForPltDevice:service->GetDevice()];
 		
 		if ( speaker ) {
 			NPT_List<PLT_StateVariable *>::Iterator listIter = vars->GetFirstItem();
@@ -217,6 +168,9 @@ public:
 						if ( !speaker.isPlaying ) {
 							speaker.position = 0;
 						}
+					}
+					if ( item->GetValue().Compare("STOPPED", true) == 0 ) {
+						speaker.position = 0;
 					}
 				} else if ( item->GetName().Compare("RelativeTimePosition", true) == 0 ) {
 					NPT_UInt32 relTime = 0;
@@ -586,14 +540,24 @@ public:
 };
 
 
+static PPMediaController *sharedInstance = nil;
+
 
 @implementation PPMediaController
 
 @synthesize delegate;
 
++ (PPMediaController *)sharedMediaController {
+	if ( !sharedInstance ) {
+		sharedInstance = [[PPMediaController alloc] initWithUPnP:[PPUPnP sharedUPnP]];
+	}
+	return sharedInstance;
+}
+
 - (id)initWithUPnP:(PPUPnP *)upnp {
 	if ( self = [super init] ) {
 		mediaController = new PP_MediaController(self, [upnp PLTUPnP]);
+		sharedInstance = self;
 	}
 	return self;
 }
@@ -604,40 +568,6 @@ public:
 	
 	[super dealloc];
 }
-
-
-
-// Device lists
-
-- (NSArray *)mediaRenderers {
-	PLT_DeviceDataReferenceList pltMediaRendererList = PLT_DeviceDataReferenceList(mediaController->mediaController->GetMediaRenderers());
-	
-	NSMutableArray *list = [[NSMutableArray arrayWithCapacity:10] retain];
-	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
-	while ( listIter ) {
-		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:*listIter] retain];
-		[list addObject:mediaDevice];		
-		listIter++;
-	}
-	
-	return list;
-}
-
-
-- (NSArray *)mediaServers {
-	PLT_DeviceDataReferenceList pltMediaRendererList = PLT_DeviceDataReferenceList(mediaController->mediaBrowser->GetMediaServers());
-	
-	NSMutableArray *list = [[NSMutableArray arrayWithCapacity:10] retain];
-	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
-	while ( listIter ) {
-		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:*listIter] retain];
-		[list addObject:mediaDevice];
-		listIter++;
-	}
-	
-	return list;
-}
-
 
 
 // Server browsing
@@ -780,7 +710,7 @@ public:
 							  "Master",
 							  speaker);
 	
-	return ( result == NPT_SUCCESS );	
+	return ( result == NPT_SUCCESS );
 }
 
 

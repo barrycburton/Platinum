@@ -9,6 +9,9 @@
 #ifndef _PP_MEDIA_OBJECT_H_
 #define _PP_MEDIA_OBJECT_H_
 
+#import "PltMediaItem.h"
+#import "PltMediaBrowser.h"
+
 class PP_MediaObject {
 public:
 	PP_MediaObject(PLT_MediaObject *object)

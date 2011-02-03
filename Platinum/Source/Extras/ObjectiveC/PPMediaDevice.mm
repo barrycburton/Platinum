@@ -29,6 +29,9 @@
 @end
 
 
+static NSMutableDictionary *canonicalInstances = nil;
+
+
 @implementation PPMediaDevice
 
 @synthesize mute;
@@ -43,16 +46,42 @@
 @synthesize songFinished;
 @synthesize lastVolChange;
 
++ (PPMediaDevice *)mediaDeviceForPltDevice:(PLT_DeviceDataReference)deviceData {
+	if ( !canonicalInstances ) {
+		canonicalInstances = [[NSMutableDictionary alloc] init];
+	}
+	
+	PPMediaDevice *mediaDevice = [canonicalInstances valueForKey:[NSString stringWithUTF8String:(char*)deviceData->GetUUID()]];
+	
+	if ( !mediaDevice ) {
+		mediaDevice = [[[PPMediaDevice alloc] initWithController:[PPMediaController sharedMediaController] andDevice:deviceData] autorelease];
+	}
+	
+	return mediaDevice;
+}
+
++ (PPMediaDevice *)lookupMediaDeviceForPltDevice:(PLT_DeviceData *)deviceData {
+	if ( !canonicalInstances ) {
+		canonicalInstances = [[NSMutableDictionary alloc] init];
+	}
+	
+	PPMediaDevice *mediaDevice = [canonicalInstances valueForKey:[NSString stringWithUTF8String:(char*)deviceData->GetUUID()]];
+	
+	return mediaDevice;
+}
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PLT_DeviceDataReference)deviceData {
 	if ( self = [super init] ) {
 		device = new PP_MediaDevice(deviceData);
 		controller = theController;
+		[canonicalInstances setObject:self forKey:[self key]];
 	}
     return self;
 }
 
 - (void)dealloc {
+	
+	[canonicalInstances removeObjectForKey:[self key]];
 	
     [super dealloc];
 }
@@ -62,7 +91,7 @@
 }
 
 - (BOOL)isSpeaker {
-	return device->mediaDevice->GetType().Compare(NPT_String("urn:schemas-upnp-org:device:MediaRenderer:1"),true) == 0 ? YES : NO;
+	return device->mediaDevice->GetType().StartsWith(NPT_String("urn:schemas-upnp-org:device:MediaRenderer"),true);
 }
 
 - (NSString *)name {
@@ -146,6 +175,10 @@
 
 - (PP_MediaDevice *)getDevice {
 	return device;
+}
+
+- (NSString *)key {
+	return [self uuid];
 }
 
 - (BOOL)isEqualToMediaDevice:(PPMediaDevice *)mediaDevice {

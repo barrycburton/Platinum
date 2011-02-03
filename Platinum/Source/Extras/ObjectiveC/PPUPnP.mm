@@ -14,11 +14,21 @@
 
 #import "PPUPnP.h"
 
+static PPUPnP *sharedInstance = nil;
+
 @implementation PPUPnP
+
++ (PPUPnP *)sharedUPnP {
+	if ( !sharedInstance ) {
+		sharedInstance = [[PPUPnP alloc] init];
+	}
+	return sharedInstance;
+}
 
 - (id)init {
     if ( ( self = [super init]) ) {
         upnp = new PLT_UPnP();
+		sharedInstance = self;
     }
     return self;
 }

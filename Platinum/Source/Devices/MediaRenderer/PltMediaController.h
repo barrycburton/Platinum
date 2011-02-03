@@ -330,9 +330,8 @@ public:
         }
     }
 
-// TODO TEMP change to make this public to enable passing around a REF in Obj-C
-    PLT_CtrlPointReference                m_CtrlPoint;
 private:
+	PLT_CtrlPointReference                m_CtrlPoint;
     PLT_MediaControllerDelegate*          m_Delegate;
     NPT_Lock<PLT_DeviceDataReferenceList> m_MediaRenderers;
 };

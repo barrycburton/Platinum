@@ -19,9 +19,8 @@ typedef struct PP_MediaController PP_MediaController;
 - (void)didRemoveServer:(PPMediaDevice *)server;
 - (BOOL)shouldAddSpeaker:(PPMediaDevice *)speaker;
 - (void)didRemoveSpeaker:(PPMediaDevice *)speaker;
-- (void)browseDidRespond:(NSArray *)list;
+- (void)browseDidRespond:(PPMediaObject *)updatedObject;
 - (void)speakerUpdated:(PPMediaDevice *)speaker;
-- (PPMediaDevice *)mediaSpeakerForPltDevice:(void *)pltDevice;
 
 @end
 
@@ -31,10 +30,9 @@ typedef struct PP_MediaController PP_MediaController;
 
 @property (nonatomic, retain) NSObject<PPMediaControllerDelegate> *delegate;
 
-- (id)initWithUPnP:(PPUPnP *)upnp;
++ (PPMediaController *)sharedMediaController;
 
-- (NSArray *)mediaRenderers;
-- (NSArray *)mediaServers;
+- (id)initWithUPnP:(PPUPnP *)upnp;
 
 - (BOOL)browseContentsOfFolder:(NSString *)folderId onServer:(PPMediaDevice *)server fromIndex:(NSUInteger)start forNumber:(NSUInteger)count userData:(id)userData;
 

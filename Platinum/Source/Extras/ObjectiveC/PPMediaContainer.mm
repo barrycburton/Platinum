@@ -10,17 +10,26 @@
 #import "NptResults.h"
 
 #import "Platinum.h"
-#import "PltMediaItem.h"
 
+#import "PP_MediaObject.h"
 #import "PPMediaContainer.h"
 
+
+@interface PPMediaContainer ()
+
+@property (nonatomic, retain) NSMutableArray *list;
+
+@end
 
 
 @implementation PPMediaContainer
 
+@synthesize list;
+
 - (id)initWithContainer:(PLT_MediaContainer *)obj {
 	if ( self = [super initWithObject:obj] ) {
 		container = obj;
+		self.list = [NSMutableArray arrayWithCapacity:10];
 	}
     return self;
 }
@@ -29,8 +38,8 @@
 	return container->m_ChildrenCount;
 }
 
-- (void)setChildCount:(NSUInteger)childCount {
-	container->m_ChildrenCount = childCount;
+- (void)setChildCount:(NSUInteger)theChildCount {
+	container->m_ChildrenCount = theChildCount;
 }
 
 - (BOOL)updateChildCount:(NSUInteger)newChildCount {
@@ -39,6 +48,33 @@
 		return YES;
 	} else {
 		return NO;
+	}
+}
+
+- (void)updateDataWithBrowseInfo:(PLT_BrowseInfo *)browseInfo {
+	
+	/*
+	 typedef struct {
+	 NPT_String                   object_id;
+	 PLT_MediaObjectListReference items;
+	 NPT_UInt32                   nr;
+	 NPT_UInt32                   tm;
+	 NPT_UInt32                   uid;
+	 } PLT_BrowseInfo;
+	 */
+
+	PP_MediaObject *mediaObject = [self getMediaObject];
+	
+	mediaObject->childList.Add(browseInfo->items);
+	
+	[self updateChildCount:browseInfo->tm];
+	
+	PLT_MediaObjectList::Iterator listIter = browseInfo->items->GetFirstItem();
+	while ( listIter ) {
+		PPMediaObject *mediaObject = [PPMediaObject PPMediaObjectWithObject:*listIter];
+		[list addObject:mediaObject];
+		
+		listIter++;
 	}
 }
 

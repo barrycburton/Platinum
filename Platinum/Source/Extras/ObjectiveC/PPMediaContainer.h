@@ -10,15 +10,20 @@
 
 #if !defined(_PLT_MEDIA_ITEM_H_)
 typedef struct PLT_MediaContainer PLT_MediaContainer;
+typedef struct PLT_BrowseInfo PLT_BrowseInfo; 
 #endif
 
 @interface PPMediaContainer : PPMediaObject {
 	PLT_MediaContainer *container;
+	NSUInteger childCount;
+	NSMutableArray *list;
 }
 
-@property (nonatomic, assign) NSUInteger childCount;
+@property (nonatomic, readonly) NSUInteger childCount;
+@property (nonatomic, retain, readonly) NSMutableArray *list;
 
 - (id)initWithContainer:(PLT_MediaContainer *)obj;
 - (BOOL)updateChildCount:(NSUInteger)newChildCount;
+- (void)updateDataWithBrowseInfo:(PLT_BrowseInfo *)browseInfo;
 
 @end
