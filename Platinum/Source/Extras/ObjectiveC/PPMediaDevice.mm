@@ -13,13 +13,21 @@
 #import "PltDeviceData.h"
 
 #import "PP_MediaDevice.h"
-#import "PPMediaDevice.h"
+#import "PPMediaDevice.hh"
 
 #import "PltMediaItem.h"
 
 #import "PPMediaController.h"
 
 #import <CoreFoundation/CFDate.h>
+
+
+@interface PPMediaDevice ()
+
+- (id)initWithController:(PPMediaController *)theController andDevice:(PLT_DeviceDataReference)deviceData;
+
+@end
+
 
 @implementation PPMediaDevice
 
@@ -31,15 +39,14 @@
 @synthesize isPlaying;
 @synthesize wasPlaying;
 @synthesize controller;
-@synthesize isSpeaker;
 @synthesize stopRequested;
 @synthesize songFinished;
 @synthesize lastVolChange;
 
 
-- (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData {
+- (id)initWithController:(PPMediaController *)theController andDevice:(PLT_DeviceDataReference)deviceData {
 	if ( self = [super init] ) {
-		device = deviceData;
+		device = new PP_MediaDevice(deviceData);
 		controller = theController;
 	}
     return self;
@@ -52,6 +59,10 @@
 
 - (PP_MediaDevice *)deviceData {
 	return device;
+}
+
+- (BOOL)isSpeaker {
+	return device->mediaDevice->GetType().Compare(NPT_String("urn:schemas-upnp-org:device:MediaRenderer:1"),true) == 0 ? YES : NO;
 }
 
 - (NSString *)name {

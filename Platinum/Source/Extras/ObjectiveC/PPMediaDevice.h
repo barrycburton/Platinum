@@ -32,7 +32,7 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (assign) BOOL wasPlaying;
 @property (readonly) BOOL supportsFolderURLs;
 @property (retain) PPMediaController *controller;
-@property (assign) BOOL isSpeaker;
+@property (readonly) BOOL isSpeaker;
 @property (assign) BOOL stopRequested;
 @property (assign) BOOL songFinished;
 @property (assign) CFAbsoluteTime lastVolChange;
@@ -43,8 +43,6 @@ typedef struct PP_MediaDevice PP_MediaDevice;
 @property (readonly) NSString *uuid;
 
 @property (assign) id owner;
-
-- (id)initWithController:(PPMediaController *)theController andDevice:(PP_MediaDevice *)deviceData;
 
 - (BOOL)isEqualToMediaDevice:(PPMediaDevice *)mediaDevice;
 - (BOOL)isEqualToPltDevice:(void *)pltDevice;

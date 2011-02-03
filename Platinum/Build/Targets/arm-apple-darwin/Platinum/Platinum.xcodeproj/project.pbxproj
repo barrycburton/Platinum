@@ -205,6 +205,7 @@
 		977D7CFF12BB1F3900D406E1 /* PPMediaDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D7CFD12BB1F3900D406E1 /* PPMediaDevice.h */; };
 		977D7D0012BB1F3900D406E1 /* PPMediaDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977D7CFE12BB1F3900D406E1 /* PPMediaDevice.mm */; };
 		977D7D5012BB370800D406E1 /* PP_MediaDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 977D7D4E12BB370800D406E1 /* PP_MediaDevice.h */; };
+		97F00E1212FA322800837C2E /* PPMediaDevice.hh in Headers */ = {isa = PBXBuildFile; fileRef = 97F00E1112FA322800837C2E /* PPMediaDevice.hh */; };
 		AA747D9F0F9514B9006C5449 /* Platinum_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* Platinum_Prefix.pch */; };
 /* End PBXBuildFile section */
 
@@ -419,6 +420,7 @@
 		977D7CFD12BB1F3900D406E1 /* PPMediaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMediaDevice.h; sourceTree = "<group>"; };
 		977D7CFE12BB1F3900D406E1 /* PPMediaDevice.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PPMediaDevice.mm; sourceTree = "<group>"; };
 		977D7D4E12BB370800D406E1 /* PP_MediaDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PP_MediaDevice.h; sourceTree = "<group>"; };
+		97F00E1112FA322800837C2E /* PPMediaDevice.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PPMediaDevice.hh; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* Platinum_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platinum_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		D2AAC07E0554694100DB518D /* libPlatinum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlatinum.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -647,6 +649,7 @@
 				977D7B7812B9393800D406E1 /* PPMediaController.h */,
 				977D7B7912B9393800D406E1 /* PPMediaController.mm */,
 				977D7CFD12BB1F3900D406E1 /* PPMediaDevice.h */,
+				97F00E1112FA322800837C2E /* PPMediaDevice.hh */,
 				977D7D4E12BB370800D406E1 /* PP_MediaDevice.h */,
 				977D7CFE12BB1F3900D406E1 /* PPMediaDevice.mm */,
 				977D7B8212B944E500D406E1 /* PPMediaObject.h */,
@@ -937,6 +940,7 @@
 				977D7CFF12BB1F3900D406E1 /* PPMediaDevice.h in Headers */,
 				977D7D5012BB370800D406E1 /* PP_MediaDevice.h in Headers */,
 				9704749A12C11FB200F9D88C /* PP_MediaObject.h in Headers */,
+				97F00E1212FA322800837C2E /* PPMediaDevice.hh in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

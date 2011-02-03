@@ -15,8 +15,8 @@
 
 #import "PPMediaController.h"
 
-#import "PP_MediaDevice.h"
-#import "PPMediaDevice.h"
+
+#import "PPMediaDevice.hh"
 
 #import "PP_MediaObject.h"
 #import "PPMediaObject.h"
@@ -43,7 +43,9 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		[master.delegate performSelectorOnMainThread:@selector(shouldAddDevice) withObject:nil waitUntilDone:NO];
+		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+
+		[master.delegate performSelectorOnMainThread:@selector(shouldAddServer:) withObject:mediaDevice waitUntilDone:NO];
 		
 		[pool release];
 		
@@ -54,7 +56,9 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		[master.delegate performSelectorOnMainThread:@selector(didRemoveDevice) withObject:nil waitUntilDone:NO];
+		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+		
+		[master.delegate performSelectorOnMainThread:@selector(didRemoveServer:) withObject:mediaDevice waitUntilDone:NO];
 		
 		[pool release];
 	}
@@ -160,7 +164,9 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		[master.delegate performSelectorOnMainThread:@selector(shouldAddSpeaker) withObject:nil waitUntilDone:NO];
+		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+		
+		[master.delegate performSelectorOnMainThread:@selector(shouldAddSpeaker:) withObject:mediaDevice waitUntilDone:NO];
 		
 		[pool release];
 		
@@ -171,7 +177,9 @@ public:
 		
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		
-		[master.delegate performSelectorOnMainThread:@selector(didRemoveSpeaker) withObject:nil waitUntilDone:NO];
+		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:master andDevice:device] retain];
+		
+		[master.delegate performSelectorOnMainThread:@selector(didRemoveSpeaker:) withObject:mediaDevice waitUntilDone:NO];
 		
 		[pool release];
 	}
@@ -607,15 +615,8 @@ public:
 	NSMutableArray *list = [[NSMutableArray arrayWithCapacity:10] retain];
 	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
 	while ( listIter ) {
-		PLT_DeviceDataReference item = *listIter;
-		
-		// if ( item->m_Manufacturer.Compare("Sonos, Inc.", true) != 0 ) {
-			PP_MediaDevice *device = new PP_MediaDevice(item);
-			PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:device] retain];
-			mediaDevice.isSpeaker = YES;
-			[list addObject:mediaDevice];
-		// }
-		
+		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:*listIter] retain];
+		[list addObject:mediaDevice];		
 		listIter++;
 	}
 	
@@ -629,12 +630,8 @@ public:
 	NSMutableArray *list = [[NSMutableArray arrayWithCapacity:10] retain];
 	PLT_DeviceDataReferenceList::Iterator listIter = pltMediaRendererList.GetFirstItem();
 	while ( listIter ) {
-		PLT_DeviceDataReference item = *listIter;
-		PP_MediaDevice *device = new PP_MediaDevice(item);
-		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:device] retain];
-		mediaDevice.isSpeaker = NO;
+		PPMediaDevice *mediaDevice = [[[PPMediaDevice alloc] initWithController:self andDevice:*listIter] retain];
 		[list addObject:mediaDevice];
-		
 		listIter++;
 	}
 	

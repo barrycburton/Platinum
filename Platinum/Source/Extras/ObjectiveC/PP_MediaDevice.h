@@ -10,6 +10,7 @@
 #ifndef _PP_MEDIA_DEVICE_H_
 #define _PP_MEDIA_DEVICE_H_
 
+
 class PP_MediaDevice {
 public:
 	PP_MediaDevice(PLT_DeviceDataReference device) : mediaDevice(device)
@@ -25,5 +26,6 @@ public:
 	PLT_DeviceDataReference mediaDevice;
 	id owner;
 };
+
 
 #endif /* _PP_MEDIA_DEVICE_H_ */

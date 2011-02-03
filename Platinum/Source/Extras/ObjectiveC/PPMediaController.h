@@ -15,10 +15,10 @@ typedef struct PP_MediaController PP_MediaController;
 
 @protocol PPMediaControllerDelegate
 
-- (BOOL)shouldAddDevice;
-- (void)didRemoveDevice;
-- (BOOL)shouldAddSpeaker;
-- (void)didRemoveSpeaker;
+- (BOOL)shouldAddServer:(PPMediaDevice *)server;
+- (void)didRemoveServer:(PPMediaDevice *)server;
+- (BOOL)shouldAddSpeaker:(PPMediaDevice *)speaker;
+- (void)didRemoveSpeaker:(PPMediaDevice *)speaker;
 - (void)browseDidRespond:(NSArray *)list;
 - (void)speakerUpdated:(PPMediaDevice *)speaker;
 - (PPMediaDevice *)mediaSpeakerForPltDevice:(void *)pltDevice;
