@@ -33,7 +33,7 @@
 }
 
 - (id)initWithObject:(PLT_MediaObject *)obj {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		object = new PP_MediaObject(obj);
 	}
     return self;

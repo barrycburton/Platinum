@@ -71,7 +71,7 @@ static NSMutableDictionary *canonicalInstances = nil;
 }
 
 - (id)initWithController:(PPMediaController *)theController andDevice:(PLT_DeviceDataReference)deviceData {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		device = new PP_MediaDevice(deviceData);
 		controller = theController;
 		[canonicalInstances setObject:self forKey:[self key]];

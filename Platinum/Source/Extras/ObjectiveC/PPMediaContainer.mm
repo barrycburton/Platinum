@@ -27,7 +27,7 @@
 @synthesize list;
 
 - (id)initWithContainer:(PLT_MediaContainer *)obj {
-	if ( self = [super initWithObject:obj] ) {
+	if ( (self = [super initWithObject:obj]) ) {
 		container = obj;
 		self.list = [NSMutableArray arrayWithCapacity:10];
 	}

@@ -555,7 +555,7 @@ static PPMediaController *sharedInstance = nil;
 }
 
 - (id)initWithUPnP:(PPUPnP *)upnp {
-	if ( self = [super init] ) {
+	if ( (self = [super init]) ) {
 		mediaController = new PP_MediaController(self, [upnp PLTUPnP]);
 		sharedInstance = self;
 	}

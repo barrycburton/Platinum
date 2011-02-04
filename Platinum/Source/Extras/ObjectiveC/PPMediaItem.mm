@@ -20,7 +20,7 @@
 @implementation PPMediaItem
 
 - (id)initWithItem:(PLT_MediaItem *)obj {
-	if ( self = [super initWithObject:obj] ) {
+	if ( (self = [super initWithObject:obj]) ) {
 		item = obj;
 	}
     return self;
