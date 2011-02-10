@@ -34,14 +34,14 @@
 }
 */
 
-- (id)initWithController:(PPMediaController *)theController speaker:(PPMediaDevice *)theSpeaker {
+- (id)initWithController:(PPMediaController *)theController speaker:(PPMediaDevice *)theSpeaker song:(PPMediaItem *)theSong {
 	self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization.
 		self.controller = theController;
 		self.speaker = theSpeaker;
-		if ( self.speaker.song ) {
-			[self.controller setCurrentSong:self.speaker.song onSpeaker:self.speaker];
+		if ( theSong ) {
+			[self.controller setCurrentSong:theSong onSpeaker:self.speaker];
 		}
 		[self speakerUpdated:self.speaker];
 		[self.controller updateMediaInfoForSpeaker:self.speaker];
@@ -83,14 +83,12 @@
 }
 
 - (IBAction)playPressed:(id)sender {
-	
-	self.speaker.isPlaying = !self.speaker.isPlaying;
-
-	if ( self.speaker.isPlaying ) {
+	if ( !self.speaker.isPlaying ) {
 		[self.controller playSpeaker:self.speaker];
 	} else {
 		[self.controller stopSpeaker:self.speaker];
 	}
+    [self speakerUpdated:self.speaker];
 }
 
 - (IBAction)nextPressed:(id)sender {

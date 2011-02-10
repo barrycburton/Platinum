@@ -39,7 +39,7 @@
 
 @property (nonatomic, retain) PPUPnP *upnp;
 @property (nonatomic, retain) PPMediaController *controller;
-@property (nonatomic, retain) NSArray *list;
+@property (nonatomic, retain) NSMutableArray *list;
 @property (nonatomic, retain) SpeakerListController *speakerListController;
 @property (nonatomic, retain) PPMediaItem *selectedSong;
 

@@ -31,7 +31,7 @@ extern char kSpeakerControllerKey;
     if (self) {
         // Custom initialization.
 		self.controller = theController;
-		self.list = [self.controller mediaRenderers];
+		self.list = [NSMutableArray arrayWithCapacity:10];
 		self.title = @"Speakers";
 		self.doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
 		self.rootVC = theRootVC;
@@ -40,8 +40,15 @@ extern char kSpeakerControllerKey;
 }
 
 - (void)refreshList {
-	self.list = [self.controller mediaRenderers];
 	[self.tableView reloadData];
+}
+
+- (void)addSpeaker:(PPMediaDevice *)speaker {
+    [self.list addObject:speaker];
+}
+
+- (void)removeSpeaker:(PPMediaDevice *)speaker {
+    [self.list removeObject:speaker];
 }
 
 - (UINavigationItem *)navigationItem {
@@ -186,12 +193,8 @@ extern char kSpeakerControllerKey;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	PPMediaDevice *device = [self.list objectAtIndex:[indexPath row]];
-	if ( self.rootVC.selectedSong ) {
-		device.song = self.rootVC.selectedSong;
-		self.rootVC.selectedSong = nil;
-	}
 
-	SpeakerViewController *next = [[SpeakerViewController alloc] initWithController:self.controller speaker:device];
+	SpeakerViewController *next = [[SpeakerViewController alloc] initWithController:self.controller speaker:device song:self.rootVC.selectedSong];
 	
 	objc_setAssociatedObject(device, &kSpeakerControllerKey, next, OBJC_ASSOCIATION_RETAIN);
 		

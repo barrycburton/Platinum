@@ -47,58 +47,51 @@ char kSpeakerControllerKey = 'a';
 @synthesize selectedSong;
 
 - (void)awakeFromNib {
+
 	self.upnp = [[PPUPnP alloc] init];
 	
 	self.controller = [[PPMediaController alloc] initWithUPnP:self.upnp];
-	self.controller.delegate = self;
+    
+    self.speakerListController = [[SpeakerListController alloc] initWithController:self.controller andRootViewController:self];
+	
+    self.controller.delegate = self;
 	
 	int res = [self.upnp start];
 	NSLog(@"awake. start result:%d", res);
 	
-	self.list = [self.controller mediaServers];
+	self.list = [NSMutableArray array];
 }
 
 - (IBAction)showSpeakers:(id)sender {
-	if ( !self.speakerListController ) {
-		self.speakerListController = [[SpeakerListController alloc] initWithController:self.controller andRootViewController:self];
-	}
 	UINavigationController *modal = [[UINavigationController alloc] initWithRootViewController:self.speakerListController];
 	[self.navigationController presentModalViewController:modal animated:YES];
 }
 
-- (BOOL)shouldAddDevice:(void *)wrapper {
-	self.list = [self.controller mediaServers];
+- (BOOL)shouldAddServer:(PPMediaDevice *)server {
+	[self.list addObject:server];
 	[self.tableView reloadData];
 	return YES;
 }
 
-- (void)didRemoveDevice:(void *)wrapper {
-	self.list = [self.controller mediaServers];
+- (void)didRemoveServer:(PPMediaDevice *)server; {
+	[self.list removeObject:server];
 	[self.tableView reloadData];
 }
 
-- (BOOL)shouldAddSpeaker:(void *)wrapper {
-	[self.speakerListController refreshList];
+- (BOOL)shouldAddSpeaker:(PPMediaDevice *)speaker {
+	[self.speakerListController addSpeaker:speaker];
 	return YES;
 }
 
-- (void)didRemoveSpeaker:(void *)wrapper {
-	[self.speakerListController refreshList];
+- (void)didRemoveSpeaker:(PPMediaDevice *)speaker {
+	[self.speakerListController removeSpeaker:speaker];
 }
 
-- (void)browseDidRespond:(NSArray *)newList toQuery:(id)userData {
-	if ( newList ) {
-		if ( userData ) {
-			ServerViewController *item = [(PPMediaObject *)userData getOwner];
-			[item setContainerList:newList];
-		}
-	} else {
-		if ( userData ) {
-			[self setSelectedSong:(PPMediaItem *)userData];
-		}
-		[self.navigationController popToRootViewControllerAnimated:YES];
+- (void)browseDidRespond:(PPMediaObject *)updatedObject {
+	if ( updatedObject ) {
+        ServerViewController *item = [updatedObject getOwner];
+        [item listUpdated];
 	}
-		
 }
 
 - (void)speakerUpdated:(PPMediaDevice *)speaker {

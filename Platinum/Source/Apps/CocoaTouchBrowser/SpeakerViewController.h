@@ -26,7 +26,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *nextButton;
 
 
-- (id)initWithController:(PPMediaController *)theController speaker:(PPMediaDevice *)theSpeaker;
+- (id)initWithController:(PPMediaController *)theController speaker:(PPMediaDevice *)theSpeaker song:(PPMediaItem *)theSong;
 
 - (void)speakerUpdated:(PPMediaDevice *)speaker;
 

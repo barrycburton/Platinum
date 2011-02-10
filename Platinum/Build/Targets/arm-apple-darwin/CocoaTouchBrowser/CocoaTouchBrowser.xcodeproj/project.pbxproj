@@ -16,7 +16,7 @@
 		977D7A1012B81B1F00D406E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */; };
 		977D7A1212B81B1F00D406E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1112B81B1F00D406E1 /* Foundation.framework */; };
 		977D7A1412B81B1F00D406E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A1312B81B1F00D406E1 /* UIKit.framework */; };
-		977D7B3812B82DD200D406E1 /* libPlatinum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 977D7A2512B81B6A00D406E1 /* libPlatinum.a */; };
+		97A8391D1303685300048A03 /* libPlatinum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A8391C1303685300048A03 /* libPlatinum.a */; };
 		E4A7DC061085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A7DC021085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m */; };
 		E4A7DC071085A49400E6ADE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A7DC031085A49400E6ADE2 /* main.m */; };
 		E4A7DC081085A49400E6ADE2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A7DC051085A49400E6ADE2 /* RootViewController.m */; };
@@ -24,16 +24,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		977D7A2412B81B6A00D406E1 /* PBXContainerItemProxy */ = {
+		97A839171303683F00048A03 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 977D7A1D12B81B6A00D406E1 /* Platinum.xcodeproj */;
+			containerPortal = 97A839101303683E00048A03 /* Platinum.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = Platinum;
 		};
-		977D7A2E12B81B8000D406E1 /* PBXContainerItemProxy */ = {
+		97A8391E1303685A00048A03 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 977D7A1D12B81B6A00D406E1 /* Platinum.xcodeproj */;
+			containerPortal = 97A839101303683E00048A03 /* Platinum.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = Platinum;
@@ -61,7 +61,8 @@
 		977D7A0F12B81B1F00D406E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		977D7A1112B81B1F00D406E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		977D7A1312B81B1F00D406E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		977D7A1D12B81B6A00D406E1 /* Platinum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Platinum.xcodeproj; path = ../Platinum/Platinum.xcodeproj; sourceTree = SOURCE_ROOT; };
+		97A839101303683E00048A03 /* Platinum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Platinum.xcodeproj; path = ../Platinum/Platinum.xcodeproj; sourceTree = "<group>"; };
+		97A8391C1303685300048A03 /* libPlatinum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libPlatinum.a; sourceTree = SOURCE_ROOT; };
 		E4A7DC011085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaTouchBrowserAppDelegate.h; path = ../../../../Source/Apps/CocoaTouchBrowser/CocoaTouchBrowserAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		E4A7DC021085A49400E6ADE2 /* CocoaTouchBrowserAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CocoaTouchBrowserAppDelegate.m; path = ../../../../Source/Apps/CocoaTouchBrowser/CocoaTouchBrowserAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		E4A7DC031085A49400E6ADE2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../../Source/Apps/CocoaTouchBrowser/main.m; sourceTree = SOURCE_ROOT; };
@@ -75,10 +76,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A8391D1303685300048A03 /* libPlatinum.a in Frameworks */,
 				977D7A1012B81B1F00D406E1 /* CoreGraphics.framework in Frameworks */,
 				977D7A1212B81B1F00D406E1 /* Foundation.framework in Frameworks */,
 				977D7A1412B81B1F00D406E1 /* UIKit.framework in Frameworks */,
-				977D7B3812B82DD200D406E1 /* libPlatinum.a in Frameworks */,
 				9704724312BFE4D900F9D88C /* libstdc++.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,18 +137,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		977D7A1E12B81B6A00D406E1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				977D7A2512B81B6A00D406E1 /* libPlatinum.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		977D7A3012B81B9100D406E1 /* Platinum.framework */ = {
 			isa = PBXGroup;
 			children = (
-				977D7A1D12B81B6A00D406E1 /* Platinum.xcodeproj */,
+				97A839101303683E00048A03 /* Platinum.xcodeproj */,
+				97A8391C1303685300048A03 /* libPlatinum.a */,
 				977D7A3112B81BAB00D406E1 /* Headers */,
 			);
 			name = Platinum.framework;
@@ -164,6 +158,14 @@
 				970471A312BFDBD200F9D88C /* PPMediaItem.h */,
 			);
 			name = Headers;
+			sourceTree = "<group>";
+		};
+		97A839111303683E00048A03 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				97A839181303683F00048A03 /* libPlatinum.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		E4A7DC131085A4DB00E6ADE2 /* Classes */ = {
@@ -198,7 +200,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				977D7A2F12B81B8000D406E1 /* PBXTargetDependency */,
+				97A8391F1303685A00048A03 /* PBXTargetDependency */,
 			);
 			name = CocoaTouchBrowser;
 			productName = CocoaTouchBrowser;
@@ -225,8 +227,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 977D7A1E12B81B6A00D406E1 /* Products */;
-					ProjectRef = 977D7A1D12B81B6A00D406E1 /* Platinum.xcodeproj */;
+					ProductGroup = 97A839111303683E00048A03 /* Products */;
+					ProjectRef = 97A839101303683E00048A03 /* Platinum.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -237,11 +239,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		977D7A2512B81B6A00D406E1 /* libPlatinum.a */ = {
+		97A839181303683F00048A03 /* libPlatinum.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libPlatinum.a;
-			remoteRef = 977D7A2412B81B6A00D406E1 /* PBXContainerItemProxy */;
+			remoteRef = 97A839171303683F00048A03 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -276,10 +278,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		977D7A2F12B81B8000D406E1 /* PBXTargetDependency */ = {
+		97A8391F1303685A00048A03 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Platinum;
-			targetProxy = 977D7A2E12B81B8000D406E1 /* PBXContainerItemProxy */;
+			targetProxy = 97A8391E1303685A00048A03 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -297,6 +299,10 @@
 				GCC_PREFIX_HEADER = CocoaTouchBrowser_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "CocoaTouchBrowser-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = CocoaTouchBrowser;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -316,6 +322,10 @@
 				GCC_PREFIX_HEADER = CocoaTouchBrowser_Prefix.pch;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "CocoaTouchBrowser-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = CocoaTouchBrowser;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

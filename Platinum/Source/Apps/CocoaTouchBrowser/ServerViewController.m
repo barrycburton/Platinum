@@ -7,7 +7,7 @@
 //
 
 #import "ServerViewController.h"
-
+#import "RootViewController.h"
 
 @implementation ServerViewController
 
@@ -35,8 +35,7 @@
 		self.server = theServer;
 		self.container = theContainer;
 		[self.container setOwner:self];
-		
-		self.list = [NSArray array];
+        self.list = self.container.list;
 
 		self.title = [self.container name];
 
@@ -47,8 +46,8 @@
     return self;
 }
 
-- (void)setContainerList:(NSArray *)newList {
-	self.list = newList;
+- (void)listUpdated {
+    self.list = self.container.list;
 	[self.tableView reloadData];
 }
 
@@ -176,23 +175,18 @@
 	
 	PPMediaObject *object = [self.list objectAtIndex:[indexPath row]];
 	
-	if ( [object isContainer] ) {
+	if ( [object isKindOfClass:[PPMediaContainer class]] ) {
 		ServerViewController *next = [[ServerViewController alloc] initWithController:self.controller server:self.server container:(PPMediaContainer *)object];
 		
 		[self.navigationController pushViewController:next animated:YES];
 	} else {
 		NSLog(@"Song selected");
-		[self.controller browseMetadataOfItem:[object objectId] onServer:self.server userData:object];
+        
+        RootViewController *rootViewController = [[self.navigationController viewControllers] objectAtIndex:0];
+        [rootViewController setSelectedSong:(PPMediaItem *)object];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
 	}
-	
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-    */
 }
 
 

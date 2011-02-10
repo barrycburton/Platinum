@@ -20,6 +20,6 @@
 @property (nonatomic, retain) NSArray *list;
 
 - (id)initWithController:(PPMediaController *)theController server:(PPMediaDevice *)theServer container:(PPMediaContainer *)theContainer;
-- (void)setContainerList:(NSArray *)newList;
+- (void)listUpdated;
 
 @end
